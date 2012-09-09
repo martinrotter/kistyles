@@ -1,6 +1,8 @@
 %%%  UP Diploma Style
-%%%  Copyright (C) 2001 Vil\'em Vychodil, <vilem.vychodil@upol.cz>
-%%% 
+%%%  Copyright (C)
+%%%  	2001 Vil\'em Vychodil, <vilem.vychodil@upol.cz>
+%%%		2012 Martin Rotter, <rotter.martinos@gmail.com> 
+%%%
 %%%  This style is free software; you can redistribute it and/or modify
 %%%  it under the terms of the GNU General Public License as published by
 %%%  the Free Software Foundation; either version 2 of the License, or
@@ -15,27 +17,16 @@
 %%%  along with this file; if not, write to the Free Software
 %%%  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-%% Poznamky
-%% kveten 2009, Jan Outrata (JO)
-
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{updiplom}[2012/09/09 UP Diploma Style]
 
 \usepackage{kvoptions}
 \usepackage{graphicx}
 
-%% ams styles
-\usepackage{amsmath}
-\usepackage{amsbsy}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{euscript}
 
 %% localization, page layout
 \usepackage{makeidx}
 \usepackage{multicol}
-\usepackage{a4}
-\usepackage{booktabs}
 
 \SetupKeyvalOptions {
 	family=up,
@@ -45,9 +36,18 @@
 % declare options here
 \DeclareBoolOption{hyperref}
 \DeclareBoolOption{blacklogo}
+\DeclareBoolOption{master}
+\DeclareBoolOption{joinlists}
+\DeclareBoolOption{figures}
+\DeclareBoolOption{tables}
 \DeclareStringOption[czech]{language}[czech]
+\DeclareStringOption[utf8]{encoding}[utf8]
 
 \ProcessKeyvalOptions*
+
+\usepackage[\up@encoding]{inputenc}
+\usepackage[\up@language]{babel}
+
 
 \ifup@blacklogo
 \def\logoname{graphics/uplogo-black}
@@ -55,27 +55,51 @@
 \def\logoname{graphics/uplogo-white}
 \fi
 
-\ifup@hyperref
-\usepackage{hyperref}
+\ifup@master
+\def\@thesis{DIPLOMOV\'A PR\'ACE}
+\else
+\def\@thesis{BAKAL\'A\v RSK\'A PR\'ACE}
 \fi
 
-\usepackage[\up@language]{babel}
-
 %% style options
-\def\@thesis{BAKAL\'A\v RSK\'A PR\'ACE}
 \def\@inspdf#1{#1}
 \def\@print@lot{}
 \def\@print@lof{}
 \def\@lospace{\newpage}
-%%\def\@sex{}
-%% JO: novy prepinac
-%\DeclareOption{master}{\gdef\@thesis{DIPLOMOV\'A PR\'ACE}}
-%\DeclareOption{joinlists}{\gdef\@lospace{}}
-%\DeclareOption{figures}{\gdef\@print@lof{\listoffigures{}}}
-%\DeclareOption{tables}{\gdef\@print@lot{\listoftables{}}}
-%\DeclareOption{nopdf}{\gdef\@inspdf#1{}}
-%% JO: prepinac zrusen spolu s mistopriseznym prohlasenim
-%%\DeclareOption{female}{\gdef\@sex{a}}
+
+\ifup@joinlists
+\gdef\@lospace{}
+\fi
+
+\ifup@figures
+\gdef\@print@lof{\listoffigures{}}
+\fi
+
+\ifup@tables
+\gdef\@print@lot{\listoftables{}}
+\fi
+
+\ifup@hyperref
+\usepackage{hyperref}
+\fi
+
+% ********************************************************************
+% makeidx, multicol
+% ********************************************************************
+\let\orgtheindex\theindex
+\let\orgendtheindex\endtheindex
+\def\theindex{%
+	\def\twocolumn{\begin{multicols}{2}}%
+	\def\onecolumn{}%
+	\clearpage
+	\orgtheindex
+}
+\def\endtheindex{%
+	\end{multicols}%
+	\orgendtheindex
+}
+
+\makeindex
 
 %% labels, references (must precede the style inclusion)
 \let\@oldlabel=\label
@@ -135,8 +159,6 @@
 
 %% additional info
 \def\thanks#1{\gdef\@thanks{#1}}
-%% JO: makro zruseno spolu s mistopriseznym prohlasenim
-%% \def\append#1{\gdef\@append{#1}}
 
 %% subtitle
 \def\@subtitle{}
