@@ -8,7 +8,8 @@
 \usepackage[backend=biber,style=iso-authoryear,babel=other,sortlocale=cs_CZ,bibencoding=utf8]{biblatex}
 \usepackage{kvoptions}
 \usepackage[pdftex]{graphicx}
-\usepackage{a4}
+%\usepackage{a4}
+\usepackage[paper=a4paper,driver=pdftex,left=4.1cm]{geometry}
 \usepackage{booktabs}
 \usepackage{makeidx}
 \usepackage{multicol}
@@ -47,8 +48,41 @@
 \usepackage[savemem]{listings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% czech quotes for csquotes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareQuoteStyle{czech}
+  {\quotedblbase}
+  {\textquotedblleft}
+  {\textquoteleft}
+  {\textquoteright}
+\setquotestyle{czech}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\upappendix{
+\clearpage
+\appendix
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% index
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeindex
+\def\upprintindex{
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Rejstřík}
+\printindex
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \nocite{*}
 \bibliography{\up@bibfile}
 
@@ -75,14 +109,6 @@
 \relax
 }
 
-%% disallow two-sided documents
-\ifthenelse{\boolean{@twoside}} {
-\PackageError{updiplom}
-{Two-sided document is not allowed}{}
-} {
-\relax
-}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% logos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,6 +122,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% conclusions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newenvironment{upconclusions}[1][czech]{
 \clearpage
 \bgroup
@@ -108,10 +135,7 @@
 \addcontentsline{toc}{section}{\up@conclusionen}
 \section*{\up@conclusionen}
 }
-\parindent=0pt%
-\list{}{\rightmargin=0pt\leftmargin=0pt}\item
 } {
-\endlist
 \egroup}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -123,6 +147,7 @@
 } {
 \def\@thesis{BAKAL\'A\v RSK\'A PR\'ACE}
 }
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% titlepage implementation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -157,7 +182,11 @@
 
 \def\uptableofcontents{
 \tableofcontents
+\ifthenelse{\boolean{up@joinlists}} {
+\relax
+} {
 \clearpage
+}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -219,6 +248,7 @@
 } {
 \relax
 }
+\clearpage
 }
 
 

@@ -1,6 +1,6 @@
-\documentclass[a4paper,pdftex,12pt]{article}
+\documentclass[a4paper,12pt]{article}
 
-\usepackage[language=czech,encoding=utf8,bibfile=bibliography.bib,hyperref,figures,tables,listings]{updiplomex}
+\usepackage[language=czech,encoding=utf8,bibfile=bibliography.bib,joinlists,hyperref,figures,tables,listings]{updiplomex}
 \usepackage{multirow}
 \usepackage{lipsum}
 
@@ -18,6 +18,8 @@
 \upprintlists
 
 \section{Ahojky}
+AAAAAAAAaa\index{ahojky}
+
 \begin{table}[ht]
   \begin{center}
     \begin{tabular}{||l|r||}
@@ -56,7 +58,8 @@
 Text s \enquote{uvozovkami}.
 
 \begin{lstlisting}[caption={Kód}]
-adcscasc
+aaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaa
 \end{lstlisting}
 
 \lipsum{1-10}
@@ -70,5 +73,14 @@ adcscasc
 \end{upconclusions}
 
 \upprintbibliography
+
+\upappendix
+\section{První příloha}
+\lipsum{1-5}
+
+\section{Druhá příloha}
+\lipsum{1-5}
+
+\upprintindex
 
 \end{document}
