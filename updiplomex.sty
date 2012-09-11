@@ -1,0 +1,225 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{updiplomex}[2012/09/09 UP Diploma Style]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% packages and arguments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[backend=biber,style=iso-authoryear,babel=other,sortlocale=cs_CZ,bibencoding=utf8]{biblatex}
+\usepackage{kvoptions}
+\usepackage[pdftex]{graphicx}
+\usepackage{a4}
+\usepackage{booktabs}
+\usepackage{makeidx}
+\usepackage{multicol}
+\usepackage{ifthen}
+\usepackage{amsmath}
+\usepackage{amsbsy}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{euscript}
+
+\SetupKeyvalOptions {
+	family=up,
+	prefix=up@
+}
+
+\DeclareBoolOption{hyperref}
+\DeclareBoolOption{blacklogo}
+\DeclareBoolOption{master}
+\DeclareBoolOption{joinlists}
+\DeclareBoolOption{figures}
+\DeclareBoolOption{tables}
+\DeclareBoolOption{listings}
+\DeclareStringOption[czech]{language}[czech]
+\DeclareStringOption{bibfile}
+\DeclareStringOption[Anotace]{titleanot}[Anotace]
+\DeclareStringOption[czech]{quotes}[czech]
+\DeclareStringOption[Z\'av\v er]{conclusioncz}[Z\'av\v er]
+\DeclareStringOption[Conclusions]{conclusionen}[Conclusions]
+\DeclareStringOption[utf8]{encoding}[utf8]
+
+\ProcessKeyvalOptions*
+
+\usepackage[\up@encoding]{inputenc}
+\usepackage[\up@language]{babel}
+\usepackage[autostyle=try]{csquotes}
+\usepackage[savemem]{listings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nocite{*}
+\bibliography{\up@bibfile}
+
+\def\upprintbibliography{
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{\bibname}
+\printbibliography
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% listings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\lstlistlistingname}{Seznam zdrojových kódů}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% hyperref
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\boolean{up@hyperref}} {
+\usepackage{hyperref}
+} {
+\relax
+}
+
+%% disallow two-sided documents
+\ifthenelse{\boolean{@twoside}} {
+\PackageError{updiplom}
+{Two-sided document is not allowed}{}
+} {
+\relax
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% logos
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\boolean{up@blacklogo}} {
+\def\logoname{graphics/uplogo-black}
+} {
+\def\logoname{graphics/uplogo-white}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% conclusions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{upconclusions}[1][czech]{
+\clearpage
+\bgroup
+\ifthenelse{\equal{#1}{czech}} {
+\phantomsection
+\addcontentsline{toc}{section}{\up@conclusioncz}
+\section*{\up@conclusioncz}
+} {
+\phantomsection
+\addcontentsline{toc}{section}{\up@conclusionen}
+\section*{\up@conclusionen}
+}
+\parindent=0pt%
+\list{}{\rightmargin=0pt\leftmargin=0pt}\item
+} {
+\endlist
+\egroup}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% titlepage heading
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\boolean{up@master}} {
+\def\@thesis{DIPLOMOV\'A PR\'ACE}
+} {
+\def\@thesis{BAKAL\'A\v RSK\'A PR\'ACE}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% titlepage implementation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\uptitle#1{\gdef\@uptitle{#1}}
+\def\upsubtitle#1{\gdef\@upsubtitle{#1}}
+\def\upyear#1{\gdef\@upyear{#1}}
+\def\upauthor#1{\gdef\@upauthor{#1}}
+
+\def\upmaketitle{
+\setcounter{page}{1}
+\begin{titlepage}
+\begin{center}
+{\large P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO \par
+        KATEDRA INFORMATIKY \par}
+\vfill
+{\LARGE\bfseries{\@thesis} \\}
+\vfill
+{\Large \@uptitle \\[1em]\@upsubtitle}
+\vfill
+\centering\includegraphics[width=2.5cm]{\logoname}
+\vfill
+{\noindent \Large \@upyear \hfill \@upauthor}
+\end{center}
+\newpage
+\end{titlepage}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% toc implementation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\uptableofcontents{
+\tableofcontents
+\clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% anot+thanks implementation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\upthanks#1{\gdef\@upthanks{#1}}
+\def\upanot#1{\gdef\@upanot{#1}}
+
+\def\upthanksanot{
+\thispagestyle{empty}
+\null\vfill
+\begin{center}
+\textbf{\up@titleanot}
+\end{center}
+\bigskip
+\emph{\@upanot}
+\vfill\null
+\clearpage
+\thispagestyle{empty}
+\vspace*{\fill}
+\noindent\@upthanks
+\bigskip
+\clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% lists implementation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\upprintlists{
+\ifthenelse{\boolean{up@figures}} {
+\listoffigures
+\ifthenelse{\boolean{up@joinlists}} {
+\relax
+} {
+\clearpage
+}
+} {
+\relax
+}
+\ifthenelse{\boolean{up@tables}} {
+\listoftables
+\ifthenelse{\boolean{up@joinlists}} {
+\relax
+} {
+\clearpage
+}
+} {
+\relax
+}
+\ifthenelse{\boolean{up@listings}} {
+\lstlistoflistings
+\ifthenelse{\boolean{up@joinlists}} {
+\relax
+} {
+\clearpage
+}
+} {
+\relax
+}
+}
+
+
+\endinput

@@ -1,0 +1,74 @@
+\documentclass[a4paper,pdftex,12pt]{article}
+
+\usepackage[language=czech,encoding=utf8,bibfile=bibliography.bib,hyperref,figures,tables,listings]{updiplomex}
+\usepackage{multirow}
+\usepackage{lipsum}
+
+\uptitle{Moje práce}
+\upsubtitle{Je prostě skvělá}		% použije \null pokud nemáte v práci podnadpisek
+\upyear{\the\year}
+\upauthor{Martin Rotter}
+\upanot{Tento dokument je fajn.}
+\upthanks{Děkuji všem.}
+
+\begin{document}
+\upmaketitle
+\upthanksanot
+\uptableofcontents
+\upprintlists
+
+\section{Ahojky}
+\begin{table}[ht]
+  \begin{center}
+    \begin{tabular}{||l|r||}
+      Buňka 1 & Buňka 3 \\
+      Buňka 4 & Buňka 6 \\
+      Buňka 7 & Buňka 9 \\
+      \hline
+    \end{tabular}
+    \caption{Toto je tabulka.}
+  \end{center}
+\end{table}
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{3}{|c|}{Team sheet} \\
+\hline
+ Goalkeeper & GK & Paul Robinson \\ \hline
+\multirow{4}{*}{Defenders} & LB & Lucus Radebe \\
+  & DC & Michael Duberry \\
+  & DC & Dominic Matteo \\
+  & RB & Didier Domi \\ \hline
+\multirow{3}{*}{Midfielders} & MC & David Batty \\
+  & MC & Eirik Bakke \\
+  & MC & Jody Morris \\ \hline
+ Forward & FW & Jamie McMaster \\ \hline
+\multirow{2}{*}{Strikers} & ST & Alan Smith \\
+  & ST & Mark Viduka \\
+\hline
+\end{tabular}
+\caption{Toto je další tabulka.}
+\end{center}
+\end{table}
+
+\section{Papapa}
+Text s \enquote{uvozovkami}.
+
+\begin{lstlisting}[caption={Kód}]
+adcscasc
+\end{lstlisting}
+
+\lipsum{1-10}
+
+\begin{upconclusions}[czech]
+\lipsum{1-10}
+\end{upconclusions}
+
+\begin{upconclusions}[english]
+\lipsum{1-10}
+\end{upconclusions}
+
+\upprintbibliography
+
+\end{document}
