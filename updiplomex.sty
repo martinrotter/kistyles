@@ -19,6 +19,8 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{euscript}
+\usepackage[open,atend]{bookmark}
+\usepackage{xcolor}
 
 \SetupKeyvalOptions {
 	family=up,
@@ -143,9 +145,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifthenelse{\boolean{up@master}} {
-\def\@thesis{DIPLOMOV\'A PR\'ACE}
+\def\@upthesis{DIPLOMOV\'A PR\'ACE}
 } {
-\def\@thesis{BAKAL\'A\v RSK\'A PR\'ACE}
+\def\@upthesis{BAKAL\'A\v RSK\'A PR\'ACE}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -158,13 +160,21 @@
 \def\upauthor#1{\gdef\@upauthor{#1}}
 
 \def\upmaketitle{
+\hypertarget{up:thesis}{}
+\bookmark[dest=up:thesis]{\@uptitle $[$\@upthesis$]$}
 \setcounter{page}{1}
 \begin{titlepage}
+\hypertarget{up:title}{}
+\bookmark[
+ rellevel=1,
+ keeplevel,
+ dest=up:title
+]{Titulní strana}
 \begin{center}
 {\large P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO \par
         KATEDRA INFORMATIKY \par}
 \vfill
-{\LARGE\bfseries{\@thesis} \\}
+{\LARGE\bfseries{\@upthesis} \\}
 \vfill
 {\Large \@uptitle \\[1em]\@upsubtitle}
 \vfill
