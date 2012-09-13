@@ -1,24 +1,30 @@
 \documentclass[a4paper,12pt]{article}
 
-\usepackage[language=czech,encoding=utf8,bibfile=bibliography.bib,joinlists,hyperref,figures,tables,listings]{updiplomex}
+\usepackage[
+	language=czech,
+	encoding=utf8,
+	bibfile=bibliography.bib,
+	figures,
+	tables,
+	listings]{updiplomex}
+	
 \usepackage{multirow}
 \usepackage{lipsum}
 
-\uptitle{Moje práce}
-\upsubtitle{Je prostě skvělá}		% použije \null pokud nemáte v práci podnadpisek
+\uptitle{Název práce}						% název práce
+\upsubtitle{Podtitulek práce}				% podtitulek práce - použijte \upsubtitle{\null} pokud nemáte v práci podnadpisek
 \upyear{\the\year}
 \upauthor{Martin Rotter}
-\upanot{Tento dokument je fajn.}
-\upthanks{Děkuji všem.}
+\upanot{Tento dokument je fajn.}			% anotace práce - obvykle jeden odstavec textu
+\upthanks{Děkuji všem.}						% poděkování
 
 \begin{document}
-\upmaketitle
-\upthanksanot
-\uptableofcontents
-\upprintlists
+\upmaketitle								% tiskne titulní stranu
+\upthanksanot								% tiskne dvě strany s anotací a poděkováním
+\uptocandlists								% tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
 
-\section{Ahojky}
-AAAAAAAAaa\index{ahojky}
+\section{Styl updiplomex}
+Styl csacsa\index{cascsa} \cpp \csharp \LaTeX
 
 \begin{table}[ht]
   \begin{center}
@@ -57,22 +63,35 @@ AAAAAAAAaa\index{ahojky}
 \section{Papapa}
 Text s \enquote{uvozovkami}.
 
-\begin{lstlisting}[caption={Kód}]
-aaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaa
-\end{lstlisting}
+\begin{upcode}{Ukázka kódu}{code:sampe}{[GNU]C++}
+#include "definitions.h"
+#include "debug.h"
+#include "referee.h"
+#include "gmainwindow.h"
+#include "gsettings.h"
+
+int main(int argc, char *argv[]) {
+    // QGothic works in plain UTF-8 encoding.
+#if QT_VERSION < 0x050000
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+    QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+#endif
+    return a.exec();
+}
+\end{upcode}
 
 \lipsum{1-10}
 
-\begin{upconclusions}[czech]
+\begin{upconclusions}[czech]						% tiskne český závěr práce
 \lipsum{1-10}
 \end{upconclusions}
 
-\begin{upconclusions}[english]
+\begin{upconclusions}[english]						% tiskne anglický závěr práce
 \lipsum{1-10}
 \end{upconclusions}
 
-\upprintbibliography
+\upprintbibliography								% tiskne bibliografii
 
 \upappendix
 \section{První příloha}
@@ -81,6 +100,6 @@ aaaaaaaaaaaaaaaaaaaaa
 \section{Druhá příloha}
 \lipsum{1-5}
 
-\upprintindex
+\upprintindex										% tiskne rejstřík
 
 \end{document}
