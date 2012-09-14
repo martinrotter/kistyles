@@ -1,15 +1,14 @@
 \documentclass[a4paper,12pt]{article}
 
 \usepackage[
-	language=czech,
-	encoding=utf8,
-	bibfile=bibliography.bib,
 	figures,
 	tables,
-	listings]{updiplomex}
-	
-\usepackage{multirow}
-\usepackage{lipsum}
+	listings,
+	language=czech,
+	bibfile=bibliography.bib,
+	bibencoding=utf8,
+	encoding=utf8,
+	]{updiplomex}
 
 \uptitle{Název práce}						% název práce
 \upsubtitle{Podtitulek práce}				% podtitulek práce - použijte \upsubtitle{\null} pokud nemáte v práci podnadpisek
@@ -18,88 +17,125 @@
 \upanot{Tento dokument je fajn.}			% anotace práce - obvykle jeden odstavec textu
 \upthanks{Děkuji všem.}						% poděkování
 
+\usepackage{multirow}
+\usepackage{lipsum}
+\usepackage{longtable}
+
 \begin{document}
-\upmaketitle								% tiskne titulní stranu
-\upthanksanot								% tiskne dvě strany s anotací a poděkováním
-\uptocandlists								% tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
+
+% tiskne titulní stranu
+\upmaketitle
+
+% tiskne dvě strany s anotací a poděkováním
+\upthanksanot
+
+% tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
+\uptocandlists
 
 \section{Styl updiplomex}
-Styl csacsa\index{cascsa} \cpp \csharp \LaTeX
+Styl \keyword{updiplomex} je novou verzí původních \LaTeX stylů pro psaní diplomových prací a nabízí některá vylepšení a další finesy.
 
-\begin{table}[ht]
-  \begin{center}
-    \begin{tabular}{||l|r||}
-      Buňka 1 & Buňka 3 \\
-      Buňka 4 & Buňka 6 \\
-      Buňka 7 & Buňka 9 \\
-      \hline
-    \end{tabular}
-    \caption{Toto je tabulka.}
-  \end{center}
-\end{table}
-\begin{table}
-\begin{center}
-\begin{tabular}{|l|l|l|}
-\hline
-\multicolumn{3}{|c|}{Team sheet} \\
-\hline
- Goalkeeper & GK & Paul Robinson \\ \hline
-\multirow{4}{*}{Defenders} & LB & Lucus Radebe \\
-  & DC & Michael Duberry \\
-  & DC & Dominic Matteo \\
-  & RB & Didier Domi \\ \hline
-\multirow{3}{*}{Midfielders} & MC & David Batty \\
-  & MC & Eirik Bakke \\
-  & MC & Jody Morris \\ \hline
- Forward & FW & Jamie McMaster \\ \hline
-\multirow{2}{*}{Strikers} & ST & Alan Smith \\
-  & ST & Mark Viduka \\
-\hline
-\end{tabular}
-\caption{Toto je další tabulka.}
-\end{center}
-\end{table}
+\section{Podpora ovladačů a prostředí}
+V současné době byla zahozena podpora pro \keyword{latex} a \keyword{cslatex}. Je tedy používán výlučně \keyword{PDF} ovladač skrze program \keyword{pdflatex}. Toto použití má hned několik důvodů:
+\begin{itemize}
+\item není důvod obecně nepoužívat PDF jako přímý výstup (konverze PDF $\rightarrow$ PS jsou bezbolestné)
+\item nepoužití cslatex-u přináší daší bonusy, jako například multijazykové možnosti s balíkem \keyword{babel}
+\item pdflatex je moderní
+\end{itemize}
 
-\section{Papapa}
-Text s \enquote{uvozovkami}.
+\section{Možnosti balíku}
+Balíku updiplomex je možno volat s několika vstupními argumenty, které mohou zásadním způsobem ovlivnit vzhled dokumentu. Každý argument je popsán v následujícím výčtu a je uveden ve formátu \verb|název - výchozí hodnota - popis|.
 
-\begin{upcode}{Ukázka kódu}{code:sampe}{[GNU]C++}
-#include "definitions.h"
-#include "debug.h"
-#include "referee.h"
-#include "gmainwindow.h"
-#include "gsettings.h"
+\begin{itemize}
+\item[blacklogo] -- false -- Je-li true, tak bude titulní strana obsahovat černé logo místo bílého. 
+\item[master] -- false -- Je-li true, tak bude vypsán na titulní straně text \enquote{Diplomová práce}. 
+\item[joinlists] -- false -- Je-li true, tak budou seznamy a obsah sdruženy za sebe bez vytváření nových stran. 
+\item[figures] -- false -- Je-li true, tak budou seznamy obsahovat seznam obrázků. 
+\item[tables] -- false -- Je-li true, tak budou seznamy obsahovat seznam tabulek.  
+\item[listings] -- false -- Je-li true, tak budou seznamy obsahovat seznam zdrojových kódů.  
+\item[language] -- czech -- Nastavuje jazyk používaný balíkem babel. 
+\item[bibfile] -- bibliography.bib -- Nastavuje soubor s bibliografií pro Bib\LaTeX 
+\item[bibencoding] -- utf8 -- Nastavuje kódování ono souboru z předchozího řádku. 
+\item[bibcitestyle] -- iso-authoryear -- Nastavuje formát citace, další možností je iso-numeric 
+\item[titleanot] -- Anotace -- Nastavuje nadpis pro anotaci. 
+\item[titlelistings] -- Seznam zdrojových kódů -- Nastavuje nadpis pro seznam zdr. kódů. 
+\item[namelistings] -- Zdrojový kód -- Nastavuje nadpisek pro každý zdr. kód, tohle využívá například \verb|\caption| a seznam zdr. kódů. 
+\item[titleconclusioncz] -- Závěr -- Nastavuje nadpis českého závěru práce. 
+\item[titleconclusionen] -- Conclusions -- Nastavuje nadpis anglického závěru práce. 
+\item[titlebookmarktitlepage] -- Titulní strana -- Nastavuje nadpis záložky titulní strany 
+\item[encoding] -- utf8 -- nastavuje kódování vstupních tex souborů, tedy i tohoto souboru. 
+\end{itemize}
 
+\section{Překlad ukázkového dokumentu}
+Překlad dokumentů se provádí před pdflatex\index{pdflatex}, navíc je třeba použít makeindex a biber pro překlad rejstříku a bibliografie. Vše je obsaženo v souboru Makefile.
+
+\begin{upcode}{Překlad dokumentů.}{code:compilation}{make}
+all: start guide finish
+
+start:
+	echo "Makefile has started its work."
+
+guide:	updiplomex.tex
+	pdflatex updiplomex
+	pdflatex updiplomex
+	makeindex updiplomex.idx -s index.ist
+	biber updiplomex
+	pdflatex updiplomex
+	pdflatex updiplomex
+
+finish:
+	echo "Makefile has finished its work."
+
+clean:
+	rm -f *.lo* *.aux *.ind *.idx *.ilg *.toc
+\end{upcode}
+
+\section{Další doplňky}
+\subsection{Užitečná makra}
+Balík obsahuje makra pro sázení názvů některých programovacích jazyků, prozatím tu máme makra \verb|\csharp| a \verb|\cpp|, která vykrelsují symboly \csharp a \cpp.
+
+Rovněž výčty obsahují nový úvodní symbol, původní tečka byla nahrazena toutéž (avšak šedou) tečkou.
+\begin{itemize}
+\item šedá tečka
+\end{itemize}
+
+Navíc je zde makro \verb|\keyword|, které vypíše zadaný argument \keyword{šedou barvou v neproporcionálním fontu}.
+
+\section{Bibliografie}
+Bibliografie používá balík Bib\LaTeX, který je na správu bibliografie asi v současnosti nejlepší, navíc je implementován citační formát dle ISO690, byť tady jsou zatím viditelné problémy. Nicméně vše by mělo správně fungovat.
+
+\section{Zdrojové kódy}
+Je použit balík listings. Pomocí něj lze zobrazovat pěkné zdrojové kódy. Ukázku vidíte například niže. Zatím je nastavena barevná syntaxe pro jazyk \cpp, ale podporována je spousta dalších. 
+
+\begin{upcode}{Ukázkový \cpp kód}{code:cpp}{[GNU]C++}
 int main(int argc, char *argv[]) {
-    // QGothic works in plain UTF-8 encoding.
-#if QT_VERSION < 0x050000
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
-    QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
-    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
-#endif
-    return a.exec();
+	return 0;
 }
 \end{upcode}
 
-\lipsum{1-10}
-
-\begin{upconclusions}[czech]						% tiskne český závěr práce
-\lipsum{1-10}
+% tiskne český závěr práce
+\begin{upconclusions}[czech]
+Závěr práce v českém jazyce.
 \end{upconclusions}
 
-\begin{upconclusions}[english]						% tiskne anglický závěr práce
-\lipsum{1-10}
+% tiskne anglický závěr práce
+\begin{upconclusions}[english]
+Thesis conclucions in english.
 \end{upconclusions}
 
-\upprintbibliography								% tiskne bibliografii
+% tiskne bibliografii
+% bibliografie používá BibLaTeX
+\upprintbibliography
 
+% tiskne přílohy
 \upappendix
 \section{První příloha}
-\lipsum{1-5}
+Text první přílohy
 
 \section{Druhá příloha}
-\lipsum{1-5}
+Text druhé přílohy
 
-\upprintindex										% tiskne rejstřík
+% tiskne rejstřík
+\upprintindex
 
 \end{document}

@@ -8,7 +8,7 @@
 \usepackage{kvoptions}
 \usepackage[pdftex]{graphicx}
 %\usepackage{a4}
-\usepackage[paper=a4paper,driver=pdftex,left=4.1cm]{geometry}
+\usepackage[paper=a4paper,driver=pdftex,left=4cm,width=1.05\textwidth]{geometry}
 \usepackage{booktabs}
 \usepackage{makeidx}
 \usepackage{multicol}
@@ -36,7 +36,7 @@
 \DeclareBoolOption{tables}
 \DeclareBoolOption{listings}
 \DeclareStringOption[czech]{language}[czech]
-\DeclareStringOption[bibliography]{bibfile}[bibliography]
+\DeclareStringOption[bibliography.bib]{bibfile}[bibliography.bib]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
 \DeclareStringOption[iso-authoryear]{bibcitestyle}[iso-authoryear]
 \DeclareStringOption[Anotace]{titleanot}[Anotace]
@@ -72,6 +72,7 @@
 
 \def\upappendix{
 \clearpage
+%\addtocontents{toc}{\vspace*{10px}}
 \appendix
 }
 
@@ -109,6 +110,7 @@
 \definecolor{webbrown}{rgb}{.6,0,0}
 \definecolor{lightergray}{gray}{0.98}
 \definecolor{ultragreen}{RGB}{40,180,10}
+\definecolor{darkgray}{RGB}{100,100,100}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% fancy macros and misc opts
@@ -117,7 +119,7 @@
 %% macros
 \newcommand{\csharp}{C\raise.20ex\hbox{\smaller{\#}}\ }
 \newcommand{\cpp}{C\kern-.1em\raise.30ex\hbox{\smaller{++}}\ }
-\newcommand{\keyword}[1]{{\ttfamily\color{DarkGray}{#1}}}
+\newcommand{\keyword}[1]{{\ttfamily\color{darkgray}{#1}}}
 
 %% settings
 \renewcommand\labelitemi{\color{halfgray}$\bullet$} 
