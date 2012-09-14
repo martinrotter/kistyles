@@ -6,12 +6,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{kvoptions}
-\usepackage[pdftex]{graphicx}
 %\usepackage{a4}
 \usepackage[paper=a4paper,driver=pdftex,left=4cm,width=1.05\textwidth]{geometry}
 \usepackage{booktabs}
 \usepackage{makeidx}
 \usepackage{multicol}
+\usepackage[unicode]{hyperref}
+\usepackage{ifpdf}
 \usepackage{ifthen}
 \usepackage{amsmath}
 \usepackage{amsbsy}
@@ -20,7 +21,6 @@
 \usepackage{euscript}
 \usepackage[open,atend]{bookmark}
 \usepackage{relsize}
-\usepackage{hyperref}
 \usepackage{inconsolata}
 \usepackage[usenames,dvipsnames]{xcolor}
 
@@ -29,6 +29,7 @@
 	prefix=up@
 }
 
+\DeclareBoolOption{final}
 \DeclareBoolOption{blacklogo}
 \DeclareBoolOption{master}
 \DeclareBoolOption{joinlists}
@@ -54,6 +55,16 @@
 \usepackage[autostyle=try]{csquotes}
 \usepackage[savemem]{listings}
 \usepackage[backend=biber,babel=other,sortlocale=cs_CZ,bibencoding=\up@bibencoding,style=\up@bibcitestyle]{biblatex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% graphicx package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\boolean{pdf}} {
+\usepackage[pdftex]{graphicx}
+} {
+\usepackage{graphicx}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% czech quotes for csquotes
@@ -123,7 +134,6 @@
 
 %% settings
 \renewcommand\labelitemi{\color{halfgray}$\bullet$} 
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% bibliography
@@ -266,8 +276,18 @@ backgroundcolor=\color{lightergray},
 %% hyperref
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\ifthenelse{\boolean{up@final}} {
 \hypersetup {
-    colorlinks=true, linktocpage=true, pdfstartpage=1, 
+colorlinks=false
+}
+} {
+\hypersetup {
+colorlinks=true
+}
+}
+
+\hypersetup {
+    linktocpage=true, pdfstartpage=1, 
     pdfstartview=FitV, breaklinks=true, pdfpagemode=UseNone, 
     pageanchor=true,
     plainpages=false, bookmarksnumbered,

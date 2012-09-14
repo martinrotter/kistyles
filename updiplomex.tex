@@ -36,7 +36,7 @@
 Styl \keyword{updiplomex} je novou verzí původních \LaTeX stylů pro psaní diplomových prací a nabízí některá vylepšení a další finesy.
 
 \section{Podpora ovladačů a prostředí}
-V současné době byla zahozena podpora pro \keyword{latex} a \keyword{cslatex}. Je tedy používán výlučně \keyword{PDF} ovladač skrze program \keyword{pdflatex}. Toto použití má hned několik důvodů:
+V současné době byla zahozena podpora \keyword{cslatex} a \keyword{pdfcslatex}. Ke kompilaci dokumentů je tedy používán výlučně \keyword{latex} a \keyword{pdflatex}. Toto použití má hned několik důvodů:
 \begin{itemize}
 \item není důvod obecně nepoužívat PDF jako přímý výstup (konverze PDF $\rightarrow$ PS jsou bezbolestné)
 \item nepoužití cslatex-u přináší daší bonusy, jako například multijazykové možnosti s balíkem \keyword{babel}
@@ -47,6 +47,7 @@ V současné době byla zahozena podpora pro \keyword{latex} a \keyword{cslatex}
 Balíku updiplomex je možno volat s několika vstupními argumenty, které mohou zásadním způsobem ovlivnit vzhled dokumentu. Každý argument je popsán v následujícím výčtu a je uveden ve formátu \verb|název - výchozí hodnota - popis|.
 
 \begin{itemize}
+\item[final] -- false -- Je-li true, pak se hypertextové odkazy nebudou obarvovat, což se hodí pro knižní tisk. 
 \item[blacklogo] -- false -- Je-li true, tak bude titulní strana obsahovat černé logo místo bílého. 
 \item[master] -- false -- Je-li true, tak bude vypsán na titulní straně text \enquote{Diplomová práce}. 
 \item[joinlists] -- false -- Je-li true, tak budou seznamy a obsah sdruženy za sebe bez vytváření nových stran. 
