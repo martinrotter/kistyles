@@ -29,6 +29,7 @@
 	prefix=up@
 }
 
+\DeclareBoolOption{iwona}
 \DeclareBoolOption{final}
 \DeclareBoolOption{blacklogo}
 \DeclareBoolOption{master}
@@ -41,7 +42,7 @@
 \DeclareStringOption[utf8]{bibencoding}[utf8]
 \DeclareStringOption[iso-authoryear]{bibcitestyle}[iso-authoryear]
 \DeclareStringOption[Anotace]{titleanot}[Anotace]
-\DeclareStringOption[Seznam zdrojových k\'od\r{u}]{titlelistings}[Seznam zdrojových k\'od\r{u}]
+\DeclareStringOption[Seznam zdrojov\'ych k\'od\r{u}]{titlelistings}[Seznam zdrojových k\'od\r{u}]
 \DeclareStringOption[Zdrojov\'y k\'od]{namelistings}[Zdrojov\'y k\'od]
 \DeclareStringOption[Z\'av\v er]{titleconclusioncz}[Z\'av\v er]
 \DeclareStringOption[Conclusions]{titleconclusionen}[Conclusions]
@@ -55,6 +56,16 @@
 \usepackage[autostyle=try]{csquotes}
 \usepackage[savemem]{listings}
 \usepackage[backend=biber,babel=other,sortlocale=cs_CZ,bibencoding=\up@bibencoding,style=\up@bibcitestyle]{biblatex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% iwona fonts package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\boolean{up@iwona}} {
+\usepackage{iwona}
+} {
+\relax
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% graphicx package
@@ -128,8 +139,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% macros
-\newcommand{\csharp}{C\raise.20ex\hbox{\smaller{\#}}\ }
-\newcommand{\cpp}{C\kern-.1em\raise.30ex\hbox{\smaller{++}}\ }
+\newcommand{\csharp}{C\kern-.03em\raise.38ex\hbox{\scriptsize{\#}}\ }
+\newcommand{\cpp}{C\kern-.11em\raise.38ex\hbox{\scriptsize{++}}\ }
 \newcommand{\keyword}[1]{{\ttfamily\color{darkgray}{#1}}}
 \newcommand{\buno}{bez \'ujmy na obecnosti}
 \newcommand{\Buno}{Bez \'ujmy na obecnosti}
@@ -246,6 +257,8 @@ backgroundcolor=\color{lightergray},
 \def\upsubtitle#1{\gdef\@upsubtitle{#1}}
 \def\upyear#1{\gdef\@upyear{#1}}
 \def\upauthor#1{\gdef\@upauthor{#1}}
+\def\upleader#1{\gdef\@upleader{#1}}
+\def\upclass#1{\gdef\@upclass{#1}}
 
 \def\upmaketitle{
 \hypertarget{up:thesis}{}
@@ -268,7 +281,19 @@ backgroundcolor=\color{lightergray},
 \vfill
 \centering\includegraphics[width=2.5cm]{\logoname}
 \vfill
-{\noindent \Large \@upyear \hfill \@upauthor}
+{\noindent
+\begin{tabular}{ll}
+Vedoucí práce: \\
+{\bfseries\@upleader} \\
+Rok odevzdání: \@upyear
+\end{tabular}
+\hfill
+\begin{tabular}{ll}
+Diplomant: \\
+{\bfseries\@upauthor} \\
+\@upclass
+\end{tabular}}
+%{\noindent \Large \@upyear \hfill \@upauthor}
 \end{center}
 \newpage
 \end{titlepage}

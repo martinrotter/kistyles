@@ -14,12 +14,15 @@
 \upsubtitle{Podtitulek práce}				% podtitulek práce - použijte \upsubtitle{\null} pokud nemáte v práci podnadpisek
 \upyear{\the\year}
 \upauthor{Martin Rotter}
+\upclass{APLINF, III. ročník}
+\upleader{Mgr. Petr Velký}
 \upanot{Tento dokument je fajn.}			% anotace práce - obvykle jeden odstavec textu
 \upthanks{Děkuji všem.}						% poděkování
 
 \usepackage{multirow}
 \usepackage{lipsum}
 \usepackage{longtable}
+\usepackage{ltxdockit}
 
 \begin{document}
 
@@ -44,28 +47,50 @@ V současné době byla zahozena podpora \keyword{cslatex} a \keyword{pdfcslatex
 \end{itemize}
 
 \section{Možnosti balíku}
-Balíku updiplomex je možno volat s několika vstupními argumenty, které mohou zásadním způsobem ovlivnit vzhled dokumentu. Každý argument je popsán v následujícím výčtu a je uveden ve formátu \verb|název - výchozí hodnota - popis|.
 
-\begin{itemize}
-\item[final] -- false -- Je-li true, pak se hypertextové odkazy nebudou obarvovat, což se hodí pro knižní tisk. 
-\item[blacklogo] -- false -- Je-li true, tak bude titulní strana obsahovat černé logo místo bílého. 
-\item[master] -- false -- Je-li true, tak bude vypsán na titulní straně text \enquote{Diplomová práce}. 
-\item[joinlists] -- false -- Je-li true, tak budou seznamy a obsah sdruženy za sebe bez vytváření nových stran. 
-\item[figures] -- false -- Je-li true, tak budou seznamy obsahovat seznam obrázků. 
-\item[tables] -- false -- Je-li true, tak budou seznamy obsahovat seznam tabulek.  
-\item[listings] -- false -- Je-li true, tak budou seznamy obsahovat seznam zdrojových kódů.  
-\item[language] -- czech -- Nastavuje jazyk používaný balíkem babel. 
-\item[bibfile] -- bibliography.bib -- Nastavuje soubor s bibliografií pro Bib\LaTeX 
-\item[bibencoding] -- utf8 -- Nastavuje kódování ono souboru z předchozího řádku. 
-\item[bibcitestyle] -- iso-authoryear -- Nastavuje formát citace, další možností je iso-numeric 
-\item[titleanot] -- Anotace -- Nastavuje nadpis pro anotaci. 
-\item[titlelistings] -- Seznam zdrojových kódů -- Nastavuje nadpis pro seznam zdr. kódů. 
-\item[namelistings] -- Zdrojový kód -- Nastavuje nadpisek pro každý zdr. kód, tohle využívá například \verb|\caption| a seznam zdr. kódů. 
-\item[titleconclusioncz] -- Závěr -- Nastavuje nadpis českého závěru práce. 
-\item[titleconclusionen] -- Conclusions -- Nastavuje nadpis anglického závěru práce. 
-\item[titlebookmarktitlepage] -- Titulní strana -- Nastavuje nadpis záložky titulní strany 
-\item[encoding] -- utf8 -- nastavuje kódování vstupních tex souborů, tedy i tohoto souboru. 
-\end{itemize}
+Balíku updiplomex je možno volat s několika vstupními argumenty, které mohou zásadním způsobem ovlivnit vzhled dokumentu. Každý argument je popsán v následujícím výčtu.
+
+\begin{optionlist}
+\boolitem[false]{iwona}
+Je-li true, pak se použije okrasnější písmo Iwona, jinak výchozí.
+\boolitem[false]{final}
+Je-li true, pak se hypertextové odkazy nebudou obarvovat, což se hodí pro knižní tisk.
+\boolitem[false]{blacklogo}
+Je-li true, tak bude titulní strana obsahovat černé logo místo bílého.
+\boolitem[false]{master}
+Je-li true, tak bude vypsán na titulní straně text \enquote{Diplomová práce}.
+\boolitem[false]{joinlists}
+Je-li true, tak budou seznamy a obsah sdruženy za sebe bez vytváření nových stran. 
+\boolitem[false]{figures}
+Je-li true, tak budou seznamy obsahovat seznam obrázků.
+\boolitem[false]{tables}
+Je-li true, tak budou seznamy obsahovat seznam tabulek.
+\boolitem[false]{listings}
+Je-li true, tak budou seznamy obsahovat seznam zdrojových kódů. 
+\optitem[czech]{language}{\prm{řetězec}}
+Nastavuje jazyk používaný balíkem babel. 
+\optitem[bibliography.bib]{bibfile}{\prm{řetězec}}
+Nastavuje soubor s bibliografií pro Bib\LaTeX  
+\optitem[utf8]{bibencoding}{\prm{řetězec}}
+Nastavuje kódování onoho souboru z předchozího řádku. 
+\optitem[iso-authoryear]{bibcitestyle}{\prm{iso-authoryear,iso-numeric}}
+Nastavuje způsob citování dokumentů z bibliografie.
+
+\optitem[Anotace]{titleanot}{\prm{řetězec}}
+Nastavuje nadpis pro anotaci. 
+\optitem[Seznam zdrojových kódů]{titlelistings}{\prm{řetězec}}
+Nastavuje nadpis pro seznam zdr. kódů.
+\optitem[Zdrojový kód]{namelistings}{\prm{řetězec}}
+Nastavuje nadpisek pro každý zdr. kód, tohle využívá například \verb|\caption| a seznam zdr. kódů. 
+\optitem[Závěr]{titleconclusioncz}{\prm{řetězec}}
+Nastavuje nadpis pro anotaci. 
+\optitem[Conclusions]{titleconclusionen}{\prm{řetězec}}
+Nastavuje nadpis pro seznam zdr. kódů.
+\optitem[Titulní strana]{titlebookmarktitlepage}{\prm{řetězec}}
+Nastavuje nadpisek pro každý zdr. kód, tohle využívá například \verb|\caption| a seznam zdr. kódů. 
+\optitem[utf8]{encoding}{\prm{řetězec}}
+Nastavuje kódování vstupních tex souborů, tedy i tohoto souboru. 
+\end{optionlist}
 
 \section{Překlad ukázkového dokumentu}
 Překlad dokumentů se provádí před pdflatex\index{pdflatex}, navíc je třeba použít makeindex a biber pro překlad rejstříku a bibliografie. Vše je obsaženo v souboru Makefile.
@@ -94,6 +119,8 @@ clean:
 \section{Další doplňky}
 \subsection{Užitečná makra}
 Balík obsahuje makra pro sázení názvů některých programovacích jazyků, prozatím tu máme makra \verb|\csharp| a \verb|\cpp|, která vykrelsují symboly \csharp a \cpp.
+
+Dále je obsaženo například makro \verb|\buno|, které vypíše \enquote{\buno}. Makro je dostupné i s počátečním velkým písmenem jako \verb|\Buno|.
 
 Rovněž výčty obsahují nový úvodní symbol, původní tečka byla nahrazena toutéž (avšak šedou) tečkou.
 \begin{itemize}
