@@ -131,6 +131,8 @@
 \newcommand{\csharp}{C\raise.20ex\hbox{\smaller{\#}}\ }
 \newcommand{\cpp}{C\kern-.1em\raise.30ex\hbox{\smaller{++}}\ }
 \newcommand{\keyword}[1]{{\ttfamily\color{darkgray}{#1}}}
+\newcommand{\buno}{bez \'ujmy na obecnosti}
+\newcommand{\Buno}{Bez \'ujmy na obecnosti}
 
 %% settings
 \renewcommand\labelitemi{\color{halfgray}$\bullet$} 
@@ -303,6 +305,12 @@ colorlinks=true
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\uptableofcontents{
+\hypertarget{up:toc}{}
+\bookmark[
+ rellevel=1,
+ keeplevel,
+ dest=up:toc
+]{\contentsname}
 \tableofcontents
 }
 
@@ -316,6 +324,12 @@ colorlinks=true
 \def\upthanksanot{
 \thispagestyle{empty}
 \null\vfill
+\hypertarget{up:anotation}{}
+\bookmark[
+ rellevel=1,
+ keeplevel,
+ dest=up:anotation
+]{\up@titleanot}
 \begin{center}
 \textbf{\up@titleanot}
 \end{center}
