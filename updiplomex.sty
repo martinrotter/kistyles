@@ -52,7 +52,7 @@
 \ProcessKeyvalOptions*
 
 \usepackage[\up@encoding]{inputenc}
-\usepackage[english,\up@language]{babel}
+\usepackage[czech,english,\up@language]{babel}
 \usepackage[autostyle=try]{csquotes}
 \usepackage[savemem]{listings}
 \usepackage[backend=biber,babel=other,sortlocale=cs_CZ,bibencoding=\up@bibencoding,style=\up@bibcitestyle]{biblatex}
@@ -86,7 +86,7 @@
   {\textquotedblleft}
   {\textquoteleft}
   {\textquoteright}
-\setquotestyle{czech}
+%\setquotestyle{czech}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% appendix
@@ -231,12 +231,16 @@ backgroundcolor=\color{lightergray},
 \phantomsection
 \addcontentsline{toc}{section}{\up@titleconclusioncz}
 \section*{\up@titleconclusioncz}
-} {
+}
+% else branch stands for english conclusions
+{
 \phantomsection
 \addcontentsline{toc}{section}{\up@titleconclusionen}
 \section*{\up@titleconclusionen}
 }
+\begin{otherlanguage}{#1}
 } {
+\end{otherlanguage}
 \egroup}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
