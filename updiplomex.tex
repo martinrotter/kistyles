@@ -7,6 +7,7 @@
 	language=czech,
 	bibfile=bibliography.bib,
 	bibencoding=utf8,
+	bibstyle=numeric,
 	encoding=utf8,
 	]{updiplomex}
 
@@ -73,8 +74,10 @@ Nastavuje jazyk používaný balíkem babel.
 Nastavuje soubor s bibliografií pro Bib\LaTeX  
 \optitem[utf8]{bibencoding}{\prm{řetězec}}
 Nastavuje kódování onoho souboru z předchozího řádku. 
-\optitem[iso-authoryear]{bibcitestyle}{\prm{iso-authoryear,iso-numeric}}
+\optitem[numeric]{bibstyle}{\prm{numeric,authoryear,iso-authoryear,iso-numeric\ldots}}
 Nastavuje způsob citování dokumentů z bibliografie.
+
+Tradiční způsob citování jest s využítím číselných citací, ale metoda authoryear se může jevit přehlednější.
 
 \optitem[Anotace]{titleanot}{\prm{řetězec}}
 Nastavuje nadpis pro anotaci. 
@@ -130,7 +133,22 @@ Rovněž výčty obsahují nový úvodní symbol, původní tečka byla nahrazen
 Navíc je zde makro \verb|\keyword|, které vypíše zadaný argument \keyword{šedou barvou v neproporcionálním fontu}.
 
 \section{Bibliografie}
-Bibliografie používá balík Bib\LaTeX, který je na správu bibliografie asi v současnosti nejlepší, navíc je implementován citační formát dle ISO690, byť tady jsou zatím viditelné problémy. Nicméně vše by mělo správně fungovat.
+Bibliografie používá balík Bib\LaTeX, který je na správu\footnote{Poznámka pod čarou.} bibliografie asi v současnosti nejlepší, navíc je implementován citační formát dle ISO690, byť tady jsou zatím viditelné problémy. Nicméně vše by mělo správně fungovat.
+
+\begin{table}
+\caption{Ukázková citace.}
+\begin{center}
+\begin{tabular}{c|l}
+Kód & Výsledek \\
+\hline \\
+\verb|\cite{nigel:csharp}| & \cite{nigel:csharp} \\
+\verb|\citep{nigel:csharp}| & \citep{nigel:csharp} \\
+\verb|\citet{nigel:csharp}| & \citet{nigel:csharp} \\
+\verb|\citealt{nigel:csharp}| & \citealt{nigel:csharp}
+\end{tabular}
+\end{center}
+\end{table}
+
 
 \section{Zdrojové kódy}
 Je použit balík listings. Pomocí něj lze zobrazovat pěkné zdrojové kódy. Ukázku vidíte například niže. Zatím je nastavena barevná syntaxe pro jazyk \cpp, ale podporována je spousta dalších. 

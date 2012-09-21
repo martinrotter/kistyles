@@ -7,7 +7,13 @@
 
 \usepackage{kvoptions}
 %\usepackage{a4}
-\usepackage[paper=a4paper,driver=pdftex,left=4cm,width=1.05\textwidth]{geometry}
+\usepackage[
+paper=a4paper,
+driver=pdftex,
+top=3.0cm,
+left=4.0cm,
+bottom=2.5cm,
+width=1.05\textwidth]{geometry}
 \usepackage{booktabs}
 \usepackage{makeidx}
 \usepackage{multicol}
@@ -40,7 +46,7 @@
 \DeclareStringOption[czech]{language}[czech]
 \DeclareStringOption[bibliography.bib]{bibfile}[bibliography.bib]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
-\DeclareStringOption[iso-authoryear]{bibcitestyle}[iso-authoryear]
+\DeclareStringOption[numeric]{bibstyle}[numeric]
 \DeclareStringOption[Anotace]{titleanot}[Anotace]
 \DeclareStringOption[Seznam zdrojov\'ych k\'od\r{u}]{titlelistings}[Seznam zdrojových k\'od\r{u}]
 \DeclareStringOption[Zdrojov\'y k\'od]{namelistings}[Zdrojov\'y k\'od]
@@ -55,7 +61,14 @@
 \usepackage[czech,english,\up@language]{babel}
 \usepackage[autostyle=try]{csquotes}
 \usepackage[savemem]{listings}
-\usepackage[backend=biber,babel=other,sortlocale=cs_CZ,bibencoding=\up@bibencoding,style=\up@bibcitestyle]{biblatex}
+\usepackage[
+natbib,
+language=\up@language,
+backend=biber,
+babel=other,
+sortlocale=cs_CZ,
+bibencoding=\up@bibencoding,
+style=\up@bibstyle]{biblatex}	% iso-numeric, iso-authoryear
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% iwona fonts package
