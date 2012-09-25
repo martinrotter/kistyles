@@ -43,6 +43,7 @@ width=1.05\textwidth]{geometry}
 \DeclareBoolOption{figures}
 \DeclareBoolOption{tables}
 \DeclareBoolOption{listings}
+\DeclareBoolOption{abbreviations}
 \DeclareStringOption[czech]{language}[czech]
 \DeclareStringOption[bibliography.bib]{bibfile}[bibliography.bib]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
@@ -53,6 +54,7 @@ width=1.05\textwidth]{geometry}
 \DeclareStringOption[Z\'av\v er]{titleconclusioncz}[Z\'av\v er]
 \DeclareStringOption[Conclusions]{titleconclusionen}[Conclusions]
 \DeclareStringOption[Tituln\'i strana]{titlebookmarktitlepage}[Tituln\'i strana]
+\DeclareStringOption[Seznam zkratek]{abbrevtitle}[Seznam zkratek]
 \DeclareStringOption[utf8]{encoding}[utf8]
 
 \ProcessKeyvalOptions*
@@ -88,6 +90,20 @@ style=\up@bibstyle]{biblatex}	% iso-numeric, iso-authoryear
 \usepackage[pdftex]{graphicx}
 } {
 \usepackage{graphicx}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% abbreviations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\boolean{up@abbreviations}} {
+\usepackage[notintoc]{nomencl}
+\makenomenclature
+\renewcommand{\nomname}{\up@abbrevtitle}
+\newcommand{\upabbrev}[2]{\nomenclature{#1}{#2}}
+\renewcommand{\nomlabel}[1]{\bfseries#1}
+} {
+\relax
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -145,7 +161,7 @@ style=\up@bibstyle]{biblatex}	% iso-numeric, iso-authoryear
 \definecolor{webbrown}{rgb}{.6,0,0}
 \definecolor{lightergray}{gray}{0.98}
 \definecolor{ultragreen}{RGB}{40,180,10}
-\definecolor{darkgray}{RGB}{100,100,100}
+\definecolor{darkgray}{RGB}{60,60,60}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% fancy macros and misc opts
@@ -245,7 +261,7 @@ backgroundcolor=\color{lightergray},
 \addcontentsline{toc}{section}{\up@titleconclusioncz}
 \section*{\up@titleconclusioncz}
 }
-% else branch stands for english conclusions
+%% else branch stands for english conclusions
 {
 \phantomsection
 \addcontentsline{toc}{section}{\up@titleconclusionen}
@@ -421,8 +437,19 @@ colorlinks=true
 } {
 \relax
 }
+\ifthenelse{\boolean{up@abbreviations}} {
+\printnomenclature
+\ifthenelse{\boolean{up@joinlists}} {
+\relax
+} {
 \clearpage
 }
+} {
+\relax
+}
+\clearpage
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% toc+lists implementation

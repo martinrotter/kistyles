@@ -1,6 +1,7 @@
 \documentclass[a4paper,12pt]{article}
 
 \usepackage[
+	abbreviations,
 	figures,
 	tables,
 	listings,
@@ -21,8 +22,6 @@
 \upthanks{Děkuji všem.}						% poděkování
 
 \usepackage{multirow}
-\usepackage{lipsum}
-\usepackage{longtable}
 \usepackage{ltxdockit}
 
 \begin{document}
@@ -39,6 +38,9 @@
 \section{Styl updiplomex}
 Styl \keyword{updiplomex} je novou verzí původních \LaTeX stylů pro psaní diplomových prací a nabízí některá vylepšení a další \enquote{finesy}.
 
+\upabbrev{UPOL}{Univerzita Palackého v Olomouc}
+\upabbrev{OTR}{Obecná teorie relativity}
+
 \section{Podpora ovladačů a prostředí}
 V současné době byla zahozena podpora \keyword{cslatex} a \keyword{pdfcslatex}. Ke kompilaci dokumentů je tedy používán výlučně \keyword{latex} a \keyword{pdflatex}. Toto použití má hned několik důvodů:
 \begin{itemize}
@@ -47,8 +49,10 @@ V současné době byla zahozena podpora \keyword{cslatex} a \keyword{pdfcslatex
 \item pdflatex je moderní
 \end{itemize}
 
-\section{Možnosti balíku}
+\section{Rozměry stránky A4 a mezery}
+Rozložení textu na stránce ja nastaveno tak, aby splňovalo standardy. Horní mezera má $3$ cm, spodní $1.5$ cm, levá a pravá mezera mají shodně $2.5$ cm, pričemž k levé straně je přídán $1.5$ cm pro pevnou vazbu. Styl je určen pro jednostranný tisk.
 
+\section{Možnosti balíku}
 Balíku updiplomex je možno volat s několika vstupními argumenty, které mohou zásadním způsobem ovlivnit vzhled dokumentu. Každý argument je popsán v následujícím výčtu.
 
 \begin{optionlist}
@@ -66,6 +70,8 @@ Je-li true, tak budou seznamy a obsah sdruženy za sebe bez vytváření nových
 Je-li true, tak budou seznamy obsahovat seznam obrázků.
 \boolitem[false]{tables}
 Je-li true, tak budou seznamy obsahovat seznam tabulek.
+\boolitem[false]{abbreviations}
+Je-li true, tak budou seznamy obsahovat seznam zkratek. Navíc bude aktivováno makro \verb|\upabbrev|, které se používá pro přídávání zkratek.
 \boolitem[false]{listings}
 Je-li true, tak budou seznamy obsahovat seznam zdrojových kódů. 
 \optitem[czech]{language}{\prm{řetězec}}
@@ -77,8 +83,10 @@ Nastavuje kódování onoho souboru z předchozího řádku.
 \optitem[numeric]{bibstyle}{\prm{numeric,authoryear,iso-authoryear,iso-numeric\ldots}}
 Nastavuje způsob citování dokumentů z bibliografie.
 
-Tradiční způsob citování jest s využítím číselných citací, ale metoda authoryear se může jevit přehlednější.
+Tradiční způsob citování jest s využítím číselných citací, ale metoda authoryear se může jevit přehlednější. Metody iso-authoryear a iso-numeric jsou v experimentální fázi vývoje.
 
+\optitem[Seznam zkratek]{abbrevtitle}{\prm{řetězec}}
+Nastavuje nadpis pro seznam zkratek. 
 \optitem[Anotace]{titleanot}{\prm{řetězec}}
 Nastavuje nadpis pro anotaci. 
 \optitem[Seznam zdrojových kódů]{titlelistings}{\prm{řetězec}}
@@ -98,7 +106,7 @@ Nastavuje kódování vstupních tex souborů, tedy i tohoto souboru.
 \section{Překlad ukázkového dokumentu}
 Překlad dokumentů se provádí před pdflatex\index{pdflatex}, navíc je třeba použít makeindex a biber pro překlad rejstříku a bibliografie. Vše je obsaženo v souboru Makefile.
 
-\begin{upcode}{Překlad dokumentů.}{code:compilation}{make}
+\begin{upcode}{Překlad dokumentů}{code:compilation}{make}
 all: start guide finish
 
 start:
@@ -120,6 +128,9 @@ clean:
 \end{upcode}
 
 \section{Další doplňky}
+\subsection{Seznam zkratek}
+Viditelnost seznamu zkratek ovlivňuje přepínač \keyword{abbreviations} a \keyword{abbrevtitle}. Seznam zkratek je vykreslován standardně s tím, že navíc jsou (oproti normálu) vykresleny zkratky tučně.
+
 \subsection{Užitečná makra}
 Balík obsahuje makra pro sázení názvů některých programovacích jazyků, prozatím tu máme makra \verb|\csharp| a \verb|\cpp|, která vykrelsují symboly \csharp a \cpp.
 
@@ -136,7 +147,7 @@ Navíc je zde makro \verb|\keyword|, které vypíše zadaný argument \keyword{�
 Bibliografie používá balík Bib\LaTeX, který je na správu\footnote{Poznámka pod čarou.} bibliografie asi v současnosti nejlepší, navíc je implementován citační formát dle ISO690, byť tady jsou zatím viditelné problémy. Nicméně vše by mělo správně fungovat.
 
 \begin{table}
-\caption{Ukázková citace.}
+\caption{Ukázková citace}
 \begin{center}
 \begin{tabular}{c|l}
 Kód & Výsledek \\
