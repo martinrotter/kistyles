@@ -103,6 +103,16 @@ style=\up@bibstyle]{biblatex}	% iso-numeric, iso-authoryear
 \renewcommand{\nomname}{\up@abbrevtitle}
 \newcommand{\upabbrev}[2]{\nomenclature{#1}{#2}}
 \renewcommand{\nomlabel}[1]{\bfseries#1}
+\def\upprintabbrevlist{
+\hypertarget{up:abbrev}{}
+\bookmark[
+ rellevel=0,
+ keeplevel,
+ dest=up:abbrev
+]{\up@abbrevtitle}
+\printnomenclature
+\clearpage
+}
 } {
 \relax
 }
@@ -271,7 +281,9 @@ backgroundcolor=\color{lightergray},
 \begin{otherlanguage}{#1}
 } {
 \end{otherlanguage}
-\egroup}
+\egroup
+\clearpage
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% titlepage heading
@@ -445,19 +457,8 @@ colorlinks=true
 } {
 \relax
 }
-\ifthenelse{\boolean{up@abbreviations}} {
-\printnomenclature
-\ifthenelse{\boolean{up@joinlists}} {
-\relax
-} {
 \clearpage
 }
-} {
-\relax
-}
-\clearpage
-}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% toc+lists implementation
