@@ -36,8 +36,9 @@
 \uptocandlists
 
 \section{Styl updiplomex}
-Styl \keyword{updiplomex} je novou verzí původních \LaTeX stylů pro psaní diplomových prací a nabízí některá vylepšení a další \enquote{finesy}.
+Styl \keyword{updiplomex} je novou verzí původních \LaTeX{} stylů pro psaní diplomových prací a nabízí některá vylepšení a další \enquote{finesy}.
 
+% přidá zkratky, lze použít kdekoliv v dokumentu
 \upabbrev{UPOL}{Univerzita Palackého v Olomouc}
 \upabbrev{OTR}{Obecná teorie relativity}
 
@@ -88,7 +89,9 @@ Tradiční způsob citování jest s využítím číselných citací, ale metod
 \optitem[Seznam zkratek]{abbrevtitle}{\prm{řetězec}}
 Nastavuje nadpis pro seznam zkratek. 
 \optitem[Anotace]{titleanot}{\prm{řetězec}}
-Nastavuje nadpis pro anotaci. 
+Nastavuje nadpis pro anotaci.
+\optitem[Poděkování]{titlethx}{\prm{řetězec}}
+Nastavuje název PDF záložky pro poděkování.
 \optitem[Seznam zdrojových kódů]{titlelistings}{\prm{řetězec}}
 Nastavuje nadpis pro seznam zdr. kódů.
 \optitem[Zdrojový kód]{namelistings}{\prm{řetězec}}
@@ -116,6 +119,7 @@ guide:	updiplomex.tex
 	pdflatex updiplomex
 	pdflatex updiplomex
 	makeindex updiplomex.idx -s index.ist
+	makeindex updiplomex.nlo -s nomencl.ist -o updiplomex.nls	
 	biber updiplomex
 	pdflatex updiplomex
 	pdflatex updiplomex
@@ -162,7 +166,7 @@ Kód & Výsledek \\
 
 
 \section{Zdrojové kódy}
-Je použit balík listings. Pomocí něj lze zobrazovat pěkné zdrojové kódy. Ukázku vidíte například niže. Zatím je nastavena barevná syntaxe pro jazyk \cpp, ale podporována je spousta dalších. 
+Je použit balík listings. Pomocí něj lze zobrazovat pěkné zdrojové kódy. Ukázku vidíte například niže. Zatím je nastavena barevná syntaxe pro jazyk \cpp, ale podporována je spousta dalších jazyků.
 
 \begin{upcode}{Ukázkový \cpp kód}{code:cpp}{[GNU]C++}
 int main(int argc, char *argv[]) {

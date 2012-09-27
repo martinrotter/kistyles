@@ -26,7 +26,7 @@ width=1.05\textwidth]{geometry}
 \usepackage{amsthm}
 \usepackage{euscript}
 \usepackage[open,atend]{bookmark}
-\usepackage{relsize}
+%\usepackage{relsize}
 \usepackage{inconsolata}
 \usepackage[usenames,dvipsnames]{xcolor}
 
@@ -49,6 +49,7 @@ width=1.05\textwidth]{geometry}
 \DeclareStringOption[utf8]{bibencoding}[utf8]
 \DeclareStringOption[numeric]{bibstyle}[numeric]
 \DeclareStringOption[Anotace]{titleanot}[Anotace]
+\DeclareStringOption[Pod\v ekov\'an\'i]{titlethx}[Pod\v ekov\'an\'i]
 \DeclareStringOption[Seznam zdrojov\'ych k\'od\r{u}]{titlelistings}[Seznam zdrojových k\'od\r{u}]
 \DeclareStringOption[Zdrojov\'y k\'od]{namelistings}[Zdrojov\'y k\'od]
 \DeclareStringOption[Z\'av\v er]{titleconclusioncz}[Z\'av\v er]
@@ -328,7 +329,8 @@ Diplomant: \\
 \end{tabular}}
 %{\noindent \Large \@upyear \hfill \@upauthor}
 \end{center}
-\newpage
+\clearpage
+%\newpage předtím
 \end{titlepage}
 }
 
@@ -391,14 +393,20 @@ colorlinks=true
 \begin{center}
 \textbf{\up@titleanot}
 \end{center}
-\bigskip
+%\bigskip
 \emph{\@upanot}
 \vfill\null
 \clearpage
 \thispagestyle{empty}
 \vspace*{\fill}
+\hypertarget{up:thx}{}
+\bookmark[
+ rellevel=1,
+ keeplevel,
+ dest=up:thx
+]{\up@titlethx}
 \noindent\@upthanks
-\bigskip
+%\bigskip
 \clearpage
 }
 
