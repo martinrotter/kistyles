@@ -207,6 +207,17 @@ style=\up@bibstyle]{biblatex}	% iso-numeric, iso-authoryear
 \setcounter{biburllcpenalty}{9000}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \paragraph macro fixes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{0ex}%
+   {-3.25ex plus -1ex minus -0.2ex}%
+   {1.5ex plus 0.2ex}%
+   {\normalfont\normalsize\bfseries}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% listings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
