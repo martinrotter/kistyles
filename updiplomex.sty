@@ -98,19 +98,20 @@ style=\up@bibstyle]{biblatex}	% iso-numeric, iso-authoryear
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifthenelse{\boolean{up@abbreviations}} {
-\usepackage[notintoc]{nomencl}
-\makenomenclature
-\renewcommand{\nomname}{\up@abbrevtitle}
-\newcommand{\upabbrev}[2]{\nomenclature{#1}{#2}}
-\renewcommand{\nomlabel}[1]{\bfseries#1}
+\usepackage[style=super,acronym,nonumberlist]{glossaries}
+\makeglossaries
+
+\renewcommand{\glsnamefont}[1]{\textbf{#1}}
+\renewcommand{\glspostdescription}{}
+\renewcommand{\acronymname}{\up@abbrevtitle}
+
+\newcommand{\upabbrevdeclare}[2]{\newacronym{#1}{#1}{#2}}
+\newcommand{\upabbrevref}[1]{\gls{#1}}
+
 \def\upprintabbrevlist{
-\hypertarget{up:abbrev}{}
-\bookmark[
- rellevel=0,
- keeplevel,
- dest=up:abbrev
-]{\up@abbrevtitle}
-\printnomenclature
+\phantomsection
+\addcontentsline{toc}{section}{\up@abbrevtitle}
+\printglossary[type=\acronymtype]
 \clearpage
 }
 } {

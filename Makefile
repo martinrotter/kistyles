@@ -7,7 +7,7 @@ guide:	updiplomex.tex
 	pdflatex updiplomex
 	pdflatex updiplomex
 	makeindex updiplomex.idx -s index.ist
-	makeindex updiplomex.nlo -s nomencl.ist -o updiplomex.nls	
+	makeglossaries updiplomex
 	biber updiplomex
 	pdflatex updiplomex
 	pdflatex updiplomex

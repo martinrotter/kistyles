@@ -38,15 +38,11 @@
 \section{Styl updiplomex}
 Styl \keyword{updiplomex} je novou verzí původních \LaTeX{} stylů pro psaní diplomových prací a nabízí některá vylepšení a další \enquote{finesy}.
 
-% přidá zkratky, lze použít kdekoliv v dokumentu
-\upabbrev{UPOL}{Univerzita Palackého v Olomouc}
-\upabbrev{OTR}{Obecná teorie relativity}
-
 \section{Podpora ovladačů a prostředí}
 V současné době byla zahozena podpora \keyword{cslatex} a \keyword{pdfcslatex}. Ke kompilaci dokumentů je tedy používán výlučně \keyword{latex} a \keyword{pdflatex}. Toto použití má hned několik důvodů:
 \begin{itemize}
 \item není důvod obecně nepoužívat PDF jako přímý výstup (konverze PDF $\rightarrow$ PS jsou bezbolestné)
-\item nepoužití cslatex-u přináší daší bonusy, jako například multijazykové možnosti s balíkem \keyword{babel}
+\item nepoužití cslatex-u přináší daší bonusy, jako například multijazykové mo-žnosti s balíkem \keyword{babel}
 \item pdflatex je moderní
 \end{itemize}
 
@@ -72,7 +68,7 @@ Je-li true, tak budou seznamy obsahovat seznam obrázků.
 \boolitem[false]{tables}
 Je-li true, tak budou seznamy obsahovat seznam tabulek.
 \boolitem[false]{abbreviations}
-Je-li true, tak bude aktivováno makro \verb|\upabbrev|, které se používá pro přídávání zkratek a bude dostupné makro \verb|\upprintabbrevlist|, které tiskne seznam zkratek.
+Je-li true, tak bude dostupné makro \verb|\upprintabbrevlist|, které tiskne seznam zkratek. Více v sekci o zkratkách.
 \boolitem[false]{listings}
 Je-li true, tak budou seznamy obsahovat seznam zdrojových kódů. 
 \optitem[czech]{language}{\prm{řetězec}}
@@ -119,7 +115,7 @@ guide:	updiplomex.tex
 	pdflatex updiplomex
 	pdflatex updiplomex
 	makeindex updiplomex.idx -s index.ist
-	makeindex updiplomex.nlo -s nomencl.ist -o updiplomex.nls	
+	makeglossaries updiplomex
 	biber updiplomex
 	pdflatex updiplomex
 	pdflatex updiplomex
@@ -134,6 +130,16 @@ clean:
 \section{Další doplňky}
 \subsection{Seznam zkratek}
 Viditelnost seznamu zkratek ovlivňuje přepínač \keyword{abbreviations} a \keyword{abbrevtitle}. Seznam zkratek je vykreslován standardně s tím, že navíc jsou (oproti normálu) vykresleny zkratky tučně.
+
+%% Deklarace zkratky
+\upabbrevdeclare{UPOL}{Univerzita Palackého v Olomouci}
+
+Zkratky lze definovat kdekoliv v těle dokumentu použitím příkazu ve zdrojovém kódu \ref{code:abbrev}.
+
+\begin{upcode}{Syntaxe pro tvorbu zkratky}{code:abbrev}{make}
+\upabbrevdeclare{ZKRATKA}{TEXT ZKRATKY}
+\end{upcode}
+Odkazovat se na zkratky lze použitím makra \verb|\upabbrevref{ZKRATKA}|. Pokud například máme definovanou zkratku UPOL, tak se na ní můžeme odkázat několikrát, třeba dvakrát, za sebou. Tedy \upabbrevref{UPOL} a ještě jednou \upabbrevref{UPOL}.
 
 \subsection{Užitečná makra}
 Balík obsahuje makra pro sázení názvů některých programovacích jazyků, prozatím tu máme makra \verb|\csharp| a \verb|\cpp|, která vykrelsují symboly \csharp a \cpp.
@@ -151,7 +157,7 @@ Navíc je zde makro \verb|\keyword|, které vypíše zadaný argument \keyword{�
 Tohle je ukázkový odstavec, který co se týče jeho hierarchie v dokumentu podobný k \verb|\subsubsubsection|.
 
 \section{Bibliografie}
-Bibliografie používá balík Bib\LaTeX, který je na správu\footnote{Poznámka pod čarou.} bibliografie asi v současnosti nejlepší, navíc je implementován citační formát dle ISO690, byť tady jsou zatím viditelné problémy. Nicméně vše by mělo správně fungovat.
+Bibliografie používá balík Bib\LaTeX, který je na správu\footnote{Poznámka pod čarou.} bibliografie v současnosti nejlepší, navíc je implementován citační formát dle ISO690, byť tady jsou zatím viditelné problémy. Nicméně vše by mělo správně fungovat.
 
 \begin{table}
 \caption{Ukázková citace}
@@ -176,7 +182,6 @@ int main(int argc, char *argv[]) {
 \section{Zdrojové kódy}
 Je použit balík listings. Pomocí něj lze zobrazovat pěkné zdrojové kódy. Ukázku vidíte například niže. Zatím je nastavena barevná syntaxe pro jazyk \cpp, ale podporována je spousta dalších jazyků.
 
-
 % tiskne český závěr práce
 \begin{upconclusions}[czech]
 Závěr práce v \enquote{českém} jazyce.
@@ -184,7 +189,7 @@ Závěr práce v \enquote{českém} jazyce.
 
 % tiskne anglický závěr práce
 \begin{upconclusions}[english]
-Thesis conclusions in \enquote{english}.
+Thesis conclusions written in \enquote{english}.
 \end{upconclusions}
 
 % tiskne seznam zkratek
