@@ -259,7 +259,7 @@ backgroundcolor=\color{lightergray},
 }
 
 \lstnewenvironment{upcode}[3]
-{\lstset{language=#3,firstnumber=1,caption={#1},label={#2},aboveskip=15px,belowskip=20px}}
+{\lstset{language=#3,firstnumber=1,float,caption={#1},label={#2},aboveskip=15px,belowskip=20px}}
 {}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -310,6 +310,13 @@ backgroundcolor=\color{lightergray},
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% titlepage implementation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% hacking wrong page numbering
+\let\oldsetcounter=\setcounter
+\renewcommand\setcounter[2]{%
+  \def\tempa{#1}%
+  \def\tempb{page}%
+  \ifx\tempa\tempb\else\oldsetcounter{#1}{#2}\fi}
 
 \def\uptitle#1{\gdef\@uptitle{#1}}
 \def\upsubtitle#1{\gdef\@upsubtitle{#1}}
@@ -477,7 +484,7 @@ colorlinks=true
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\uptocandlists{
-\addtocounter{page}{1}
+%\addtocounter{page}{1}
 \uptableofcontents
 \ifthenelse{\boolean{up@joinlists}} {
 \relax
