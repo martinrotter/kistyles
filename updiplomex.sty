@@ -98,14 +98,14 @@ style=\up@bibstyle]{biblatex}	% iso-numeric, iso-authoryear
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifthenelse{\boolean{up@abbreviations}} {
-\usepackage[style=super,acronym,nonumberlist]{glossaries}
+\usepackage[style=super,acronym,nonumberlist,sanitize=none]{glossaries}
 \makeglossaries
 
 \renewcommand{\glsnamefont}[1]{\textbf{#1}}
 \renewcommand{\glspostdescription}{}
 \renewcommand{\acronymname}{\up@abbrevtitle}
 
-\newcommand{\upabbrevdeclare}[2]{\newacronym{#1}{#1}{#2}}
+\newcommand{\upabbrevdeclare}[3]{\newacronym{#1}{#2}{#3}}
 \newcommand{\upabbrevref}[1]{\gls{#1}}
 
 \def\upprintabbrevlist{

@@ -132,14 +132,15 @@ clean:
 Viditelnost seznamu zkratek ovlivňuje přepínač \keyword{abbreviations} a \keyword{abbrevtitle}. Seznam zkratek je vykreslován standardně s tím, že navíc jsou (oproti normálu) vykresleny zkratky tučně.
 
 %% Deklarace zkratky
-\upabbrevdeclare{UPOL}{Univerzita Palackého v Olomouci}
+\upabbrevdeclare{UPOL}{UPOL}{Univerzita Palackého v Olomouci}
+\newacronym{RS}{ŘS}{Řízení systémů}
 
 Zkratky lze definovat kdekoliv v těle dokumentu použitím příkazu ve zdrojovém kódu \ref{code:abbrev}.
 
 \begin{upcode}{Syntaxe pro tvorbu zkratky}{code:abbrev}{make}
-\upabbrevdeclare{ZKRATKA}{TEXT ZKRATKY}
+\upabbrevdeclare{LABEL}{ZKRATKA}{TEXT ZKRATKY}
 \end{upcode}
-Odkazovat se na zkratky lze použitím makra \verb|\upabbrevref{ZKRATKA}|. Pokud například máme definovanou zkratku UPOL, tak se na ní můžeme odkázat několikrát, třeba dvakrát, za sebou. Tedy \upabbrevref{UPOL} a ještě jednou \upabbrevref{UPOL}.
+Odkazovat se na zkratky lze použitím makra \verb|\upabbrevref{LABEL}|. Pokud například máme definovanou zkratku UPOL, tak se na ní můžeme odkázat několikrát, třeba dvakrát, za sebou. Tedy \upabbrevref{UPOL} a ještě jednou \upabbrevref{UPOL}, dále také \upabbrevref{RS} a \upabbrevref{RS}.
 
 \subsection{Užitečná makra}
 Balík obsahuje makra pro sázení názvů některých programovacích jazyků, prozatím tu máme makra \verb|\csharp| a \verb|\cpp|, která vykrelsují symboly \csharp a \cpp.

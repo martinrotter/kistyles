@@ -1,9 +1,12 @@
 LaTeX styly pro psaní různých prací na Katedře informatiky PřF UP 
 Olomouc.
 
-Aktuální verze: 0.42
+Aktuální verze: 0.43
 
 Změny:
+
+0.43
+ :: Zkratky nyni jdou deklarovat i s českými akcenty.
 
 0.42
  :: Upraveno číslování a zdrojové kódy nyní jako plovoucí objekty.
