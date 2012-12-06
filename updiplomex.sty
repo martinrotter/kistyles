@@ -273,6 +273,36 @@ backgroundcolor=\color{lightergray},
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% theorems
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{thmtools}
+
+\declaretheoremstyle[
+	qed=\qedsymbol,
+	headpunct=:
+]{upproofstyle}
+
+\declaretheoremstyle[
+	headpunct=:
+]{upbasestyle}
+
+\declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Definice]{uptheorem}
+\declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Lemma]{uplemma}
+\declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Věta]{upquote}
+\declaretheorem[within=section,style=upproofstyle,numbered=yes,name=Důkaz]{upproof}
+
+\renewcommand\listtheoremname{Seznam teorémů}
+
+\def\upprinttheoremlist{
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Seznam teorémů}
+\listoftheorems
+\clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% conclusions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

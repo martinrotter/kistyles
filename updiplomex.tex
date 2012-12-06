@@ -142,6 +142,25 @@ Zkratky lze definovat kdekoliv v těle dokumentu použitím příkazu ve zdrojov
 \end{upcode}
 Odkazovat se na zkratky lze použitím makra \verb|\upabbrevref{LABEL}|. Pokud například máme definovanou zkratku UPOL, tak se na ní můžeme odkázat několikrát, třeba dvakrát, za sebou. Tedy \upabbrevref{UPOL} a ještě jednou \upabbrevref{UPOL}, dále také \upabbrevref{RS} a \upabbrevref{RS}.
 
+\subsection{Teorémy}
+V rámci stylu existují prostředí s jedním volitelným argumentem (nadpis) \keyword{uplemma}, \keyword{uptheorem}, \keyword{upquote} a \keyword{upproof}. Tyto prostředí slouží k sazbě důkazů, vět, definic nebo lemmat.
+
+\begin{uplemma}[Démonické lemma]
+Naše nové lemma.
+\end{uplemma}
+
+\begin{uptheorem}[Název definice]
+Naše nová definice.
+\end{uptheorem}
+
+\begin{upproof}[Název důkazu]
+Náš nový důkaz.
+\end{upproof}
+
+\begin{upquote}[Pumpovací věta]
+Náš nový důkaz.
+\end{upquote}
+
 \subsection{Užitečná makra}
 Balík obsahuje makra pro sázení názvů některých programovacích jazyků, prozatím tu máme makra \verb|\csharp| a \verb|\cpp|, která vykrelsují symboly \csharp a \cpp.
 
@@ -196,6 +215,9 @@ Thesis conclusions written in \enquote{english}.
 % tiskne seznam zkratek
 % seznam zkratek se netiskne před práci ale až nakonec
 \upprintabbrevlist
+
+% tiskne seznam teorémů
+\upprinttheoremlist
 
 % tiskne bibliografii
 % bibliografie používá BibLaTeX
