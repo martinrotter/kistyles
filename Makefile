@@ -3,14 +3,14 @@ all: start guide finish
 start:
 	echo "Makefile has started its work."
 
-guide:	updiplomex.tex
-	pdflatex updiplomex
-	pdflatex updiplomex
-	makeindex updiplomex.idx -s index.ist
-	makeglossaries updiplomex
-	biber updiplomex
-	pdflatex updiplomex
-	pdflatex updiplomex
+guide:	upsimple.tex
+	pdflatex upsimple
+	pdflatex upsimple
+	makeindex upsimple.idx -s index.ist
+	makeglossaries upsimple
+	bibtex upsimple
+	pdflatex upsimple
+	pdflatex upsimple
 
 finish:
 	echo "Makefile has finished its work."
