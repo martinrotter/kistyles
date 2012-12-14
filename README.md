@@ -5,6 +5,9 @@ Aktuální verze: 0.44
 
 Změny:
 
+0.5
+ :: Rozdělení funkcionality pro modulární styl. Tuna oprav.
+
 0.44
  :: Přidány prostředí na sazbu důkazů atp. nebo seznam teorémů.
 

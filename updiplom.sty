@@ -1,0 +1,155 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{updiplom}[2012/09/09 UP Diploma Style]
+
+\usepackage{upbase}
+
+\SetupKeyvalOptions {
+	family=up,
+	prefix=up@
+}
+
+\DeclareBoolOption{master}
+\DeclareStringOption[Anotace]{titleanot}[Anotace]
+\DeclareStringOption[Pod\v ekov\'an\'i]{titlethx}[Pod\v ekov\'an\'i]
+\DeclareStringOption[Z\'av\v er]{titleconclusioncz}[Z\'av\v er]
+\DeclareStringOption[Conclusions]{titleconclusionen}[Conclusions]
+\DeclareStringOption[Tituln\'i strana]{titlebookmarktitlepage}[Tituln\'i strana]
+
+\ProcessKeyvalOptions*
+
+\usepackage[
+paper=a4paper,
+driver=pdftex,
+top=3.0cm,
+left=4.0cm,
+bottom=2.5cm,
+width=1.05\textwidth]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% conclusions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{upconclusions}[1][czech]{
+\clearpage
+\bgroup
+\ifthenelse{\equal{#1}{czech}} {
+\phantomsection
+\addcontentsline{toc}{section}{\up@titleconclusioncz}
+\section*{\up@titleconclusioncz}
+}
+%% else branch stands for english conclusions
+{
+\phantomsection
+\addcontentsline{toc}{section}{\up@titleconclusionen}
+\section*{\up@titleconclusionen}
+}
+\begin{otherlanguage}{#1}
+} {
+\end{otherlanguage}
+\egroup
+\clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% titlepage heading
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\boolean{up@master}} {
+\def\@upthesis{DIPLOMOV\'A PR\'ACE}
+} {
+\def\@upthesis{BAKAL\'A\v RSK\'A PR\'ACE}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% titlepage implementation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% hacking wrong page numbering
+\let\oldsetcounter=\setcounter
+\renewcommand\setcounter[2]{%
+  \def\tempa{#1}%
+  \def\tempb{page}%
+  \ifx\tempa\tempb\else\oldsetcounter{#1}{#2}\fi}
+
+\def\uptitle#1{\gdef\@uptitle{#1}}
+\def\upsubtitle#1{\gdef\@upsubtitle{#1}}
+\def\upyear#1{\gdef\@upyear{#1}}
+\def\upauthor#1{\gdef\@upauthor{#1}}
+\def\upleader#1{\gdef\@upleader{#1}}
+\def\upclass#1{\gdef\@upclass{#1}}
+
+\def\upmaketitle{
+\hypertarget{up:thesis}{}
+\bookmark[dest=up:thesis]{\@uptitle \ (\@upthesis)}
+\setcounter{page}{1}
+\begin{titlepage}
+\hypertarget{up:title}{}
+\bookmark[
+ rellevel=1,
+ keeplevel,
+ dest=up:title
+]{\up@titlebookmarktitlepage}
+\begin{center}
+{\large P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO \par
+        KATEDRA INFORMATIKY \par}
+\vfill
+{\LARGE\bfseries{\@upthesis} \\}
+\vfill
+{\Large \@uptitle \\[1em]\@upsubtitle}
+\vfill
+\centering\includegraphics[width=2.5cm]{\uplogoname}
+\vfill
+{\noindent
+\begin{tabular}{ll}
+Vedoucí práce: \\
+{\bfseries\@upleader} \\
+Rok odevzdání: \@upyear
+\end{tabular}
+\hfill
+\begin{tabular}{ll}
+Diplomant: \\
+{\bfseries\@upauthor} \\
+\@upclass
+\end{tabular}}
+%{\noindent \Large \@upyear \hfill \@upauthor}
+\end{center}
+\clearpage
+%\newpage předtím
+\end{titlepage}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% anot+thanks implementation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\upthanks#1{\gdef\@upthanks{#1}}
+\def\upanot#1{\gdef\@upanot{#1}}
+
+\def\upthanksanot{
+\thispagestyle{empty}
+\null\vfill
+\hypertarget{up:anotation}{}
+\bookmark[
+ rellevel=1,
+ keeplevel,
+ dest=up:anotation
+]{\up@titleanot}
+\begin{center}
+\textbf{\up@titleanot}
+\end{center}
+%\bigskip
+\emph{\@upanot}
+\vfill\null
+\clearpage
+\thispagestyle{empty}
+\vspace*{\fill}
+\hypertarget{up:thx}{}
+\bookmark[
+ rellevel=1,
+ keeplevel,
+ dest=up:thx
+]{\up@titlethx}
+\noindent\@upthanks
+%\bigskip
+\clearpage
+}

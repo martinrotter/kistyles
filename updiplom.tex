@@ -1,0 +1,239 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[
+	abbreviations,
+	figures,
+	tables,
+	listings,
+	language=czech,
+	bibfile=bibliography.bib,
+	bibencoding=utf8,
+	bibstyle=numeric,
+	encoding=utf8,
+	]{upbase}
+
+\usepackage{updiplom}
+
+\uptitle{Název práce}						% název práce
+\upsubtitle{Podtitulek práce}				% podtitulek práce - použijte \upsubtitle{\null} pokud nemáte v práci podnadpisek
+\upyear{\the\year}
+\upauthor{Martin Rotter}
+\upclass{APLINF, III. ročník}
+\upleader{Mgr. Petr Velký}
+\upanot{Tento dokument je fajn.}			% anotace práce - obvykle jeden odstavec textu
+\upthanks{Děkuji všem.}						% poděkování
+
+\usepackage{multirow}
+\usepackage{ltxdockit}
+
+\begin{document}
+
+% tiskne titulní stranu
+\upmaketitle
+
+% tiskne dvě strany s anotací a poděkováním
+\upthanksanot
+
+% tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
+\uptocandlists
+
+\section{Styl updiplomex}
+Styl \keyword{updiplomex} je novou verzí původních \LaTeX{} stylů pro psaní diplomových prací a nabízí některá vylepšení a další \enquote{finesy}.
+
+\section{Podpora ovladačů a prostředí}
+V současné době byla zahozena podpora \keyword{cslatex} a \keyword{pdfcslatex}. Ke kompilaci dokumentů je tedy používán výlučně \keyword{latex} a \keyword{pdflatex}. Toto použití má hned několik důvodů:
+\begin{itemize}
+\item není důvod obecně nepoužívat PDF jako přímý výstup (konverze PDF $\rightarrow$ PS jsou bezbolestné)
+\item nepoužití cslatex-u přináší daší bonusy, jako například multijazykové mo-žnosti s balíkem \keyword{babel}
+\item pdflatex je moderní
+\end{itemize}
+
+\section{Rozměry stránky A4 a mezery}
+Rozložení textu na stránce ja nastaveno tak, aby splňovalo standardy. Horní mezera má $3$ cm, spodní $1.5$ cm, levá a pravá mezera mají shodně $2.5$ cm, pričemž k levé straně je přídán $1.5$ cm pro pevnou vazbu. Styl je určen pro jednostranný tisk.
+
+\section{Možnosti balíku}
+Balíku updiplomex je možno volat s několika vstupními argumenty, které mohou zásadním způsobem ovlivnit vzhled dokumentu. Každý argument je popsán v následujícím výčtu.
+
+\begin{optionlist}
+\boolitem[false]{iwona}
+Je-li true, pak se použije okrasnější písmo Iwona, jinak výchozí.
+\boolitem[false]{final}
+Je-li true, pak se hypertextové odkazy nebudou obarvovat, což se hodí pro knižní tisk.
+\boolitem[false]{blacklogo}
+Je-li true, tak bude titulní strana obsahovat černé logo místo bílého.
+\boolitem[false]{master}
+Je-li true, tak bude vypsán na titulní straně text \enquote{Diplomová práce}.
+\boolitem[false]{joinlists}
+Je-li true, tak budou seznamy a obsah sdruženy za sebe bez vytváření nových stran. 
+\boolitem[false]{figures}
+Je-li true, tak budou seznamy obsahovat seznam obrázků.
+\boolitem[false]{tables}
+Je-li true, tak budou seznamy obsahovat seznam tabulek.
+\boolitem[false]{abbreviations}
+Je-li true, tak bude dostupné makro \verb|\upprintabbrevlist|, které tiskne seznam zkratek. Více v sekci o zkratkách.
+\boolitem[false]{listings}
+Je-li true, tak budou seznamy obsahovat seznam zdrojových kódů. 
+\optitem[czech]{language}{\prm{řetězec}}
+Nastavuje jazyk používaný balíkem babel. 
+\optitem[bibliography.bib]{bibfile}{\prm{řetězec}}
+Nastavuje soubor s bibliografií pro Bib\LaTeX  
+\optitem[utf8]{bibencoding}{\prm{řetězec}}
+Nastavuje kódování onoho souboru z předchozího řádku. 
+\optitem[numeric]{bibstyle}{\prm{numeric,authoryear,iso-authoryear,iso-numeric\ldots}}
+Nastavuje způsob citování dokumentů z bibliografie.
+
+Tradiční způsob citování jest s využítím číselných citací, ale metoda authoryear se může jevit přehlednější. Metody iso-authoryear a iso-numeric jsou v experimentální fázi vývoje.
+
+\optitem[Seznam zkratek]{abbrevtitle}{\prm{řetězec}}
+Nastavuje nadpis pro seznam zkratek. 
+\optitem[Anotace]{titleanot}{\prm{řetězec}}
+Nastavuje nadpis pro anotaci.
+\optitem[Poděkování]{titlethx}{\prm{řetězec}}
+Nastavuje název PDF záložky pro poděkování.
+\optitem[Seznam zdrojových kódů]{titlelistings}{\prm{řetězec}}
+Nastavuje nadpis pro seznam zdr. kódů.
+\optitem[Zdrojový kód]{namelistings}{\prm{řetězec}}
+Nastavuje nadpisek pro každý zdr. kód, tohle využívá například \verb|\caption| a seznam zdr. kódů. 
+\optitem[Závěr]{titleconclusioncz}{\prm{řetězec}}
+Nastavuje nadpis pro český závěr.
+\optitem[Conclusions]{titleconclusionen}{\prm{řetězec}}
+Nastavuje nadpis pro anglický záver.
+\optitem[Titulní strana]{titlebookmarktitlepage}{\prm{řetězec}}
+Nastavuje nadpisek pro každý zdr. kód, tohle využívá například \verb|\caption| a seznam zdr. kódů. 
+\optitem[utf8]{encoding}{\prm{řetězec}}
+Nastavuje kódování vstupních tex souborů, tedy i tohoto souboru. 
+\end{optionlist}
+
+\section{Překlad ukázkového dokumentu}
+Překlad dokumentů se provádí před pdflatex\index{pdflatex}, navíc je třeba použít makeindex a biber pro překlad rejstříku a bibliografie. Vše je obsaženo v souboru Makefile.
+
+\begin{upcode}{Překlad dokumentů}{code:compilation}{make}
+all: start guide finish
+
+start:
+	echo "Makefile has started its work."
+
+guide:	updiplomex.tex
+	pdflatex updiplomex
+	pdflatex updiplomex
+	makeindex updiplomex.idx -s index.ist
+	makeglossaries updiplomex
+	biber updiplomex
+	pdflatex updiplomex
+	pdflatex updiplomex
+
+finish:
+	echo "Makefile has finished its work."
+
+clean:
+	rm -f *.lo* *.aux *.ind *.idx *.ilg *.toc
+\end{upcode}
+
+\section{Další doplňky}
+\subsection{Seznam zkratek}
+Viditelnost seznamu zkratek ovlivňuje přepínač \keyword{abbreviations} a \keyword{abbrevtitle}. Seznam zkratek je vykreslován standardně s tím, že navíc jsou (oproti normálu) vykresleny zkratky tučně.
+
+%% Deklarace zkratky
+\upabbrevdeclare{UPOL}{UPOL}{Univerzita Palackého v Olomouci}
+\newacronym{RS}{ŘS}{Řízení systémů}
+
+Zkratky lze definovat kdekoliv v těle dokumentu použitím příkazu ve zdrojovém kódu \ref{code:abbrev}.
+
+\begin{upcode}{Syntaxe pro tvorbu zkratky}{code:abbrev}{make}
+\upabbrevdeclare{LABEL}{ZKRATKA}{TEXT ZKRATKY}
+\end{upcode}
+Odkazovat se na zkratky lze použitím makra \verb|\upabbrevref{LABEL}|. Pokud například máme definovanou zkratku UPOL, tak se na ní můžeme odkázat několikrát, třeba dvakrát, za sebou. Tedy \upabbrevref{UPOL} a ještě jednou \upabbrevref{UPOL}, dále také \upabbrevref{RS} a \upabbrevref{RS}.
+
+\subsection{Teorémy}
+V rámci stylu existují prostředí s jedním volitelným argumentem (nadpis) \keyword{uplemma}, \keyword{uptheorem}, \keyword{upquote} a \keyword{upproof}. Tyto prostředí slouží k sazbě důkazů, vět, definic nebo lemmat.
+
+\begin{uplemma}[Démonické lemma]
+Naše nové lemma.
+\end{uplemma}
+
+\begin{uptheorem}[Název definice]
+Naše nová definice.
+\end{uptheorem}
+
+\begin{upproof}[Název důkazu]
+Náš nový důkaz.
+\end{upproof}
+
+\begin{upquote}[Pumpovací věta]
+Náš nový důkaz.
+\end{upquote}
+
+\subsection{Užitečná makra}
+Balík obsahuje makra pro sázení názvů některých programovacích jazyků, prozatím tu máme makra \verb|\csharp| a \verb|\cpp|, která vykrelsují symboly \csharp a \cpp.
+
+Dále je obsaženo například makro \verb|\buno|, které vypíše \enquote{\buno}. Makro je dostupné i s počátečním velkým písmenem jako \verb|\Buno|.
+
+Rovněž výčty obsahují nový úvodní symbol, původní tečka byla nahrazena toutéž (avšak šedou) tečkou.
+\begin{itemize}
+\item šedá tečka
+\end{itemize}
+
+Navíc je zde makro \verb|\keyword|, které vypíše zadaný argument \keyword{šedou barvou v neproporcionálním fontu}.
+
+\paragraph{Speciální odstavec}
+Tohle je ukázkový odstavec, který co se týče jeho hierarchie v dokumentu podobný k \verb|\subsubsubsection|.
+
+\section{Bibliografie}
+Bibliografie používá balík Bib\LaTeX, který je na správu\footnote{Poznámka pod čarou.} bibliografie v současnosti nejlepší, navíc je implementován citační formát dle ISO690, byť tady jsou zatím viditelné problémy. Nicméně vše by mělo správně fungovat.
+
+\begin{table}
+\caption{Ukázková citace}
+\begin{center}
+\begin{tabular}{c|l}
+Kód & Výsledek \\
+\hline \\
+\verb|\cite{nigel:csharp}| & \cite{nigel:csharp} \\
+\verb|\citep{nigel:csharp}| & \citep{nigel:csharp} \\
+\verb|\citet{nigel:csharp}| & \citet{nigel:csharp} \\
+\verb|\citealt{nigel:csharp}| & \citealt{nigel:csharp}
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{upcode}{Ukázkový \cpp kód}{code:cpp}{C++}
+int main(int argc, char *argv[]) {
+	return 0;
+}
+\end{upcode}
+
+\section{Zdrojové kódy}
+Je použit balík listings. Pomocí něj lze zobrazovat pěkné zdrojové kódy. Ukázku vidíte například niže. Zatím je nastavena barevná syntaxe pro jazyk \cpp, ale podporována je spousta dalších jazyků.
+
+% tiskne český závěr práce
+\begin{upconclusions}[czech]
+Závěr práce v \enquote{českém} jazyce.
+\end{upconclusions}
+
+% tiskne anglický závěr práce
+\begin{upconclusions}[english]
+Thesis conclusions written in \enquote{english}.
+\end{upconclusions}
+
+% tiskne seznam zkratek
+% seznam zkratek se netiskne před práci ale až nakonec
+\upprintabbrevlist
+
+% tiskne seznam teorémů
+\upprinttheoremlist
+
+% tiskne bibliografii
+% bibliografie používá BibLaTeX
+\upprintbibliography
+
+% tiskne přílohy
+\upappendix
+\section{První příloha}
+Text první přílohy
+
+\section{Druhá příloha}
+Text druhé přílohy
+
+% tiskne rejstřík
+\upprintindex
+
+\end{document}

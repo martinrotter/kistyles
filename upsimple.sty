@@ -1,0 +1,106 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{upsimple}[2012/09/09 UP Simple Style]
+
+\usepackage{upbase}
+\usepackage[
+	paper=a4paper,
+	driver=pdftex,
+	top=3.0cm,
+	bottom=2.5cm,
+	width=1.05\textwidth]{geometry}
+
+\SetupKeyvalOptions {
+	family=up,
+	prefix=up@
+}
+
+\DeclareStringOption[\null]{custompicture}[\null]
+\DeclareStringOption[Abstrakt]{titleanot}[Abstrakt]
+\DeclareStringOption[Tituln\'i strana]{titlebookmarktitlepage}[Tituln\'i strana]
+
+\ProcessKeyvalOptions*
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% anot implementation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\upanot#1{\gdef\@upanot{#1}}
+
+\def\upmakeanot{
+\thispagestyle{empty}
+\null\vfill
+\hypertarget{up:anotation}{}
+\bookmark[
+ rellevel=1,
+ keeplevel,
+ dest=up:anotation
+]{\up@titleanot}
+\begin{center}
+\textbf{\up@titleanot}
+\end{center}
+\emph{\@upanot}
+\vfill\null
+\clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% titlepage heading
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\uppapertype#1{\gdef\@uppapertype{#1}}
+%\def\@uppapertype{TYP PR\'ACE}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% titlepage implementation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% hacking wrong page numbering
+\let\oldsetcounter=\setcounter
+\renewcommand\setcounter[2]{%
+  \def\tempa{#1}%
+  \def\tempb{page}%
+  \ifx\tempa\tempb\else\oldsetcounter{#1}{#2}\fi}
+
+\def\uptitle#1{\gdef\@uptitle{#1}}
+\def\upsubtitle#1{\gdef\@upsubtitle{#1}}
+\def\upyear#1{\gdef\@upyear{#1}}
+\def\upauthor#1{\gdef\@upauthor{#1}}
+
+\def\upmaketitle{
+\hypertarget{up:thesis}{}
+\bookmark[dest=up:thesis]{\@uptitle \ (\@uppapertype)}
+\setcounter{page}{1}
+\begin{titlepage}
+\hypertarget{up:title}{}
+\bookmark[
+ rellevel=1,
+ keeplevel,
+ dest=up:title
+]{\up@titlebookmarktitlepage}
+\begin{center}
+{\large P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO \par
+        KATEDRA INFORMATIKY \par}
+\vfill
+{\LARGE\bfseries{\@uppapertype} \\}
+\vfill
+{\Large \@uptitle \\[1em]\@upsubtitle}
+\vfill
+\centering
+\includegraphics[width=2.5cm]{\uplogoname}
+\ifthenelse{\equal{\null}{\up@custompicture}} {
+\relax
+} {
+\includegraphics[width=2.5cm]{\up@custompicture}
+}
+\vfill
+\@upyear
+\hfill
+\begin{tabular}{l}
+\@upauthor
+\end{tabular}
+\end{center}
+\clearpage
+\end{titlepage}
+}
+
+\endinput
