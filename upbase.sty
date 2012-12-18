@@ -157,7 +157,7 @@
 \definecolor{halfgray}{gray}{0.55}
 \definecolor{webgreen}{rgb}{0,.5,0}
 \definecolor{webbrown}{rgb}{.6,0,0}
-\definecolor{lightergray}{gray}{0.98}
+\definecolor{lightergray}{gray}{0.99}
 \definecolor{ultragreen}{RGB}{40,180,10}
 \definecolor{darkgray}{RGB}{60,60,60}
 
@@ -199,7 +199,7 @@
 
 \setcounter{tocdepth}{5}
 \setcounter{secnumdepth}{5}
-\renewcommand{\paragraph}{\@startsection{paragraph}{4}{0ex}%
+\newcommand{\subsubsubsection}{\@startsection{paragraph}{4}{0ex}%
    {-3.25ex plus -1ex minus -0.2ex}%
    {1.5ex plus 0.2ex}%
    {\normalfont\normalsize\bfseries}}
@@ -211,41 +211,74 @@
 \renewcommand{\lstlistlistingname}{\up@titlelistings}
 \renewcommand{\lstlistingname}{\up@namelistings}
 
-\lstset{language=[GNU]C++,
-keywordstyle=\color{RoyalBlue},
-%basicstyle=\normalfont\sffamily,
-commentstyle=\color{ultragreen},
-%identifierstyle=\color{Gray},
-stringstyle=\color{Red},
-numbers=none,
-numberstyle=\scriptsize,
-stepnumber=5,
-numbersep=8pt,
-showstringspaces=false,
-breaklines=true,
-frameround=ftff,
-frame=lines,
-backgroundcolor=\color{lightergray},
-}
-
-\lstset{flexiblecolumns=true}
-\lstset{moredelim={[is][\small\normalfont\itshape]{/*}{*/}}}
-\lstset{basicstyle=\small\normalfont\ttfamily}
-\lstset{flexiblecolumns=false}
-\lstset{numberbychapter=true}
-\lstset{moredelim={[is][\small\ttfamily]{!?}{?!}}} 
-\lstset{escapeinside={£*}{*£}}
-\lstset{firstnumber=last}
-\lstset{moredelim={[is][\small\ttfamily]{!?}{?!}}}
-
-\lstset{numbers=left,
+\lstset{
+	breaklines=true,
+	backgroundcolor=\color{lightergray},
+	frame=single,
+	flexiblecolumns=true,
+	moredelim={[is][\small\normalfont\itshape]{/*}{*/}},
+	basicstyle=\footnotesize\ttfamily,
+	keywordstyle=\color{RoyalBlue},
+	commentstyle=\color{webgreen},
+	flexiblecolumns=false,
+	numberbychapter=true,
+	moredelim={[is][\small\ttfamily]{!?}{?!}},
+	escapeinside={£*}{*£},
+	firstnumber=last,
+	moredelim={[is][\small\ttfamily]{!?}{?!}},
+	numbers=left,
     numberstyle=\scriptsize\ttfamily,
     stepnumber=1,
-    numbersep=8pt
+    numbersep=6pt,
+	tabsize=4,
+	extendedchars=true,
+    literate=
+		{á}{{\'a}}1
+        {í}{{\'i}}1
+        {é}{{\'e}}1
+        {ý}{{\'y}}1
+        {ú}{{\'u}}1
+        {ó}{{\'o}}1
+        {ě}{{\v{e}}}1
+        {š}{{\v{s}}}1
+        {č}{{\v{c}}}1
+        {ř}{{\v{r}}}1
+        {ž}{{\v{z}}}1
+        {ď}{{\v{d}}}1
+        {ť}{{\v{t}}}1
+        {ň}{{\v{n}}}1                
+        {ů}{{\r{u}}}1
+        {Á}{{\'A}}1
+        {Í}{{\'I}}1
+        {É}{{\'E}}1
+        {Ý}{{\'Y}}1
+        {Ú}{{\'U}}1
+        {Ó}{{\'O}}1
+        {Ě}{{\v{E}}}1
+        {Š}{{\v{S}}}1
+        {Č}{{\v{C}}}1
+        {Ř}{{\v{R}}}1
+        {Ž}{{\v{Z}}}1
+        {Ď}{{\v{D}}}1
+        {Ť}{{\v{T}}}1
+        {Ň}{{\v{N}}}1                
+        {Ů}{{\r{U}}}1    
+}
+
+\lstdefinelanguage{TutorialD}	{morekeywords={tuple,insert,from,summarize,count,all,but,as,base,rename,prefix,extend,add,compose,union,minus,intersect,update,writeln,init,type,possrep,constraint,and,or,relation,where,base,drop},
+	sensitive=false,
+	morecomment=[s]{/*}{*/},
+	morestring=[b]",
+}
+
+\lstloadlanguages{[GNU]C++,[ANSI]C,Lisp,SQL,TeX,Python,Java,TutorialD}
+
+\newcommand{\upinlinecode}[3] {
+\noindent\ignorespaces\lstinline[language=#1]#2#3#2\ignorespacesafterend
 }
 
 \lstnewenvironment{upcode}[3]
-{\lstset{language=#3,firstnumber=1,float,caption={#1},label={#2},aboveskip=15px,belowskip=20px}}
+{\lstset{language=#3,firstnumber=1,caption={#1},label={#2},aboveskip=10px,belowskip=15px}}
 {}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -265,18 +298,23 @@ backgroundcolor=\color{lightergray},
 \usepackage{thmtools}
 
 \declaretheoremstyle[
+	spaceabove=18pt,
+	spacebelow=18pt,
 	qed=\qedsymbol,
-	headpunct=:
+	headpunct=\\
 ]{upproofstyle}
 
 \declaretheoremstyle[
-	headpunct=:
+	spaceabove=18pt,
+	spacebelow=18pt,
+	headpunct=\\
 ]{upbasestyle}
 
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Definice]{uptheorem}
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Lemma]{uplemma}
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Věta]{upquote}
 \declaretheorem[within=section,style=upproofstyle,numbered=yes,name=Důkaz]{upproof}
+\declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Příklad]{upexample}
 
 \renewcommand\listtheoremname{\up@titletheorems}
 
