@@ -1,5 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{upsimple}[2012/09/09 UP Simple Style]
+\PackageWarningNoLine{upsimple}{You are using upsimple style 0.55.}
 
 \usepackage{upbase}
 \usepackage[
@@ -84,7 +85,8 @@
 {\LARGE\bfseries{\@uppapertype} \\}
 \vfill
 {\Large \@uptitle \\[1em]\@upsubtitle}
-\vfill
+
+\vspace{3em}
 \centering
 \includegraphics[width=2.5cm]{\uplogoname}
 \ifthenelse{\equal{\null}{\up@custompicture}} {

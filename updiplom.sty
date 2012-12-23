@@ -1,5 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{updiplom}[2012/09/09 UP Diploma Style]
+\PackageWarningNoLine{upbase}{You are using updiplom style 0.55.}
 
 \usepackage{upbase}
 
@@ -96,8 +97,10 @@ width=1.05\textwidth]{geometry}
 {\LARGE\bfseries{\@upthesis} \\}
 \vfill
 {\Large \@uptitle \\[1em]\@upsubtitle}
-\vfill
-\centering\includegraphics[width=2.5cm]{\uplogoname}
+
+\vspace{3em}
+\centering
+\includegraphics[width=2.5cm]{\uplogoname}
 \vfill
 {\noindent
 \begin{tabular}{ll}

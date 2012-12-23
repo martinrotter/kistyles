@@ -1,9 +1,12 @@
 LaTeX styly pro psaní různých prací na Katedře informatiky PřF UP 
 Olomouc.
 
-Aktuální verze: 0.44
+Aktuální verze: 0.55
 
 Změny:
+
+0.55
+ :: Upraveny titulní strany stylů. Nový styl upsimple pro sazbu neutrálních dokumentů. Přepracován vzhled zdrojových kódů a přidána podpora zobrazení jazyka Tutorial D. Nová podpora pro sazbu teorému (věty, lemmata, poznámky, důkazy atp.) s možností seznamu teorémů. Další drobná makra.
 
 0.5
  :: Rozdělení funkcionality pro modulární styl. Tuna oprav.

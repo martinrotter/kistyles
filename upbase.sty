@@ -1,5 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{upbase}[2012/09/09 UP Base Style]
+\PackageWarningNoLine{upbase}{You are using upbase style 0.55.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% packages and arguments
@@ -19,7 +20,8 @@
 \usepackage{euscript}
 \usepackage[open,atend]{bookmark}
 \usepackage{inconsolata}
-\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+%\usepackage{chngcntr}
 
 \SetupKeyvalOptions {
 	family=up,
@@ -121,8 +123,17 @@
 
 \def\upappendix{
 \clearpage
-%\addtocontents{toc}{\vspace*{10px}}
 \appendix
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% section-aware counters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\upbeginb{
+\counterwithin{lstlisting}{section}
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -221,7 +232,7 @@
 	keywordstyle=\color{RoyalBlue},
 	commentstyle=\color{webgreen},
 	flexiblecolumns=false,
-	numberbychapter=true,
+	numberbychapter=false,
 	moredelim={[is][\small\ttfamily]{!?}{?!}},
 	escapeinside={£*}{*£},
 	firstnumber=last,
@@ -265,7 +276,7 @@
         {Ů}{{\r{U}}}1    
 }
 
-\lstdefinelanguage{TutorialD}	{morekeywords={tuple,insert,from,summarize,count,all,but,as,base,rename,prefix,extend,add,compose,union,minus,intersect,update,writeln,init,type,possrep,constraint,and,or,relation,where,base,drop},
+\lstdefinelanguage{TutorialD}	{morekeywords={tuple,matching,insert,divide,by,per,tclose,from,summarize,count,all,but,as,base,rename,prefix,extend,add,compose,union,minus,intersect,update,writeln,init,type,possrep,constraint,and,or,relation,where,base,drop},
 	sensitive=false,
 	morecomment=[s]{/*}{*/},
 	morestring=[b]",
@@ -312,6 +323,7 @@
 
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Definice]{uptheorem}
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Lemma]{uplemma}
+\declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Poznámka]{upnote}
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Věta]{upquote}
 \declaretheorem[within=section,style=upproofstyle,numbered=yes,name=Důkaz]{upproof}
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Příklad]{upexample}
@@ -322,7 +334,7 @@
 \clearpage
 \phantomsection
 \addcontentsline{toc}{section}{Seznam teorémů}
-\listoftheorems
+\listoftheorems[ignoreall,show={uptheorem,uplemma,upnote,upquote,upproof,upexample}]
 \clearpage
 }
 
