@@ -1,6 +1,8 @@
 LaTeX styly pro psaní různých prací na Katedře informatiky PřF UP 
 Olomouc.
 
+!! Tyto styly nejsou určeny k produkčnímu použití. Prozatím se jedná pouze o testovací materiál !!
+
 Aktuální verze: 0.55
 
 Změny:
