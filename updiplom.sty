@@ -1,8 +1,8 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{updiplom}[2012/09/09 UP Diploma Style]
-\PackageWarningNoLine{upbase}{You are using updiplom style 0.55.}
+\PackageWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.6}
 
-\usepackage{upbase}
+\RequirePackage{kvoptions}
 
 \SetupKeyvalOptions {
 	family=up,
@@ -16,15 +16,21 @@
 \DeclareStringOption[Conclusions]{titleconclusionen}[Conclusions]
 \DeclareStringOption[Tituln\'i strana]{titlebookmarktitlepage}[Tituln\'i strana]
 
+%% All unrecognized options are pased to fdocbase package.
+\DeclareDefaultOption{\PassOptionsToPackage{\CurrentOption}{upbase}}
+
 \ProcessKeyvalOptions*
 
-\usepackage[
-paper=a4paper,
-driver=pdftex,
-top=3.0cm,
-left=4.0cm,
-bottom=2.5cm,
-width=1.05\textwidth]{geometry}
+\RequirePackage{upbase}
+
+\RequirePackage[
+	paper=a4paper,
+	driver=pdftex,
+	top=3.0cm,
+	left=4.0cm,
+	bottom=2.5cm,
+	width=1.05\textwidth
+]{geometry}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% conclusions
@@ -79,9 +85,9 @@ width=1.05\textwidth]{geometry}
 \def\upleader#1{\gdef\@upleader{#1}}
 \def\upclass#1{\gdef\@upclass{#1}}
 
-\def\upmaketitle{
+\def\maketitle{
 \hypertarget{up:thesis}{}
-\bookmark[dest=up:thesis]{\@uptitle \ (\@upthesis)}
+\bookmark[dest=up:thesis]{\@uptitle}
 \setcounter{page}{1}
 \begin{titlepage}
 \hypertarget{up:title}{}
@@ -114,10 +120,8 @@ Diplomant: \\
 {\bfseries\@upauthor} \\
 \@upclass
 \end{tabular}}
-%{\noindent \Large \@upyear \hfill \@upauthor}
 \end{center}
 \clearpage
-%\newpage předtím
 \end{titlepage}
 }
 
@@ -140,7 +144,6 @@ Diplomant: \\
 \begin{center}
 \textbf{\up@titleanot}
 \end{center}
-%\bigskip
 \emph{\@upanot}
 \vfill\null
 \clearpage
@@ -153,6 +156,5 @@ Diplomant: \\
  dest=up:thx
 ]{\up@titlethx}
 \noindent\@upthanks
-%\bigskip
 \clearpage
 }

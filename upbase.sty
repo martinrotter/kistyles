@@ -1,72 +1,72 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{upbase}[2012/09/09 UP Base Style]
-\PackageWarningNoLine{upbase}{You are using upbase style 0.55.}
+\PackageWarningNoLine{upbase}{[upbase] You are using upbase style 0.6}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% packages and arguments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{kvoptions}
-\usepackage{booktabs}
-\usepackage{makeidx}
-\usepackage{multicol}
-\usepackage[unicode]{hyperref}
-\usepackage{ifpdf}
-\usepackage{ifthen}
-\usepackage{amsmath}
-\usepackage{amsbsy}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{euscript}
-\usepackage[open,atend]{bookmark}
-\usepackage{inconsolata}
-\usepackage[usenames,dvipsnames,table]{xcolor}
-%\usepackage{chngcntr}
+\RequirePackage{booktabs}
+\RequirePackage{makeidx}
+\RequirePackage{multicol}
+\RequirePackage[unicode]{hyperref}
+\RequirePackage{ifpdf}
+\RequirePackage{ifthen}
+\RequirePackage{amsmath}
+\RequirePackage{amsbsy}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{euscript}
+\RequirePackage[open,atend]{bookmark}
+\RequirePackage{inconsolata}
+\RequirePackage[usenames,dvipsnames,table]{xcolor}
+\RequirePackage{appendix}
 
 \SetupKeyvalOptions {
 	family=up,
 	prefix=up@
 }
 
-\DeclareBoolOption{iwona}
-\DeclareBoolOption{final}
-\DeclareBoolOption{blacklogo}
-\DeclareBoolOption{joinlists}
-\DeclareBoolOption{figures}
-\DeclareBoolOption{tables}
-\DeclareBoolOption{listings}
-\DeclareBoolOption{abbreviations}
+\DeclareStringOption[false]{iwona}[false]
+\DeclareStringOption[false]{final}[false]
+\DeclareStringOption[false]{blacklogo}[false]
+\DeclareStringOption[false]{joinlists}[false]
+\DeclareStringOption[true]{figures}[true]
+\DeclareStringOption[true]{tables}[true]
+\DeclareStringOption[true]{sourcecodes}[true]
+\DeclareStringOption[true]{abbreviations}[true]
 \DeclareStringOption[czech]{language}[czech]
-\DeclareStringOption[bibliography.bib]{bibfile}[bibliography.bib]
+\DeclareStringOption[]{bibfile}[]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
 \DeclareStringOption[numeric]{bibstyle}[numeric]
+\DeclareStringOption[utf8]{encoding}[utf8]
 \DeclareStringOption[Seznam zdrojov\'ych k\'od\r{u}]{titlelistings}[Seznam zdrojových k\'od\r{u}]
 \DeclareStringOption[Zdrojov\'y k\'od]{namelistings}[Zdrojov\'y k\'od]
 \DeclareStringOption[Seznam zkratek]{titleabbrev}[Seznam zkratek]
-\DeclareStringOption[utf8]{encoding}[utf8]
 \DeclareStringOption[Seznam teor\'em\r{u}]{titletheorems}[Seznam teor\'em\r{u}]
+
+%% Warn user about unknown parameters.
+\DeclareDefaultOption{\PackageWarningNoLine{upbase}{[upbase] Option '\CurrentOption' was not recognized}}
 
 \ProcessKeyvalOptions*
 
-\usepackage[\up@encoding]{inputenc}
-\usepackage[czech,english,\up@language]{babel}
-\usepackage[autostyle=try]{csquotes}
-\usepackage[savemem]{listings}
-\usepackage[
+\RequirePackage[\up@encoding]{inputenc}
+\RequirePackage[czech,english,\up@language]{babel}
+\RequirePackage[autostyle=try]{csquotes}
+\RequirePackage[savemem]{listings}
+\RequirePackage[
 	natbib,
-	%language=\up@language,
-	backend=bibtex,					% biber
+	backend=bibtex,
 	babel=other,
-	sortlocale=cs_CZ,
 	bibencoding=\up@bibencoding,
-	style=\up@bibstyle]{biblatex}	% iso-numeric, iso-authoryear
+	style=\up@bibstyle]{biblatex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% iwona fonts package
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\boolean{up@iwona}} {
-\usepackage{iwona}
+\ifthenelse{\equal{\up@iwona}{true}} {
+\RequirePackage{iwona}
 } {
 \relax
 }
@@ -76,17 +76,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifthenelse{\boolean{pdf}} {
-\usepackage[pdftex]{graphicx}
+\RequirePackage[pdftex]{graphicx}
 } {
-\usepackage{graphicx}
+\RequirePackage{graphicx}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% abbreviations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\boolean{up@abbreviations}} {
-\usepackage[style=super,acronym,nonumberlist,sanitize=none]{glossaries}
+\ifthenelse{\equal{\up@abbreviations}{true}} {
+\RequirePackage[style=super,acronym,nonumberlist,sanitize=none]{glossaries}
 \makeglossaries
 
 \renewcommand{\glsnamefont}[1]{\textbf{#1}}
@@ -115,26 +115,6 @@
   {\textquotedblleft}
   {\textquoteleft}
   {\textquoteright}
-%\setquotestyle{czech}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% appendix
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\def\upappendix{
-\clearpage
-\appendix
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% section-aware counters
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\def\upbeginb{
-\counterwithin{lstlisting}{section}
-\counterwithin{table}{section}
-\counterwithin{figure}{section}
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% index
@@ -186,11 +166,14 @@
 %% settings
 \renewcommand\labelitemi{\color{halfgray}$\bullet$}
 
+\newcommand{\upendofmainmatter}{
+\bookmarksetup{startatroot}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\nocite{*}
 \bibliography{\up@bibfile}
 
 \def\upprintbibliography{
@@ -203,6 +186,27 @@
 \setcounter{biburlnumpenalty}{9000}
 \setcounter{biburlucpenalty}{9000}
 \setcounter{biburllcpenalty}{9000}
+
+\renewenvironment{thebibliography}[1]
+{\section*{\refname
+    \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}%
+  \addcontentsline{toc}{section}{\refname}
+  \list{\@biblabel{\@arabic\c@enumiv}}%
+  {\settowidth\labelwidth{\@biblabel{#1}}%
+    \leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \@openbib@code
+    \usecounter{enumiv}%
+    \let\p@enumiv\@empty
+    \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+  \sloppy
+  \clubpenalty4000
+  \@clubpenalty \clubpenalty
+  \widowpenalty4000%
+  \sfcode`\.\@m}
+{\def\@noitemerr
+  {\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \paragraph macro fixes
@@ -296,7 +300,7 @@
 %% logos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\boolean{up@blacklogo}} {
+\ifthenelse{\equal{\up@blacklogo}{true}} {
 \def\uplogoname{graphics/uplogo-black}
 } {
 \def\uplogoname{graphics/uplogo-white}
@@ -306,7 +310,7 @@
 %% theorems
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{thmtools}
+\RequirePackage{thmtools}
 
 \declaretheoremstyle[
 	spaceabove=18pt,
@@ -342,7 +346,7 @@
 %% hyperref
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\boolean{up@final}} {
+\ifthenelse{\equal{\up@final}{true}} {
 \hypersetup {
 colorlinks=false
 }
@@ -388,9 +392,9 @@ colorlinks=true
 
 \def\upprintlists{
 \clearpage
-\ifthenelse{\boolean{up@figures}} {
+\ifthenelse{\equal{\up@figures}{true}} {
 \listoffigures
-\ifthenelse{\boolean{up@joinlists}} {
+\ifthenelse{\equal{\up@joinlists}{true}} {
 \relax
 } {
 \clearpage
@@ -398,9 +402,9 @@ colorlinks=true
 } {
 \relax
 }
-\ifthenelse{\boolean{up@tables}} {
+\ifthenelse{\equal{\up@tables}{true}} {
 \listoftables
-\ifthenelse{\boolean{up@joinlists}} {
+\ifthenelse{\equal{\up@joinlists}{true}} {
 \relax
 } {
 \clearpage
@@ -408,9 +412,9 @@ colorlinks=true
 } {
 \relax
 }
-\ifthenelse{\boolean{up@listings}} {
+\ifthenelse{\equal{\up@sourcecodes}{true}} {
 \lstlistoflistings
-\ifthenelse{\boolean{up@joinlists}} {
+\ifthenelse{\equal{\up@joinlists}{true}} {
 \relax
 } {
 \clearpage
@@ -427,7 +431,7 @@ colorlinks=true
 
 \def\uptocandlists{
 \uptableofcontents
-\ifthenelse{\boolean{up@joinlists}} {
+\ifthenelse{\equal{\up@joinlists}{true}} {
 \relax
 } {
 \clearpage

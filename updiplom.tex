@@ -1,24 +1,22 @@
 \documentclass[a4paper,12pt]{article}
 
+
 \usepackage[
-	%iwona,									% použije se font Iwona jako hlavní font (okrasné)
-	%final,									% pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba
-	blacklogo,								% černé UPOL logo místo bílého
-	%joinlists,								% zobrazí seznamy (zkratek, obrázků...) pod sebou
-	abbreviations,							% povolí podporu zkratek (seznam zkratek, deklarace zkratek)
-	figures,								% povolí seznam obrázků
-	tables,									% povolí seznam tabulek
-	listings,								% povolí seznam zdr. kódů
+	%iwona=false,							% použije se font Iwona jako hlavní font (okrasné)
+	%final=true,								% pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba
+	%blacklogo=false,						% černé UPOL logo místo bílého
+	joinlists=true,							% zobrazí seznamy (zkratek, obrázků...) pod sebou
+	%abbreviations=false,						% povolí podporu zkratek (seznam zkratek, deklarace zkratek)
+	%figures=true,							% povolí seznam obrázků
+	%tables=true,							% povolí seznam tabulek
+	%sourcecodes=false,						% povolí seznam zdr. kódů
 	language=czech,							% jazyk práce
 	bibfile=bibliography.bib,				% soubor s citacemi (BibLaTeX)
 	bibencoding=utf8,						% kódování souboru s citacemi
-	bibstyle=numeric,						% styl citování (dále například authoryear nebo philosophy-modern)
+	%bibstyle=numeric,						% styl citování (dále například authoryear nebo philosophy-modern)
 	encoding=utf8,							% kódování tohoto a vložených souborů
-	]{upbase}
-
-\usepackage[
 	master									% píšeme magisterskou (diplomovou) práci
-	]{updiplom}
+]{updiplom}
 
 \uptitle{Dokonalá práce}						% název práce
 \upsubtitle{Opravdu dokonalá}				% podtitulek práce - použijte \upsubtitle{\null} pokud nemáte v práci podnadpisek
@@ -31,11 +29,12 @@
 
 \usepackage{multirow}
 \usepackage{ltxdockit}
+\usepackage{lipsum}
 
 \begin{document}
 
 % tiskne titulní stranu
-\upmaketitle
+\maketitle
 
 % tiskne dvě strany s anotací a poděkováním
 \upthanksanot
@@ -43,9 +42,11 @@
 % tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
 \uptocandlists
 
+\part{Uvodni cast}
 \section{Úvod}
-Tohle je úvod.
+\lipsum{5-8}
 
+\part{Dalsi cast}
 \section{Další sekce}
 Tohle je další sekce
 
@@ -53,17 +54,26 @@ Tohle je další sekce
 Naše nové lemma.
 \end{uplemma}
 
+\upabbrevdeclare{UPOL}{UPOL}{Univerita Palackého}
+
 \begin{uptheorem}[Název definice]
-Naše nová definice.
+Naše nová \upabbrevref{UPOL} definice.
 \end{uptheorem}
 
 \begin{upproof}[Název důkazu]
 Náš nový důkaz.
 \end{upproof}
 
+\begin{upcode}{Můj code}{}{SQL}
+SELECT * FROM;
+\end{upcode}
+
+
 \begin{upquote}[Pumpovací věta]
-Náš nový důkaz.
+Náš nový důkaz. \index{důkaz}
 \end{upquote}
+
+\upendofmainmatter
 
 % tiskne český závěr práce
 \begin{upconclusions}[czech]
@@ -84,10 +94,22 @@ Thesis conclusions written in \enquote{english}.
 
 % tiskne bibliografii
 % bibliografie používá BibLaTeX
+\nocite{*}							% klidne zakomentujte
 \upprintbibliography
 
+%\begin{thebibliography}{9}
+%
+%\bibitem{lamport94}
+%   Leslie Lamport,
+%   \emph{\LaTeX: A Document Preparation System}.
+%   Addison Wesley, Massachusetts,
+%   2nd Edition,
+%   1994.
+%\end{thebibliography}
+
 % tiskne přílohy
-\upappendix
+\clearpage
+\appendix
 \section{První příloha}
 Text první přílohy
 
