@@ -10,11 +10,6 @@
 }
 
 \DeclareBoolOption{master}
-\DeclareStringOption[Anotace]{titleanot}[Anotace]
-\DeclareStringOption[Pod\v ekov\'an\'i]{titlethx}[Pod\v ekov\'an\'i]
-\DeclareStringOption[Z\'av\v er]{titleconclusioncz}[Z\'av\v er]
-\DeclareStringOption[Conclusions]{titleconclusionen}[Conclusions]
-\DeclareStringOption[Tituln\'i strana]{titlebookmarktitlepage}[Tituln\'i strana]
 
 %% All unrecognized options are pased to fdocbase package.
 \DeclareDefaultOption{\PassOptionsToPackage{\CurrentOption}{upbase}}
@@ -41,14 +36,14 @@
 \bgroup
 \ifthenelse{\equal{#1}{czech}} {
 \phantomsection
-\addcontentsline{toc}{section}{\up@titleconclusioncz}
-\section*{\up@titleconclusioncz}
+\addcontentsline{toc}{section}{Z\'av\v er}
+\section*{Z\'av\v er}
 }
 %% else branch stands for english conclusions
 {
 \phantomsection
-\addcontentsline{toc}{section}{\up@titleconclusionen}
-\section*{\up@titleconclusionen}
+\addcontentsline{toc}{section}{Conclusions}
+\section*{Conclusions}
 }
 \begin{otherlanguage}{#1}
 } {
@@ -95,7 +90,7 @@
  rellevel=1,
  keeplevel,
  dest=up:title
-]{\up@titlebookmarktitlepage}
+]{Tituln\'i strana}
 \begin{center}
 {\large P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO \par
         KATEDRA INFORMATIKY \par}
@@ -140,9 +135,9 @@ Diplomant: \\
  rellevel=1,
  keeplevel,
  dest=up:anotation
-]{\up@titleanot}
+]{Anotace}
 \begin{center}
-\textbf{\up@titleanot}
+\textbf{Anotace}
 \end{center}
 \emph{\@upanot}
 \vfill\null
@@ -154,7 +149,7 @@ Diplomant: \\
  rellevel=1,
  keeplevel,
  dest=up:thx
-]{\up@titlethx}
+]{Pod\v ekov\'an\'i}
 \noindent\@upthanks
 \clearpage
 }

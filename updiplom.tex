@@ -42,13 +42,11 @@
 % tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
 \uptocandlists
 
-\part{Uvodni cast}
 \section{Úvod}
 \lipsum{5-8}
 
-\part{Dalsi cast}
 \section{Další sekce}
-Tohle je další sekce
+\lipsum{5-8}
 
 \begin{uplemma}[Démonické lemma]
 Naše nové lemma.
@@ -68,7 +66,6 @@ Náš nový důkaz.
 SELECT * FROM;
 \end{upcode}
 
-
 \begin{upquote}[Pumpovací věta]
 Náš nový důkaz. \index{důkaz}
 \end{upquote}
@@ -85,18 +82,12 @@ Závěr práce v \enquote{českém} jazyce.
 Thesis conclusions written in \enquote{english}.
 \end{upconclusions}
 
-% tiskne seznam zkratek
-% seznam zkratek se netiskne před práci ale až nakonec
-\upprintabbrevlist
-
-% tiskne seznam teorémů
-\upprinttheoremlist
-
 % tiskne bibliografii
 % bibliografie používá BibLaTeX
-\nocite{*}							% klidne zakomentujte
+\nocite{*}							% Vytiskne i necitované zdroje.
 \upprintbibliography
 
+% Použijte direktní bibliografii, pokud chcete.
 %\begin{thebibliography}{9}
 %
 %\bibitem{lamport94}
@@ -107,9 +98,15 @@ Thesis conclusions written in \enquote{english}.
 %   1994.
 %\end{thebibliography}
 
+% tiskne seznam zkratek
+% seznam zkratek se netiskne před práci ale až nakonec
+\upprintabbrevlist
+
+% tiskne seznam teorémů
+\upprinttheoremlist
+
 % tiskne přílohy
-\clearpage
-\appendix
+\upappendix
 \section{První příloha}
 Text první přílohy
 

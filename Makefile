@@ -6,7 +6,7 @@ start:
 guide:	updiplom.tex
 	pdflatex updiplom
 	pdflatex updiplom
-	makeindex updiplom.idx -s index.ist
+	makeindex updiplom.idx
 	makeglossaries updiplom
 	bibtex updiplom
 	pdflatex updiplom
