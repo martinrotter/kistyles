@@ -1,22 +1,45 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{updiplom}[2012/09/09 UP Diploma Style]
-\PackageWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.6}
+\PackageWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.7}
 
 \RequirePackage{kvoptions}
 
 \SetupKeyvalOptions {
-	family=up,
-	prefix=up@
+	family=upd,
+	prefix=upd@
 }
 
+% TODO: Nahazet sem parametry a poctivě dělit.
 \DeclareBoolOption{master}
+\DeclareStringOption[utf8]{encoding}[utf8]
+\DeclareStringOption[]{bibfile}[]
+\DeclareStringOption[utf8]{bibencoding}[utf8]
+\DeclareStringOption[czech]{language}[czech]
+\DeclareStringOption[false]{printversion}[false]
+\DeclareStringOption[false]{joinlists}[false]
+\DeclareStringOption[true]{figures}[true]
+\DeclareStringOption[true]{tables}[true]
+\DeclareStringOption[true]{sourcecodes}[true]
+\DeclareStringOption[true]{glossaries}[true]
 
-%% All unrecognized options are pased to fdocbase package.
-\DeclareDefaultOption{\PassOptionsToPackage{\CurrentOption}{upbase}}
+%% Nerozpoznaný parametr hodí chybu.
+\DeclareDefaultOption{\PackageWarningNoLine{upbase}{[updiplom] Option '\CurrentOption' was not recognized}}
 
 \ProcessKeyvalOptions*
 
-\RequirePackage{upbase}
+\RequirePackage[
+	joinlists=\upd@joinlists,
+	encoding=\upd@encoding,
+	bibencoding=\upd@bibencoding,
+	bibfile=\upd@bibfile,
+	language=\upd@language,
+	printversion=\upd@printversion,
+	joinlists=\upd@joinlists,
+	figures=\upd@figures,
+	tables=\upd@tables,
+	glossaries=\upd@glossaries,
+	sourcecodes=\upd@sourcecodes
+]{upbase}
 
 \RequirePackage[
 	paper=a4paper,
@@ -49,14 +72,13 @@
 } {
 \end{otherlanguage}
 \egroup
-\clearpage
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% titlepage heading
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\boolean{up@master}} {
+\ifthenelse{\boolean{upd@master}} {
 \def\@upthesis{DIPLOMOV\'A PR\'ACE}
 } {
 \def\@upthesis{BAKAL\'A\v RSK\'A PR\'ACE}

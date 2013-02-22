@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{upbase}[2012/09/09 UP Base Style]
-\PackageWarningNoLine{upbase}{[upbase] You are using upbase style 0.6}
+\PackageWarningNoLine{upbase}{[upbase] You are using upbase style 0.7}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% packages and arguments
@@ -23,49 +23,44 @@
 \RequirePackage{appendix}
 
 \SetupKeyvalOptions {
-	family=up,
-	prefix=up@
+	family=upb,
+	prefix=upb@
 }
 
 \DeclareStringOption[false]{iwona}[false]
-\DeclareStringOption[false]{final}[false]
+\DeclareStringOption[false]{printversion}[false]
 \DeclareStringOption[false]{blacklogo}[false]
 \DeclareStringOption[false]{joinlists}[false]
 \DeclareStringOption[true]{figures}[true]
 \DeclareStringOption[true]{tables}[true]
 \DeclareStringOption[true]{sourcecodes}[true]
-\DeclareStringOption[true]{abbreviations}[true]
+\DeclareStringOption[true]{glossaries}[true]
 \DeclareStringOption[czech]{language}[czech]
-\DeclareStringOption[]{bibfile}[]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
 \DeclareStringOption[numeric]{bibstyle}[numeric]
 \DeclareStringOption[utf8]{encoding}[utf8]
-\DeclareStringOption[Seznam zdrojov\'ych k\'od\r{u}]{titlelistings}[Seznam zdrojových k\'od\r{u}]
-\DeclareStringOption[Zdrojov\'y k\'od]{namelistings}[Zdrojov\'y k\'od]
-\DeclareStringOption[Seznam zkratek]{titleabbrev}[Seznam zkratek]
-\DeclareStringOption[Seznam teor\'em\r{u}]{titletheorems}[Seznam teor\'em\r{u}]
 
 %% Warn user about unknown parameters.
 \DeclareDefaultOption{\PackageWarningNoLine{upbase}{[upbase] Option '\CurrentOption' was not recognized}}
 
 \ProcessKeyvalOptions*
 
-\RequirePackage[\up@encoding]{inputenc}
-\RequirePackage[czech,english,\up@language]{babel}
+\RequirePackage[\upb@encoding]{inputenc}
+\RequirePackage[czech,english,\upb@language]{babel}
 \RequirePackage[autostyle=try]{csquotes}
 \RequirePackage[savemem]{listings}
 \RequirePackage[
 	natbib,
 	backend=bibtex,
 	babel=other,
-	bibencoding=\up@bibencoding,
-	style=\up@bibstyle]{biblatex}
+	bibencoding=\upb@bibencoding,
+	style=\upb@bibstyle]{biblatex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% iwona fonts package
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\up@iwona}{true}} {
+\ifthenelse{\equal{\upb@iwona}{true}} {
 \RequirePackage{iwona}
 } {
 \relax
@@ -85,29 +80,34 @@
 %% abbreviations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\up@abbreviations}{true}} {
+\ifthenelse{\equal{\upb@glossaries}{true}} {
 \RequirePackage[style=super,acronym,nonumberlist,sanitize=none]{glossaries}
 \makeglossaries
 
 \renewcommand{\glsnamefont}[1]{\textbf{#1}}
 \renewcommand{\glspostdescription}{}
-\renewcommand{\acronymname}{\up@titleabbrev}
 
-\newcommand{\upabbrevdeclare}[3]{\newacronym{#1}{#2}{#3}}
-\newcommand{\upabbrevref}[1]{\gls{#1}}
+\let\orgprintglossary=\printglossary
 
-\def\upprintabbrevlist{
+\renewcommand{\printglossary}{
 \clearpage
 \phantomsection
-\addcontentsline{toc}{section}{\up@titleabbrev}
-\printglossary[type=\acronymtype]
+%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
+\ifthenelse{\equal{\upb@language}{czech}} {
+\renewcommand{\acronymname}{Seznam zkratek}
+\addcontentsline{toc}{section}{\acronymname}
+} {
+\relax
+}
+\orgprintglossary[type=\acronymtype]
 }
 } {
 \relax
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% czech quotes for csquotes
+%% české závorky pro balík csquotes
+%% použití: \enquote{citoslovce}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \DeclareQuoteStyle{czech}
@@ -120,8 +120,12 @@
 %% index
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\let\orgtheindex\theindex
-\let\orgendtheindex\endtheindex
+\makeindex
+
+\let\orgtheindex=\theindex
+\let\orgendtheindex=\endtheindex
+\let\orgprintindex=\printindex
+
 \def\theindex{
 \def\twocolumn{\begin{multicols}{2}}
 \def\onecolumn{}
@@ -133,12 +137,16 @@
 \orgendtheindex
 }
 
-\makeindex
-\def\upprintindex{
+\renewcommand{\printindex}{
 \clearpage
 \phantomsection
+%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
+\ifthenelse{\equal{\upb@language}{czech}} {
 \addcontentsline{toc}{section}{Rejstřík}
-\printindex
+} {
+\relax
+}
+\orgprintindex
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -163,9 +171,14 @@
 \newcommand{\buno}{bez \'ujmy na obecnosti}
 \newcommand{\Buno}{Bez \'ujmy na obecnosti}
 
-%% settings
-\renewcommand\labelitemi{\color{halfgray}$\bullet$}
+%% appendix
+\let\orgappendix=\appendix
+\renewcommand{\appendix}{
+\clearpage
+\orgappendix
+}
 
+%% používá se pro obnovení PDF záložek na kořen
 \newcommand{\upendofmainmatter}{
 \bookmarksetup{startatroot}
 }
@@ -174,13 +187,13 @@
 %% bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\bibliography{\up@bibfile}
+\let\orgprintbibliography=\printbibliography
 
-\def\upprintbibliography{
+\renewcommand{\printbibliography}{
 \clearpage
 \phantomsection
 \addcontentsline{toc}{section}{\bibname}
-\printbibliography
+\orgprintbibliography
 }
 
 \setcounter{biburlnumpenalty}{9000}
@@ -223,8 +236,13 @@
 %% listings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\renewcommand{\lstlistlistingname}{\up@titlelistings}
-\renewcommand{\lstlistingname}{\up@namelistings}
+%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
+\ifthenelse{\equal{\upb@language}{czech}} {
+\renewcommand{\lstlistlistingname}{Seznam zdrojových k\'od\r{u}}
+\renewcommand{\lstlistingname}{Zdrojov\'y k\'od}
+} {
+\relax
+}
 
 \lstset{
 	breaklines=true,
@@ -286,21 +304,43 @@
 	morestring=[b]",
 }
 
-\lstloadlanguages{[GNU]C++,[ANSI]C,Lisp,SQL,TeX,Python,Java,TutorialD}
+\lstdefinelanguage{text}{
+	morekeywords={},
+	sensitive=false,
+}
+
+\lstdefinelanguage{csharp}{
+morekeywords={int,ref,static,fixed,unsafe,return,for,if,void},
+	sensitive=false,
+	morecomment=[s]{/*}{*/},
+	morecomment=[l]{//},
+	morestring=[b]",
+}
+
+\lstdefinelanguage{cpp}{
+morekeywords={int,static,bool,return,for,if,void,ifndef,define,endif,class,constexpr,new,const,auto,double,public,private,protected,signals,slots},
+	sensitive=false,
+	morecomment=[s]{/*}{*/},
+	morecomment=[l]{//},
+	morecomment=[l][\color{red}]{\#},
+	morestring=[b][\color{red}]{"},
+}
+
+\lstloadlanguages{Lisp,SQL,TeX,Python,Java,TutorialD,text,csharp,cpp}
 
 \newcommand{\upinlinecode}[3] {
 \noindent\ignorespaces\lstinline[language=#1]#2#3#2\ignorespacesafterend
 }
 
-\lstnewenvironment{upcode}[3]
-{\lstset{language=#3,firstnumber=1,caption={#1},label={#2},aboveskip=10px,belowskip=15px}}
-{}
+\lstnewenvironment{upcode}[3]{
+\lstset{breakautoindent,language=#3,firstnumber=1,caption={#1},label={#2},aboveskip=10px,belowskip=15px}
+}{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% logos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\up@blacklogo}{true}} {
+\ifthenelse{\equal{\upb@blacklogo}{true}} {
 \def\uplogoname{graphics/uplogo-black}
 } {
 \def\uplogoname{graphics/uplogo-white}
@@ -325,20 +365,31 @@
 	headpunct=:
 ]{upbasestyle}
 
+%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
+\ifthenelse{\equal{\upb@language}{czech}} {
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Definice]{uptheorem}
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Lemma]{uplemma}
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Poznámka]{upnote}
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Věta]{upquote}
 \declaretheorem[within=section,style=upproofstyle,numbered=yes,name=Důkaz]{upproof}
 \declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Příklad]{upexample}
+} {
+\relax
+}
 
-\renewcommand\listtheoremname{\up@titletheorems}
+\let\orglistoftheorems=\listoftheorems
 
-\def\upprinttheoremlist{
+\renewcommand{\listoftheorems}{
 \clearpage
 \phantomsection
-\addcontentsline{toc}{section}{Seznam teorémů}
-\listoftheorems[ignoreall,show={uptheorem,uplemma,upnote,upquote,upproof,upexample}]
+%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
+\ifthenelse{\equal{\upb@language}{czech}} {
+\renewcommand{\listtheoremname}{Seznam teor\'em\r{u}}
+\addcontentsline{toc}{section}{\listtheoremname}
+} {
+\relax
+}
+\orglistoftheorems[ignoreall,show={uptheorem,uplemma,upnote,upquote,upproof,upexample}]
 \clearpage
 }
 
@@ -346,7 +397,7 @@
 %% hyperref
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\up@final}{true}} {
+\ifthenelse{\equal{\upb@printversion}{true}} {
 \hypersetup {
 colorlinks=false
 }
@@ -376,14 +427,17 @@ colorlinks=true
 \addtocontents{toc}{\protect\vspace{10pt}}
 }
 
-\def\uptableofcontents{
+\let\orgtableofcontents=\tableofcontents
+
+%% nové makro, protože je kolize s balíkem listings
+\newcommand{\uptableofcontents}{
 \hypertarget{up:toc}{}
 \bookmark[
  rellevel=1,
  keeplevel,
  dest=up:toc
 ]{\contentsname}
-\tableofcontents
+\orgtableofcontents
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -392,9 +446,9 @@ colorlinks=true
 
 \def\upprintlists{
 \clearpage
-\ifthenelse{\equal{\up@figures}{true}} {
+\ifthenelse{\equal{\upb@figures}{true}} {
 \listoffigures
-\ifthenelse{\equal{\up@joinlists}{true}} {
+\ifthenelse{\equal{\upb@joinlists}{true}} {
 \relax
 } {
 \clearpage
@@ -402,9 +456,9 @@ colorlinks=true
 } {
 \relax
 }
-\ifthenelse{\equal{\up@tables}{true}} {
+\ifthenelse{\equal{\upb@tables}{true}} {
 \listoftables
-\ifthenelse{\equal{\up@joinlists}{true}} {
+\ifthenelse{\equal{\upb@joinlists}{true}} {
 \relax
 } {
 \clearpage
@@ -412,9 +466,9 @@ colorlinks=true
 } {
 \relax
 }
-\ifthenelse{\equal{\up@sourcecodes}{true}} {
+\ifthenelse{\equal{\upb@sourcecodes}{true}} {
 \lstlistoflistings
-\ifthenelse{\equal{\up@joinlists}{true}} {
+\ifthenelse{\equal{\upb@joinlists}{true}} {
 \relax
 } {
 \clearpage
@@ -431,7 +485,7 @@ colorlinks=true
 
 \def\uptocandlists{
 \uptableofcontents
-\ifthenelse{\equal{\up@joinlists}{true}} {
+\ifthenelse{\equal{\upb@joinlists}{true}} {
 \relax
 } {
 \clearpage
