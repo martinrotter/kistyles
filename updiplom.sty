@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{updiplom}[2012/09/09 UP Diploma Style]
-\PackageWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.7}
+\PackageWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.72}
 
 \RequirePackage{kvoptions}
 
@@ -23,7 +23,7 @@
 \DeclareStringOption[true]{glossaries}[true]
 
 %% Nerozpoznaný parametr hodí chybu.
-\DeclareDefaultOption{\PackageWarningNoLine{upbase}{[updiplom] Option '\CurrentOption' was not recognized}}
+\DeclareDefaultOption{\PackageWarningNoLine{updiplom}{[updiplom] Option '\CurrentOption' was not recognized}}
 
 \ProcessKeyvalOptions*
 
@@ -31,7 +31,6 @@
 	joinlists=\upd@joinlists,
 	encoding=\upd@encoding,
 	bibencoding=\upd@bibencoding,
-	bibfile=\upd@bibfile,
 	language=\upd@language,
 	printversion=\upd@printversion,
 	joinlists=\upd@joinlists,
@@ -44,18 +43,44 @@
 \RequirePackage[
 	paper=a4paper,
 	driver=pdftex,
-	top=3.0cm,
-	left=4.0cm,
-	bottom=2.5cm,
-	width=1.05\textwidth
+	top=2.5cm,
+	left=3.5cm,
+	bottom=2.0cm,
+	width=1.15\textwidth
 ]{geometry}
+
+\ifthenelse{\boolean{@twoside}}{
+  \PackageError{updiplom}{Two-sided document mode is not allowed for updiplom}
+}{}
+
+%% nastavení textů
+%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
+\ifthenelse{\equal{\upb@language}{czech}} {
+\newcommand{\uptexttitle}{Tituln\'i strana}
+\newcommand{\uptexttitletop}{P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO}
+\newcommand{\uptextdept}{KATEDRA INFORMATIKY}
+\newcommand{\uptextleader}{Vedoucí práce: }
+\newcommand{\uptextdipl}{Diplomant: }
+\newcommand{\uptextfinish}{Rok odevzdání: }
+\newcommand{\uptextanot}{Anotace}
+\newcommand{\uptextthx}{Pod\v ekov\'an\'i}
+
+\ifthenelse{\boolean{upd@master}} {
+\def\@upthesis{DIPLOMOV\'A PR\'ACE}
+} {
+\def\@upthesis{BAKAL\'A\v RSK\'A PR\'ACE}
+}
+} {
+\relax
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% conclusions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newenvironment{upconclusions}[1][czech]{
-\clearpage
+\cleardoublepage
 \bgroup
 \ifthenelse{\equal{#1}{czech}} {
 \phantomsection
@@ -75,18 +100,11 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% titlepage heading
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\ifthenelse{\boolean{upd@master}} {
-\def\@upthesis{DIPLOMOV\'A PR\'ACE}
-} {
-\def\@upthesis{BAKAL\'A\v RSK\'A PR\'ACE}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% titlepage implementation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\upthanks#1{\gdef\@upthanks{#1}}
+\def\annotation#1{\gdef\@annotation{#1}}
 
 %% hacking wrong page numbering
 \let\oldsetcounter=\setcounter
@@ -102,6 +120,9 @@
 \def\upleader#1{\gdef\@upleader{#1}}
 \def\upclass#1{\gdef\@upclass{#1}}
 
+% podnadpis
+\upsubtitle{\null}
+
 \def\maketitle{
 \hypertarget{up:thesis}{}
 \bookmark[dest=up:thesis]{\@uptitle}
@@ -112,44 +133,36 @@
  rellevel=1,
  keeplevel,
  dest=up:title
-]{Tituln\'i strana}
+]{\uptexttitle}
 \begin{center}
-{\large P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO \par
-        KATEDRA INFORMATIKY \par}
+{\large \uptexttitletop \par
+        \uptextdept \par}
 \vfill
 {\LARGE\bfseries{\@upthesis} \\}
 \vfill
 {\Large \@uptitle \\[1em]\@upsubtitle}
 
-\vspace{3em}
+\vfill
 \centering
-\includegraphics[width=2.5cm]{\uplogoname}
+\includegraphics[width=2.5cm]{\uplogofile}
 \vfill
 {\noindent
 \begin{tabular}{ll}
-Vedoucí práce: \\
+\uptextleader\\
 {\bfseries\@upleader} \\
-Rok odevzdání: \@upyear
+\uptextfinish\@upyear
 \end{tabular}
 \hfill
 \begin{tabular}{ll}
-Diplomant: \\
+\uptextdipl\\
 {\bfseries\@upauthor} \\
 \@upclass
 \end{tabular}}
 \end{center}
-\clearpage
 \end{titlepage}
-}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% anot+thanks implementation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\def\upthanks#1{\gdef\@upthanks{#1}}
-\def\upanot#1{\gdef\@upanot{#1}}
-
-\def\upthanksanot{
+% tiskne dvě strany s anotací a poděkováním
+\cleardoublepage
 \thispagestyle{empty}
 \null\vfill
 \hypertarget{up:anotation}{}
@@ -157,13 +170,14 @@ Diplomant: \\
  rellevel=1,
  keeplevel,
  dest=up:anotation
-]{Anotace}
+]{\uptextanot}
 \begin{center}
-\textbf{Anotace}
+\textbf{\uptextanot}
 \end{center}
-\emph{\@upanot}
+\bigskip
+\emph{\@annotation}
 \vfill\null
-\clearpage
+\cleardoublepage
 \thispagestyle{empty}
 \vspace*{\fill}
 \hypertarget{up:thx}{}
@@ -171,7 +185,23 @@ Diplomant: \\
  rellevel=1,
  keeplevel,
  dest=up:thx
-]{Pod\v ekov\'an\'i}
+]{\uptextthx}
 \noindent\@upthanks
-\clearpage
+
+% tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
+\uptableofcontents
+\ifthenelse{\equal{\upb@joinlists}{true}} {
+\relax
+} {
+\cleardoublepage
+}
+\upprintlists
+}
+
+\newcommand{\upmakeendlists}{
+% tiskne seznam zkratek
+\printglossary
+
+% tiskne seznam teorémů
+\listoftheorems
 }

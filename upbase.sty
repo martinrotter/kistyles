@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{upbase}[2012/09/09 UP Base Style]
-\PackageWarningNoLine{upbase}{[upbase] You are using upbase style 0.7}
+\PackageWarningNoLine{upbase}{[upbase] You are using upbase style 0.72}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% packages and arguments
@@ -126,16 +126,6 @@
 \let\orgendtheindex=\endtheindex
 \let\orgprintindex=\printindex
 
-\def\theindex{
-\def\twocolumn{\begin{multicols}{2}}
-\def\onecolumn{}
-\clearpage
-\orgtheindex
-}
-\def\endtheindex{
-\end{multicols}
-\orgendtheindex
-}
 
 \renewcommand{\printindex}{
 \clearpage
@@ -341,9 +331,9 @@ morekeywords={int,static,bool,return,for,if,void,ifndef,define,endif,class,const
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifthenelse{\equal{\upb@blacklogo}{true}} {
-\def\uplogoname{graphics/uplogo-black}
+\def\uplogofile{graphics/uplogo-black}
 } {
-\def\uplogoname{graphics/uplogo-white}
+\def\uplogofile{graphics/uplogo-white}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -431,6 +421,7 @@ colorlinks=true
 
 %% nové makro, protože je kolize s balíkem listings
 \newcommand{\uptableofcontents}{
+\cleardoublepage
 \hypertarget{up:toc}{}
 \bookmark[
  rellevel=1,
@@ -477,20 +468,6 @@ colorlinks=true
 \relax
 }
 \clearpage
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% toc+lists implementation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\def\uptocandlists{
-\uptableofcontents
-\ifthenelse{\equal{\upb@joinlists}{true}} {
-\relax
-} {
-\clearpage
-}
-\upprintlists
 }
 
 \endinput

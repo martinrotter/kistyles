@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[12pt]{article}
 
 \usepackage[
 	%printversion=true,								% pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba
@@ -15,12 +15,13 @@
 ]{updiplom}
 
 \uptitle{Dokonalá práce}						% název práce
-\upsubtitle{Opravdu dokonalá}				% podtitulek práce - použijte \upsubtitle{\null} pokud nemáte v práci podnadpisek
+\upsubtitle{Opravdu dokonalá}
 \upyear{\the\year}
 \upauthor{Martin Rotter}
 \upclass{APLINF, III. ročník}
 \upleader{Mgr. Petr Velký}
-\upanot{Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn.
+
+\annotation{Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn.
 Tento dokument je fajn. Tento dokument je fajn.
  Tento dokument je fajn. Tento dokument je fajn.}			% anotace práce - obvykle jeden odstavec textu
 \upthanks{Děkuji všem. Hlavně sobě.}						% poděkování
@@ -37,12 +38,6 @@ Tento dokument je fajn. Tento dokument je fajn.
 
 % tiskne titulní stranu
 \maketitle
-
-% tiskne dvě strany s anotací a poděkováním
-\upthanksanot
-
-% tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
-\uptocandlists
 
 \section{Úvod}
 \lipsum{5-8}
@@ -86,6 +81,16 @@ Závěr práce v \enquote{českém} jazyce.
 Thesis conclusions written in \enquote{english}.
 \end{upconclusions}
 
+% tiskne přílohy
+\appendix
+\section{První příloha}
+Text první přílohy
+
+\section{Druhá příloha}
+Text druhé přílohy
+
+\upmakeendlists
+
 % tiskne bibliografii
 % bibliografie používá BibLaTeX
 \nocite{*}							% Vytiskne i necitované zdroje.
@@ -101,21 +106,6 @@ Thesis conclusions written in \enquote{english}.
 %   2nd Edition,
 %   1994.
 %\end{thebibliography}
-
-% tiskne seznam zkratek
-% seznam zkratek se netiskne před práci ale až nakonec
-\printglossary
-
-% tiskne seznam teorémů
-\listoftheorems
-
-% tiskne přílohy
-\appendix
-\section{První příloha}
-Text první přílohy
-
-\section{Druhá příloha}
-Text druhé přílohy
 
 % tiskne rejstřík
 \printindex
