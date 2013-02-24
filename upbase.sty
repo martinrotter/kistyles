@@ -9,7 +9,7 @@
 \RequirePackage{booktabs}
 \RequirePackage{makeidx}
 \RequirePackage{multicol}
-\RequirePackage[unicode]{hyperref}
+\RequirePackage[unicode,pdftex]{hyperref}
 \RequirePackage{ifpdf}
 \RequirePackage{ifthen}
 \RequirePackage{amsmath}
@@ -21,6 +21,7 @@
 \RequirePackage{inconsolata}
 \RequirePackage[usenames,dvipsnames,table]{xcolor}
 \RequirePackage{appendix}
+\RequirePackage{chngcntr}
 
 \SetupKeyvalOptions {
 	family=upb,
@@ -30,11 +31,11 @@
 \DeclareStringOption[false]{iwona}[false]
 \DeclareStringOption[false]{printversion}[false]
 \DeclareStringOption[false]{blacklogo}[false]
-\DeclareStringOption[false]{joinlists}[false]
-\DeclareStringOption[true]{figures}[true]
-\DeclareStringOption[true]{tables}[true]
-\DeclareStringOption[true]{sourcecodes}[true]
-\DeclareStringOption[true]{glossaries}[true]
+\DeclareStringOption[true]{joinlists}[true]
+\DeclareStringOption[false]{figures}[false]
+\DeclareStringOption[false]{tables}[false]
+\DeclareStringOption[false]{sourcecodes}[false]
+\DeclareStringOption[false]{glossaries}[false]
 \DeclareStringOption[czech]{language}[czech]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
 \DeclareStringOption[numeric]{bibstyle}[numeric]
@@ -55,6 +56,41 @@
 	babel=other,
 	bibencoding=\upb@bibencoding,
 	style=\upb@bibstyle]{biblatex}
+
+%% nastavení textů
+%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
+\ifthenelse{\equal{\upb@language}{czech}} {
+\newcommand{\uptexttitle}{Tituln\'i strana}
+\newcommand{\uptexttitletop}{P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO}
+\newcommand{\uptextdept}{KATEDRA INFORMATIKY}
+\newcommand{\uptextanot}{Anotace}
+\newcommand{\uptextthx}{Pod\v ekov\'an\'i}
+\newcommand{\uptextindex}{Rejstřík}
+\newcommand{\buno}{bez \'ujmy na obecnosti}
+\newcommand{\Buno}{Bez \'ujmy na obecnosti}
+\renewcommand{\lstlistlistingname}{Seznam zdrojových k\'od\r{u}}
+\renewcommand{\lstlistingname}{Zdrojov\'y k\'od}
+\newcommand{\listtheoremname}{Seznam teor\'em\r{u}}
+
+\newcommand{\uptextdefinition}{Definice}
+\newcommand{\uptextlemma}{Lemma}
+\newcommand{\uptextconsequence}{Důsledek}
+\newcommand{\uptextremark}{Poznámka}
+\newcommand{\uptexttheorem}{Věta}
+\newcommand{\uptextprooof}{Důkaz}
+\newcommand{\uptextexample}{Příklad}
+
+%% macros for glossaries
+\ifthenelse{\equal{\upb@glossaries}{true}} {
+\RequirePackage[style=super,acronym,nonumberlist,sanitize=none]{glossaries}
+\renewcommand{\acronymname}{Seznam zkratek}
+} {
+\relax
+}
+
+} {
+\relax
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% iwona fonts package
@@ -81,7 +117,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifthenelse{\equal{\upb@glossaries}{true}} {
-\RequirePackage[style=super,acronym,nonumberlist,sanitize=none]{glossaries}
 \makeglossaries
 
 \renewcommand{\glsnamefont}[1]{\textbf{#1}}
@@ -92,13 +127,7 @@
 \renewcommand{\printglossary}{
 \clearpage
 \phantomsection
-%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
-\ifthenelse{\equal{\upb@language}{czech}} {
-\renewcommand{\acronymname}{Seznam zkratek}
 \addcontentsline{toc}{section}{\acronymname}
-} {
-\relax
-}
 \orgprintglossary[type=\acronymtype]
 }
 } {
@@ -116,6 +145,11 @@
   {\textquoteleft}
   {\textquoteright}
 
+\renewcommand{\uv}[1]{
+\enquote{#1}
+}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% index
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,16 +160,29 @@
 \let\orgendtheindex=\endtheindex
 \let\orgprintindex=\printindex
 
+\def\indexcolumns{2}
+\def\indexemph#1{{\itshape #1}}
+\renewenvironment{theindex}{%
+  \newpage
+  \bgroup%
+  \section*{\uptextindex%
+    \@mkboth{\uptextindex}{\uptextindex}}%
+  \addcontentsline{toc}{section}{\uptextindex}%
+  \def\item{\par}%
+  \def\subitem{\par---\kern1ex}%
+  \def\subsubitem{\par---\kern1ex---\kern1ex}%
+  \def\indexspace{\smallskip}%
+  \setlength{\parindent}{-2em}%
+  \setlength{\leftskip}{2em}%
+  \begin{multicols*}{\indexcolumns}
+  }{%
+  \end{multicols*}
+  \egroup
+}
 
 \renewcommand{\printindex}{
 \clearpage
 \phantomsection
-%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
-\ifthenelse{\equal{\upb@language}{czech}} {
-\addcontentsline{toc}{section}{Rejstřík}
-} {
-\relax
-}
 \orgprintindex
 }
 
@@ -147,8 +194,8 @@
 \definecolor{webgreen}{rgb}{0,.5,0}
 \definecolor{webbrown}{rgb}{.6,0,0}
 \definecolor{lightergray}{gray}{0.99}
-\definecolor{ultragreen}{RGB}{40,180,10}
-\definecolor{darkgray}{RGB}{60,60,60}
+\definecolor{ultragreen}{rgb}{40,180,10}
+\definecolor{darkgray}{rgb}{60,60,60}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% fancy macros and misc opts
@@ -158,14 +205,19 @@
 \newcommand{\csharp}{C\kern-.03em\raise.38ex\hbox{\scriptsize{\#}}\ }
 \newcommand{\cpp}{C\kern-.11em\raise.38ex\hbox{\scriptsize{++}}\ }
 \newcommand{\keyword}[1]{{\ttfamily\color{darkgray}{#1}}}
-\newcommand{\buno}{bez \'ujmy na obecnosti}
-\newcommand{\Buno}{Bez \'ujmy na obecnosti}
 
 %% appendix
 \let\orgappendix=\appendix
 \renewcommand{\appendix}{
 \clearpage
+%\addtocontents{toc}{\protect\vspace{10pt}}
 \orgappendix
+}
+
+%% caption
+\let\orgcaption=\caption
+\renewcommand{\caption}[1]{
+{\centering\orgcaption{#1}}
 }
 
 %% používá se pro obnovení PDF záložek na kořen
@@ -182,7 +234,7 @@
 \renewcommand{\printbibliography}{
 \clearpage
 \phantomsection
-\addcontentsline{toc}{section}{\bibname}
+\addcontentsline{toc}{section}{\bibname}	% zřejmě netřeba překádat, babel se o vše postará
 \orgprintbibliography
 }
 
@@ -193,7 +245,7 @@
 \renewenvironment{thebibliography}[1]
 {\section*{\refname
     \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}%
-  \addcontentsline{toc}{section}{\refname}
+  \addcontentsline{toc}{section}{\refname}	% zřejmě netřeba překádat, babel se o vše postará
   \list{\@biblabel{\@arabic\c@enumiv}}%
   {\settowidth\labelwidth{\@biblabel{#1}}%
     \leftmargin\labelwidth
@@ -226,34 +278,20 @@
 %% listings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
-\ifthenelse{\equal{\upb@language}{czech}} {
-\renewcommand{\lstlistlistingname}{Seznam zdrojových k\'od\r{u}}
-\renewcommand{\lstlistingname}{Zdrojov\'y k\'od}
-} {
-\relax
-}
-
 \lstset{
 	breaklines=true,
-	backgroundcolor=\color{lightergray},
-	frame=single,
 	flexiblecolumns=true,
-	moredelim={[is][\small\normalfont\itshape]{/*}{*/}},
 	basicstyle=\footnotesize\ttfamily,
 	keywordstyle=\color{RoyalBlue},
-	commentstyle=\color{webgreen},
-	flexiblecolumns=false,
+	commentstyle=\color{gray},
 	numberbychapter=false,
-	moredelim={[is][\small\ttfamily]{!?}{?!}},
 	escapeinside={£*}{*£},
-	firstnumber=last,
-	moredelim={[is][\small\ttfamily]{!?}{?!}},
+	firstnumber=1,
 	numbers=left,
     numberstyle=\scriptsize\ttfamily,
     stepnumber=1,
     numbersep=6pt,
-	tabsize=4,
+	tabsize=2,
 	extendedchars=true,
     literate=
 		{á}{{\'a}}1
@@ -288,10 +326,10 @@
         {Ů}{{\r{U}}}1    
 }
 
-\lstdefinelanguage{TutorialD}	{morekeywords={tuple,matching,insert,divide,by,per,tclose,from,summarize,count,all,but,as,base,rename,prefix,extend,add,compose,union,minus,intersect,update,writeln,init,type,possrep,constraint,and,or,relation,where,base,drop},
+\lstdefinelanguage{TutorialD}{morekeywords={tuple,matching,insert,divide,by,per,tclose,from,summarize,count,all,but,as,base,rename,prefix,extend,add,compose,union,minus,intersect,update,writeln,init,type,possrep,constraint,and,or,relation,where,base,drop},
 	sensitive=false,
-	morecomment=[s]{/*}{*/},
-	morestring=[b]",
+	morecomment=[s][\color{gray}]{/*}{*/},
+	morestring=[b][\color{red}]{"},
 }
 
 \lstdefinelanguage{text}{
@@ -300,19 +338,18 @@
 }
 
 \lstdefinelanguage{csharp}{
-morekeywords={int,ref,static,fixed,unsafe,return,for,if,void},
+	morekeywords={int,ref,static,fixed,unsafe,return,for,if,void},
 	sensitive=false,
-	morecomment=[s]{/*}{*/},
-	morecomment=[l]{//},
-	morestring=[b]",
+	morecomment=[s][\color{gray}]{/*}{*/},
+	morecomment=[l][\color{gray}]{//},
+	morestring=[b][\color{red}]{"},
 }
 
 \lstdefinelanguage{cpp}{
-morekeywords={int,static,bool,return,for,if,void,ifndef,define,endif,class,constexpr,new,const,auto,double,public,private,protected,signals,slots},
+	morekeywords={int,static,bool,return,for,if,void,ifndef,define,endif,class,constexpr,new,const,auto,double,public,private,protected,signals,slots},
 	sensitive=false,
-	morecomment=[s]{/*}{*/},
-	morecomment=[l]{//},
-	morecomment=[l][\color{red}]{\#},
+	morecomment=[s][\color{gray}]{/*}{*/},
+	morecomment=[l][\color{gray}]{//},
 	morestring=[b][\color{red}]{"},
 }
 
@@ -323,7 +360,7 @@ morekeywords={int,static,bool,return,for,if,void,ifndef,define,endif,class,const
 }
 
 \lstnewenvironment{upcode}[3]{
-\lstset{breakautoindent,language=#3,firstnumber=1,caption={#1},label={#2},aboveskip=10px,belowskip=15px}
+\lstset{float,language=#1,firstnumber=1,caption={#3},label={#2},aboveskip=10px,belowskip=15px}
 }{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -343,43 +380,55 @@ morekeywords={int,static,bool,return,for,if,void,ifndef,define,endif,class,const
 \RequirePackage{thmtools}
 
 \declaretheoremstyle[
-	spaceabove=18pt,
-	spacebelow=18pt,
-	qed=\qedsymbol,
-	headpunct=:
-]{upproofstyle}
-
-\declaretheoremstyle[
-	spaceabove=18pt,
-	spacebelow=18pt,
+	spaceabove=\parskip,
+	spacebelow=\parskip,
 	headpunct=:
 ]{upbasestyle}
 
-%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
-\ifthenelse{\equal{\upb@language}{czech}} {
-\declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Definice]{uptheorem}
-\declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Lemma]{uplemma}
-\declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Poznámka]{upnote}
-\declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Věta]{upquote}
-\declaretheorem[within=section,style=upproofstyle,numbered=yes,name=Důkaz]{upproof}
-\declaretheorem[within=section,style=upbasestyle,numbered=yes,name=Příklad]{upexample}
-} {
-\relax
-}
+\declaretheoremstyle[
+	bodyfont=\itshape,
+	spaceabove=\parskip,
+	spacebelow=\parskip,
+	headpunct=:
+]{uptlmstyle}
+
+\declaretheoremstyle[
+	notefont=\bfseries,
+	spaceabove=\parskip,
+	spacebelow=\parskip,
+	headpunct=:
+]{updefstyle}
+
+\declaretheoremstyle[
+	notefont=\normalfont\scshape,
+	spaceabove=\parskip,
+	spacebelow=\parskip,
+	headpunct=:
+]{upremstyle}
+
+\declaretheoremstyle[
+	notefont=\normalfont\scshape,
+	spaceabove=\parskip,
+	spacebelow=\parskip,
+	qed=\qedsymbol,
+	headpunct=:
+]{uprempstyle}
+
+\declaretheorem[within=section,style=updefstyle,numbered=yes,name=\uptextdefinition]{definition}
+\declaretheorem[within=section,style=uptlmstyle,numbered=yes,name=\uptextlemma]{lemma}
+\declaretheorem[within=section,style=uptlmstyle,numbered=yes,name=\uptextconsequence]{consequence}
+\declaretheorem[within=section,style=upremstyle,numbered=yes,name=\uptextremark]{remark}
+\declaretheorem[within=section,style=uptlmstyle,numbered=yes,name=\uptexttheorem]{theorem}
+\declaretheorem[within=section,style=uprempstyle,numbered=yes,name=\uptextprooof]{prooof}
+\declaretheorem[within=section,style=upremstyle,numbered=yes,name=\uptextexample]{example}
 
 \let\orglistoftheorems=\listoftheorems
 
 \renewcommand{\listoftheorems}{
 \clearpage
 \phantomsection
-%% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
-\ifthenelse{\equal{\upb@language}{czech}} {
-\renewcommand{\listtheoremname}{Seznam teor\'em\r{u}}
 \addcontentsline{toc}{section}{\listtheoremname}
-} {
-\relax
-}
-\orglistoftheorems[ignoreall,show={uptheorem,uplemma,upnote,upquote,upproof,upexample}]
+\orglistoftheorems[ignoreall,show={definition,consequence,lemma,remark,theorem,prooof,example}]
 \clearpage
 }
 
@@ -398,13 +447,12 @@ colorlinks=true
 }
 
 \hypersetup {
-    linktocpage=true, pdfstartpage=1, 
+    linktocpage=true, pdfstartpage=1, pageanchor=true,
     pdfstartview=FitV, breaklinks=true, pdfpagemode=UseNone, 
-    pageanchor=true,
     plainpages=false, bookmarksnumbered,
     hypertexnames=true, pdfhighlight=/O,
     urlcolor=webbrown, linkcolor=RoyalBlue, 
-    citecolor=webgreen,
+    citecolor=webgreen
 }
 
 \newcommand{\mail}[1]{\href{mailto:#1}{\texttt{#1}}}
@@ -412,10 +460,6 @@ colorlinks=true
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% toc implementation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\def\upendoftreatise{
-\addtocontents{toc}{\protect\vspace{10pt}}
-}
 
 \let\orgtableofcontents=\tableofcontents
 
@@ -430,6 +474,11 @@ colorlinks=true
 ]{\contentsname}
 \orgtableofcontents
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% section-aware counters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\counterwithin{equation}{section}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% lists implementation

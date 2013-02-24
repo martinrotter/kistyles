@@ -12,15 +12,14 @@
 % TODO: Nahazet sem parametry a poctivě dělit.
 \DeclareBoolOption{master}
 \DeclareStringOption[utf8]{encoding}[utf8]
-\DeclareStringOption[]{bibfile}[]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
 \DeclareStringOption[czech]{language}[czech]
 \DeclareStringOption[false]{printversion}[false]
-\DeclareStringOption[false]{joinlists}[false]
+\DeclareStringOption[true]{joinlists}[true]
 \DeclareStringOption[true]{figures}[true]
 \DeclareStringOption[true]{tables}[true]
-\DeclareStringOption[true]{sourcecodes}[true]
-\DeclareStringOption[true]{glossaries}[true]
+\DeclareStringOption[false]{sourcecodes}[false]
+\DeclareStringOption[false]{glossaries}[false]
 
 %% Nerozpoznaný parametr hodí chybu.
 \DeclareDefaultOption{\PackageWarningNoLine{updiplom}{[updiplom] Option '\CurrentOption' was not recognized}}
@@ -56,14 +55,9 @@
 %% nastavení textů
 %% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
 \ifthenelse{\equal{\upb@language}{czech}} {
-\newcommand{\uptexttitle}{Tituln\'i strana}
-\newcommand{\uptexttitletop}{P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO}
-\newcommand{\uptextdept}{KATEDRA INFORMATIKY}
-\newcommand{\uptextleader}{Vedoucí práce: }
+\newcommand{\uptextsupervisor}{Vedoucí práce: }
 \newcommand{\uptextdipl}{Diplomant: }
 \newcommand{\uptextfinish}{Rok odevzdání: }
-\newcommand{\uptextanot}{Anotace}
-\newcommand{\uptextthx}{Pod\v ekov\'an\'i}
 
 \ifthenelse{\boolean{upd@master}} {
 \def\@upthesis{DIPLOMOV\'A PR\'ACE}
@@ -103,7 +97,7 @@
 %% titlepage implementation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\upthanks#1{\gdef\@upthanks{#1}}
+\def\thanks#1{\gdef\@thanks{#1}}
 \def\annotation#1{\gdef\@annotation{#1}}
 
 %% hacking wrong page numbering
@@ -113,19 +107,20 @@
   \def\tempb{page}%
   \ifx\tempa\tempb\else\oldsetcounter{#1}{#2}\fi}
 
-\def\uptitle#1{\gdef\@uptitle{#1}}
-\def\upsubtitle#1{\gdef\@upsubtitle{#1}}
-\def\upyear#1{\gdef\@upyear{#1}}
-\def\upauthor#1{\gdef\@upauthor{#1}}
-\def\upleader#1{\gdef\@upleader{#1}}
-\def\upclass#1{\gdef\@upclass{#1}}
+\def\title#1{\gdef\@title{#1}}
+\def\subtitle#1{\gdef\@subtitle{#1}}
+\def\yearoffinish#1{\gdef\@yearoffinish{#1}}
+\def\author#1{\gdef\@author{#1}}
+\def\supervisor#1{\gdef\@supervisor{#1}}
+\def\class#1{\gdef\@class{#1}}
 
-% podnadpis
-\upsubtitle{\null}
+% defaulty
+\subtitle{}
+\thanks{}
 
 \def\maketitle{
 \hypertarget{up:thesis}{}
-\bookmark[dest=up:thesis]{\@uptitle}
+\bookmark[dest=up:thesis]{\@title}
 \setcounter{page}{1}
 \begin{titlepage}
 \hypertarget{up:title}{}
@@ -140,7 +135,7 @@
 \vfill
 {\LARGE\bfseries{\@upthesis} \\}
 \vfill
-{\Large \@uptitle \\[1em]\@upsubtitle}
+{\Large \@title \\[1em]\@subtitle}
 
 \vfill
 \centering
@@ -148,15 +143,15 @@
 \vfill
 {\noindent
 \begin{tabular}{ll}
-\uptextleader\\
-{\bfseries\@upleader} \\
-\uptextfinish\@upyear
+\uptextsupervisor\\
+{\bfseries\@supervisor} \\
+\uptextfinish\@yearoffinish
 \end{tabular}
 \hfill
 \begin{tabular}{ll}
 \uptextdipl\\
-{\bfseries\@upauthor} \\
-\@upclass
+{\bfseries\@author} \\
+\@class
 \end{tabular}}
 \end{center}
 \end{titlepage}
@@ -177,6 +172,9 @@
 \bigskip
 \emph{\@annotation}
 \vfill\null
+\ifthenelse{\equal{\@thanks}{}} {
+\relax
+} {
 \cleardoublepage
 \thispagestyle{empty}
 \vspace*{\fill}
@@ -186,7 +184,8 @@
  keeplevel,
  dest=up:thx
 ]{\uptextthx}
-\noindent\@upthanks
+\noindent\@thanks
+}
 
 % tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
 \uptableofcontents
@@ -200,8 +199,26 @@
 
 \newcommand{\upmakeendlists}{
 % tiskne seznam zkratek
+\ifthenelse{\equal{\upd@glossaries}{true}} {
 \printglossary
+} {
+\relax
+}
 
 % tiskne seznam teorémů
 \listoftheorems
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% specific hyperref
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\AtBeginDocument{
+\hypersetup{
+  pdftitle={\@title\ (\@upthesis)},    % title
+  pdfauthor={\@author\ (\uptextsupervisor\@supervisor)},     % author
+  pdfsubject={\@title\ (\@upthesis)},   % subject of the document
+  pdfcreator={\@author},   % creator of the document
+}
+}
+\makeatother
