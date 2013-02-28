@@ -2,11 +2,12 @@
 
 \usepackage[
 	printversion=true,								% pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba
-	%joinlists=false,							% zobrazí seznamy (zkratek, obrázků...) pod sebou
+	joinlists=true,							% zobrazí seznamy (zkratek, obrázků...) pod sebou
 	glossaries=true,						% povolí podporu zkratek (seznam zkratek, deklarace zkratek)
 	%figures=true,							% povolí seznam obrázků
 	%tables=true,							% povolí seznam tabulek
 	sourcecodes=true,						% povolí seznam zdr. kódů
+	theorems=true,
 	bibencoding=utf8,						% kódování souboru s citacemi
 	language=czech,
 	encoding=utf8,							% kódování tohoto a vložených souborů
@@ -76,6 +77,10 @@ Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Ab
 Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. 
 \end{remark}
 
+\begin{example}[Pumpovací věta]
+Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. 
+\end{example}
+
 \begin{lemma}[Název definice]
 Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. 
 \end{lemma}
@@ -88,13 +93,25 @@ Abcd. Abcd. \index{Abcd}. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. 
 Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. 
 \end{theorem}
 
-\begin{example}[Pumpovací věta]
-Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. 
-\end{example}
-
 
 \begin{upcode}{cpp}{}{Můj code}
-int main("csacsa") // komentar
+int main("cs acsa") // komentar
+int main("cs acsa") // komentar
+int main("cs acsa") // komentar
+int main("cs acsa") // komentar
+int main("cs acsa") // komentar
+\end{upcode}
+
+\begin{upcode}{csharp}{}{Můj code}
+public static int main("cs acsa") // komentar
+\end{upcode}
+
+\begin{upcode}{SQL}{}{Můj code}
+SELECT * FROM table_1; /* komentar */
+\end{upcode}
+
+\begin{upcode}{TutorialD}{}{Můj code}
+table_1 AND table_2;
 \end{upcode}
 
 \upendofmainmatter
@@ -117,7 +134,7 @@ Text první přílohy
 \section{Druhá příloha}
 Text druhé přílohy
 
-\upmakeendlists
+\printglossary
 
 % tiskne bibliografii
 % bibliografie používá BibLaTeX

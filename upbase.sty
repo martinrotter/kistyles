@@ -35,6 +35,7 @@
 \DeclareStringOption[false]{figures}[false]
 \DeclareStringOption[false]{tables}[false]
 \DeclareStringOption[false]{sourcecodes}[false]
+\DeclareStringOption[false]{theorems}[false]
 \DeclareStringOption[false]{glossaries}[false]
 \DeclareStringOption[czech]{language}[czech]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
@@ -278,19 +279,22 @@
 %% listings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\lstset{
+\lstdefinestyle{upbasestyle}{
 	breaklines=true,
 	flexiblecolumns=true,
 	basicstyle=\footnotesize\ttfamily,
-	keywordstyle=\color{RoyalBlue},
+	keywordstyle=\bfseries,
 	commentstyle=\color{gray},
+	stringstyle=\color{black},
 	numberbychapter=false,
 	escapeinside={£*}{*£},
-	firstnumber=1,
-	numbers=left,
+	%firstnumber=1,
+	%numbers=left,
+	%numbersep=10pt,
+	inputencoding=utf8,
     numberstyle=\scriptsize\ttfamily,
     stepnumber=1,
-    numbersep=6pt,
+    showstringspaces=false,
 	tabsize=2,
 	extendedchars=true,
     literate=
@@ -328,8 +332,8 @@
 
 \lstdefinelanguage{TutorialD}{morekeywords={tuple,matching,insert,divide,by,per,tclose,from,summarize,count,all,but,as,base,rename,prefix,extend,add,compose,union,minus,intersect,update,writeln,init,type,possrep,constraint,and,or,relation,where,base,drop},
 	sensitive=false,
-	morecomment=[s][\color{gray}]{/*}{*/},
-	morestring=[b][\color{red}]{"},
+	morecomment=[s][commentstyle]{/*}{*/},
+	morestring=[b][stringstyle]{"},
 }
 
 \lstdefinelanguage{text}{
@@ -338,19 +342,19 @@
 }
 
 \lstdefinelanguage{csharp}{
-	morekeywords={int,ref,static,fixed,unsafe,return,for,if,void},
+	morekeywords={int,ref,static,fixed,unsafe,public,private,protected,return,for,if,void},
 	sensitive=false,
-	morecomment=[s][\color{gray}]{/*}{*/},
-	morecomment=[l][\color{gray}]{//},
-	morestring=[b][\color{red}]{"},
+	morecomment=[s][commentstyle]{/*}{*/},
+	morecomment=[l][commentstyle]{//},
+	morestring=[b][stringstyle]{"},
 }
 
 \lstdefinelanguage{cpp}{
 	morekeywords={int,static,bool,return,for,if,void,ifndef,define,endif,class,constexpr,new,const,auto,double,public,private,protected,signals,slots},
 	sensitive=false,
-	morecomment=[s][\color{gray}]{/*}{*/},
-	morecomment=[l][\color{gray}]{//},
-	morestring=[b][\color{red}]{"},
+	morecomment=[s][commentstyle]{/*}{*/},
+	morecomment=[l][commentstyle]{//},
+	morestring=[b][stringstyle]{"},
 }
 
 \lstloadlanguages{Lisp,SQL,TeX,Python,Java,TutorialD,text,csharp,cpp}
@@ -360,7 +364,7 @@
 }
 
 \lstnewenvironment{upcode}[3]{
-\lstset{float,language=#1,firstnumber=1,caption={#3},label={#2},aboveskip=10px,belowskip=15px}
+\lstset{language=#1,style=upbasestyle,firstnumber=1,caption={#3},label={#2},aboveskip=10px,belowskip=15px}
 }{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -380,17 +384,13 @@
 \RequirePackage{thmtools}
 
 \declaretheoremstyle[
-	spaceabove=\parskip,
-	spacebelow=\parskip,
-	headpunct=:
-]{upbasestyle}
-
-\declaretheoremstyle[
+	headfont=\normalfont\bfseries,
+	notefont=\normalfont\bfseries,
 	bodyfont=\itshape,
 	spaceabove=\parskip,
 	spacebelow=\parskip,
 	headpunct=:
-]{uptlmstyle}
+]{upthmstyle}
 
 \declaretheoremstyle[
 	notefont=\bfseries,
@@ -399,37 +399,36 @@
 	headpunct=:
 ]{updefstyle}
 
+
 \declaretheoremstyle[
+	headfont=\normalfont\scshape,
 	notefont=\normalfont\scshape,
 	spaceabove=\parskip,
 	spacebelow=\parskip,
 	headpunct=:
-]{upremstyle}
+]{uprempstyle}
 
 \declaretheoremstyle[
+	headfont=\normalfont\scshape,
 	notefont=\normalfont\scshape,
 	spaceabove=\parskip,
 	spacebelow=\parskip,
 	qed=\qedsymbol,
 	headpunct=:
-]{uprempstyle}
+]{upproofstyle}
 
 \declaretheorem[within=section,style=updefstyle,numbered=yes,name=\uptextdefinition]{definition}
-\declaretheorem[within=section,style=uptlmstyle,numbered=yes,name=\uptextlemma]{lemma}
-\declaretheorem[within=section,style=uptlmstyle,numbered=yes,name=\uptextconsequence]{consequence}
-\declaretheorem[within=section,style=upremstyle,numbered=yes,name=\uptextremark]{remark}
-\declaretheorem[within=section,style=uptlmstyle,numbered=yes,name=\uptexttheorem]{theorem}
-\declaretheorem[within=section,style=uprempstyle,numbered=yes,name=\uptextprooof]{prooof}
-\declaretheorem[within=section,style=upremstyle,numbered=yes,name=\uptextexample]{example}
+\declaretheorem[within=section,style=upthmstyle,numbered=yes,name=\uptextlemma]{lemma}
+\declaretheorem[within=section,style=upthmstyle,numbered=yes,name=\uptextconsequence]{consequence}
+\declaretheorem[within=section,style=uprempstyle,numbered=yes,name=\uptextremark]{remark}
+\declaretheorem[within=section,style=uprempstyle,numbered=yes,name=\uptextexample]{example}
+\declaretheorem[within=section,style=upthmstyle,numbered=yes,name=\uptexttheorem]{theorem}
+\declaretheorem[style=upproofstyle,numbered=no,name=\uptextprooof]{prooof}
 
 \let\orglistoftheorems=\listoftheorems
 
 \renewcommand{\listoftheorems}{
-\clearpage
-\phantomsection
-\addcontentsline{toc}{section}{\listtheoremname}
 \orglistoftheorems[ignoreall,show={definition,consequence,lemma,remark,theorem,prooof,example}]
-\clearpage
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -485,7 +484,7 @@ colorlinks=true
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\upprintlists{
-\clearpage
+\cleardoublepage
 \ifthenelse{\equal{\upb@figures}{true}} {
 \listoffigures
 \ifthenelse{\equal{\upb@joinlists}{true}} {
@@ -506,6 +505,18 @@ colorlinks=true
 } {
 \relax
 }
+
+\ifthenelse{\equal{\upb@theorems}{true}} {
+\listoftheorems
+\ifthenelse{\equal{\upb@joinlists}{true}} {
+\relax
+} {
+\clearpage
+}
+} {
+\relax
+}
+
 \ifthenelse{\equal{\upb@sourcecodes}{true}} {
 \lstlistoflistings
 \ifthenelse{\equal{\upb@joinlists}{true}} {
@@ -516,7 +527,7 @@ colorlinks=true
 } {
 \relax
 }
-\clearpage
+\cleardoublepage
 }
 
 \endinput

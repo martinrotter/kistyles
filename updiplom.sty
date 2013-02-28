@@ -18,6 +18,7 @@
 \DeclareStringOption[true]{joinlists}[true]
 \DeclareStringOption[true]{figures}[true]
 \DeclareStringOption[true]{tables}[true]
+\DeclareStringOption[false]{theorems}[false]
 \DeclareStringOption[false]{sourcecodes}[false]
 \DeclareStringOption[false]{glossaries}[false]
 
@@ -36,7 +37,8 @@
 	figures=\upd@figures,
 	tables=\upd@tables,
 	glossaries=\upd@glossaries,
-	sourcecodes=\upd@sourcecodes
+	sourcecodes=\upd@sourcecodes,
+	theorems=\upd@theorems
 ]{upbase}
 
 \RequirePackage[
@@ -60,9 +62,9 @@
 \newcommand{\uptextfinish}{Rok odevzdání: }
 
 \ifthenelse{\boolean{upd@master}} {
-\def\@upthesis{DIPLOMOV\'A PR\'ACE}
+\def\@uppaper{DIPLOMOV\'A PR\'ACE}
 } {
-\def\@upthesis{BAKAL\'A\v RSK\'A PR\'ACE}
+\def\@uppaper{BAKAL\'A\v RSK\'A PR\'ACE}
 }
 } {
 \relax
@@ -119,8 +121,8 @@
 \thanks{}
 
 \def\maketitle{
-\hypertarget{up:thesis}{}
-\bookmark[dest=up:thesis]{\@title}
+\hypertarget{up:paper}{}
+\bookmark[dest=up:paper]{\@title}
 \setcounter{page}{1}
 \begin{titlepage}
 \hypertarget{up:title}{}
@@ -133,7 +135,7 @@
 {\large \uptexttitletop \par
         \uptextdept \par}
 \vfill
-{\LARGE\bfseries{\@upthesis} \\}
+{\LARGE\bfseries{\@uppaper} \\}
 \vfill
 {\Large \@title \\[1em]\@subtitle}
 
@@ -189,24 +191,7 @@
 
 % tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
 \uptableofcontents
-\ifthenelse{\equal{\upb@joinlists}{true}} {
-\relax
-} {
-\cleardoublepage
-}
 \upprintlists
-}
-
-\newcommand{\upmakeendlists}{
-% tiskne seznam zkratek
-\ifthenelse{\equal{\upd@glossaries}{true}} {
-\printglossary
-} {
-\relax
-}
-
-% tiskne seznam teorémů
-\listoftheorems
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -215,9 +200,9 @@
 \makeatletter
 \AtBeginDocument{
 \hypersetup{
-  pdftitle={\@title\ (\@upthesis)},    % title
+  pdftitle={\@title\ (\@uppaper)},    % title
   pdfauthor={\@author\ (\uptextsupervisor\@supervisor)},     % author
-  pdfsubject={\@title\ (\@upthesis)},   % subject of the document
+  pdfsubject={\@title\ (\@uppaper)},   % subject of the document
   pdfcreator={\@author},   % creator of the document
 }
 }
