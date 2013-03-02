@@ -1,0 +1,17 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{uppaper}[2012/09/09 UP Diploma Style]
+\PackageWarningNoLine{uppaper}{[uppaper] You are using uppaper style 0.1}
+
+\RequirePackage{kvoptions}
+
+\SetupKeyvalOptions {
+	family=upp,
+	prefix=upp@
+}
+
+%% Nerozpoznaný parametr hodí chybu.
+\DeclareDefaultOption{\PackageWarningNoLine{uppaper}{[uppaper] Option '\CurrentOption' was not recognized}}
+
+\ProcessKeyvalOptions*
+
+\RequirePackage{upbase}
