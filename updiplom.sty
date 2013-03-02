@@ -57,7 +57,7 @@
 %% nastavení textů
 %% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
 \ifthenelse{\equal{\upb@language}{czech}} {
-\newcommand{\uptextsupervisor}{Vedouc\'i pr\'ace }
+\newcommand{\uptextsupervisor}{Vedouc\'i pr\'ace: }
 \newcommand{\uptextanot}{Anotace}
 \newcommand{\uptextthx}{Pod\v ekov\'an\'i}
 \newcommand{\uptextfield}{Studijn\'i obor: }
@@ -148,12 +148,12 @@
 \vfill
 {\noindent
 \begin{tabular}{ll}
-\Large\@yearofsubmit \\
+{\Large\@yearofsubmit} \\[1em]
 \uptextsupervisor\@supervisor
 \end{tabular}
 \hfill
 \begin{tabular}{ll}
-{\Large\@author} \\
+{\Large\@author} \\[1em]
 \uptextfield\@field
 \end{tabular}}
 \end{center}
