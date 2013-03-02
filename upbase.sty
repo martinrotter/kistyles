@@ -9,7 +9,7 @@
 \RequirePackage{booktabs}
 \RequirePackage{makeidx}
 \RequirePackage{multicol}
-\RequirePackage[unicode,pdftex]{hyperref}
+\RequirePackage[unicode]{hyperref}
 \RequirePackage{ifpdf}
 \RequirePackage{ifthen}
 \RequirePackage{amsmath}
@@ -18,7 +18,6 @@
 \RequirePackage{amsthm}
 \RequirePackage{euscript}
 \RequirePackage[open,atend]{bookmark}
-\RequirePackage{inconsolata}
 \RequirePackage[usenames,dvipsnames,table]{xcolor}
 \RequirePackage{appendix}
 \RequirePackage{chngcntr}
@@ -64,22 +63,23 @@
 \newcommand{\uptexttitle}{Tituln\'i strana}
 \newcommand{\uptexttitletop}{P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO}
 \newcommand{\uptextdept}{KATEDRA INFORMATIKY}
-\newcommand{\uptextanot}{Anotace}
-\newcommand{\uptextthx}{Pod\v ekov\'an\'i}
 \newcommand{\uptextindex}{Rejstřík}
 \newcommand{\buno}{bez \'ujmy na obecnosti}
 \newcommand{\Buno}{Bez \'ujmy na obecnosti}
 \renewcommand{\lstlistlistingname}{Seznam zdrojových k\'od\r{u}}
 \renewcommand{\lstlistingname}{Zdrojov\'y k\'od}
-\newcommand{\listtheoremname}{Seznam teor\'em\r{u}}
+\newcommand{\listtheoremname}{Seznam v\v et}
 
 \newcommand{\uptextdefinition}{Definice}
 \newcommand{\uptextlemma}{Lemma}
 \newcommand{\uptextconsequence}{Důsledek}
 \newcommand{\uptextremark}{Poznámka}
 \newcommand{\uptexttheorem}{Věta}
-\newcommand{\uptextprooof}{Důkaz}
+\newcommand{\uptextproof}{Důkaz}
 \newcommand{\uptextexample}{Příklad}
+
+%% typewriter font pro listings atp
+\renewcommand{\ttdefault}{pcr}
 
 %% macros for glossaries
 \ifthenelse{\equal{\upb@glossaries}{true}} {
@@ -276,8 +276,31 @@
    {\normalfont\normalsize\bfseries}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% toc implementation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\orgtableofcontents=\tableofcontents
+
+%% nové makro, protože je kolize s balíkem listings
+\renewcommand{\tableofcontents}{
+\cleardoublepage
+\hypertarget{up:toc}{}
+\bookmark[
+ rellevel=1,
+ keeplevel,
+ dest=up:toc
+]{\contentsname}
+\orgtableofcontents
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% listings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lst@UserCommand\lstlistoflistings{\bgroup
+    \let\contentsname\lstlistlistingname
+    \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{lol}}
+    \orgtableofcontents \egroup}
 
 \lstdefinestyle{upbasestyle}{
 	breaklines=true,
@@ -288,9 +311,9 @@
 	stringstyle=\color{black},
 	numberbychapter=false,
 	escapeinside={£*}{*£},
-	%firstnumber=1,
-	%numbers=left,
-	%numbersep=10pt,
+	firstnumber=1,
+	numbers=left,
+	numbersep=10pt,
 	inputencoding=utf8,
     numberstyle=\scriptsize\ttfamily,
     stepnumber=1,
@@ -357,7 +380,7 @@
 	morestring=[b][stringstyle]{"},
 }
 
-\lstloadlanguages{Lisp,SQL,TeX,Python,Java,TutorialD,text,csharp,cpp}
+\lstloadlanguages{[ANSI]C,[LaTeX]TeX,PHP,HTML,Lisp,SQL,TeX,Python,Java,TutorialD,text,csharp,cpp}
 
 \newcommand{\upinlinecode}[3] {
 \noindent\ignorespaces\lstinline[language=#1]#2#3#2\ignorespacesafterend
@@ -406,7 +429,7 @@
 	spaceabove=\parskip,
 	spacebelow=\parskip,
 	headpunct=:
-]{uprempstyle}
+]{upremexstyle}
 
 \declaretheoremstyle[
 	headfont=\normalfont\scshape,
@@ -417,18 +440,21 @@
 	headpunct=:
 ]{upproofstyle}
 
+% ou jéé :)
+\let\proof\@undefined
+
 \declaretheorem[within=section,style=updefstyle,numbered=yes,name=\uptextdefinition]{definition}
 \declaretheorem[within=section,style=upthmstyle,numbered=yes,name=\uptextlemma]{lemma}
 \declaretheorem[within=section,style=upthmstyle,numbered=yes,name=\uptextconsequence]{consequence}
-\declaretheorem[within=section,style=uprempstyle,numbered=yes,name=\uptextremark]{remark}
-\declaretheorem[within=section,style=uprempstyle,numbered=yes,name=\uptextexample]{example}
+\declaretheorem[within=section,style=upremexstyle,numbered=yes,name=\uptextremark]{remark}
+\declaretheorem[within=section,style=upremexstyle,numbered=yes,name=\uptextexample]{example}
 \declaretheorem[within=section,style=upthmstyle,numbered=yes,name=\uptexttheorem]{theorem}
-\declaretheorem[style=upproofstyle,numbered=no,name=\uptextprooof]{prooof}
+\declaretheorem[style=upproofstyle,numbered=no,name=\uptextproof]{proof}
 
 \let\orglistoftheorems=\listoftheorems
 
 \renewcommand{\listoftheorems}{
-\orglistoftheorems[ignoreall,show={definition,consequence,lemma,remark,theorem,prooof,example}]
+\orglistoftheorems[ignoreall,show={definition,consequence,lemma,remark,theorem,proof,example}]
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -455,24 +481,6 @@ colorlinks=true
 }
 
 \newcommand{\mail}[1]{\href{mailto:#1}{\texttt{#1}}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% toc implementation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\let\orgtableofcontents=\tableofcontents
-
-%% nové makro, protože je kolize s balíkem listings
-\newcommand{\uptableofcontents}{
-\cleardoublepage
-\hypertarget{up:toc}{}
-\bookmark[
- rellevel=1,
- keeplevel,
- dest=up:toc
-]{\contentsname}
-\orgtableofcontents
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% section-aware counters

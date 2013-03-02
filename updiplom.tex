@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 
 \usepackage[
-	printversion=true,								% pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba
+	printversion=true,						% pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba
 	joinlists=true,							% zobrazí seznamy (zkratek, obrázků...) pod sebou
 	glossaries=true,						% povolí podporu zkratek (seznam zkratek, deklarace zkratek)
 	%figures=true,							% povolí seznam obrázků
@@ -16,9 +16,9 @@
 
 \title{Dokonalá práce}						% název práce
 \subtitle{Opravdu dokonalá}
-\yearoffinish{\the\year}
+\yearofsubmit{\the\year}
 \author{Martin Rotter}
-\class{APLINF, III. ročník}
+\field{Informatika}
 \supervisor{Mgr. Petr Velký}
 
 \annotation{Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn.
@@ -69,9 +69,9 @@ aaa & bbb
 Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. \gls{UPOL}
 \end{definition}
 
-\begin{prooof}[Název důkazu]
+\begin{proof}[Název důkazu]
 Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. 
-\end{prooof}
+\end{proof}
 
 \begin{remark}[Pumpovací věta]
 Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. 
@@ -114,6 +114,8 @@ SELECT * FROM table_1; /* komentar */
 table_1 AND table_2;
 \end{upcode}
 
+% způsobí vrácení PDF záložek na kořen, používat zejména pokud dokument
+% obsahuje \part
 \upendofmainmatter
 
 % tiskne český závěr práce

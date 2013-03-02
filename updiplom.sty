@@ -57,9 +57,11 @@
 %% nastavení textů
 %% anaogicky přidat pro ostatní jazyky, aktuálně pouze čeština
 \ifthenelse{\equal{\upb@language}{czech}} {
-\newcommand{\uptextsupervisor}{Vedoucí práce: }
-\newcommand{\uptextdipl}{Diplomant: }
-\newcommand{\uptextfinish}{Rok odevzdání: }
+\newcommand{\uptextsupervisor}{Vedouc\'i pr\'ace }
+\newcommand{\uptextanot}{Anotace}
+\newcommand{\uptextthx}{Pod\v ekov\'an\'i}
+\newcommand{\uptextfield}{Studijn\'i obor: }
+\newcommand{\uptextdefaultfield}{Aplikovan\'a informatika}
 
 \ifthenelse{\boolean{upd@master}} {
 \def\@uppaper{DIPLOMOV\'A PR\'ACE}
@@ -111,14 +113,15 @@
 
 \def\title#1{\gdef\@title{#1}}
 \def\subtitle#1{\gdef\@subtitle{#1}}
-\def\yearoffinish#1{\gdef\@yearoffinish{#1}}
+\def\yearofsubmit#1{\gdef\@yearofsubmit{#1}}
 \def\author#1{\gdef\@author{#1}}
 \def\supervisor#1{\gdef\@supervisor{#1}}
-\def\class#1{\gdef\@class{#1}}
+\def\field#1{\gdef\@field{#1}}
 
 % defaulty
 \subtitle{}
 \thanks{}
+\field{\uptextdefaultfield}
 
 \def\maketitle{
 \hypertarget{up:paper}{}
@@ -137,7 +140,7 @@
 \vfill
 {\LARGE\bfseries{\@uppaper} \\}
 \vfill
-{\Large \@title \\[1em]\@subtitle}
+{\Large \@title \\[2em]\large\@subtitle}
 
 \vfill
 \centering
@@ -145,15 +148,13 @@
 \vfill
 {\noindent
 \begin{tabular}{ll}
-\uptextsupervisor\\
-{\bfseries\@supervisor} \\
-\uptextfinish\@yearoffinish
+\Large\@yearofsubmit \\
+\uptextsupervisor\@supervisor
 \end{tabular}
 \hfill
 \begin{tabular}{ll}
-\uptextdipl\\
-{\bfseries\@author} \\
-\@class
+{\Large\@author} \\
+\uptextfield\@field
 \end{tabular}}
 \end{center}
 \end{titlepage}
@@ -190,7 +191,7 @@
 }
 
 % tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
-\uptableofcontents
+\tableofcontents
 \upprintlists
 }
 
