@@ -3,9 +3,12 @@ Olomouc.
 
 !! Tyto styly nejsou určeny k produkčnímu použití. Prozatím se jedná pouze o testovací materiál !!
 
-Aktuální verze: 0.55
+Aktuální verze: 0.8
 
 Změny:
+
+0.8
+ :: Spousta úprav. Už si je nepamatuji.
 
 0.55
  :: Upraveny titulní strany stylů. Nový styl upsimple pro sazbu neutrálních dokumentů. Přepracován vzhled zdrojových kódů a přidána podpora zobrazení jazyka Tutorial D. Nová podpora pro sazbu teorému (věty, lemmata, poznámky, důkazy atp.) s možností seznamu teorémů. Další drobná makra.

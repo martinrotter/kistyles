@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{updiplom}[2012/09/09 UP Diploma Style]
-\PackageWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.73}
+\PackageWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.8}
 
 \RequirePackage{kvoptions}
 
@@ -79,17 +79,17 @@ width=1.05\textwidth
 
 % angličtina
 \ifthenelse{\equal{\upb@language}{english}} {
-\newcommand{\uptextsupervisor}{Vedouc\'i pr\'ace: }
-\newcommand{\uptextanot}{Anotace}
-\newcommand{\uptextthx}{Pod\v ekov\'an\'i}
-\newcommand{\uptextfield}{Studijn\'i obor: }
-\newcommand{\uptextdefaultfield}{Aplikovan\'a informatika}
+\newcommand{\uptextsupervisor}{Supervisor: }
+\newcommand{\uptextanot}{Annotation}
+\newcommand{\uptextthx}{Thanks to}
+\newcommand{\uptextfield}{Field: }
+\newcommand{\uptextdefaultfield}{Applied computer science}
 
 
 \ifthenelse{\boolean{upd@master}} {
-\def\@uppaper{DIPLOMOV\'A PR\'ACE}
+\def\@uppaper{MASTER'S THESIS}
 } {
-\def\@uppaper{BAKAL\'A\v RSK\'A PR\'ACE}
+\def\@uppaper{BACHELOR'S THESIS}
 }
 } {
 \relax
