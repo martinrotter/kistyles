@@ -84,11 +84,11 @@ style=\upb@bibstyle				% Styl bibliografie. Pro českou sazbu patrně numeric.
 
 	\newcommand{\uptextdefinition}{Definice}
 	\newcommand{\uptextlemma}{Lemma}
-	\newcommand{\uptextconsequence}{Důsledek}
-	\newcommand{\uptextremark}{Poznámka}
-	\newcommand{\uptexttheorem}{Věta}
-	\newcommand{\uptextproof}{Důkaz}
-	\newcommand{\uptextexample}{Příklad}
+	\newcommand{\uptextconsequence}{D\r{u}sledek}
+	\newcommand{\uptextremark}{Pozn\'{a}mka}
+	\newcommand{\uptexttheorem}{V\v{e}ta}
+	\newcommand{\uptextproof}{D\r{u}kaz}
+	\newcommand{\uptextexample}{P\v{r}\'{i}klad}
 
 	\ifthenelse{\equal{\upb@glossaries}{true}} {
 		\RequirePackage[acronym,nonumberlist,sanitize=none]{glossaries}
@@ -375,7 +375,7 @@ style=\upb@bibstyle				% Styl bibliografie. Pro českou sazbu patrně numeric.
 	firstnumber=1,
 	numbers=left,
 	numbersep=10pt,
-	inputencoding=utf8,
+	inputencoding=\upb@encoding,
     numberstyle=\scriptsize\ttfamily,
     stepnumber=1,
     showstringspaces=false,
