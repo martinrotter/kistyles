@@ -214,6 +214,7 @@
 \definecolor{lightergray}{gray}{0.99}
 \definecolor{ultragreen}{rgb}{40,180,10}
 \definecolor{darkgray}{rgb}{60,60,60}
+\definecolor{darkblue}{rgb}{0.2, 0.3, 0.6}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Drobná nastavení
@@ -411,7 +412,20 @@
 	morestring=[b][stringstyle]{"},
 }
 
-\lstloadlanguages{[ANSI]C,[LaTeX]TeX,PHP,HTML,Lisp,SQL,TeX,Python,Java,TutorialD,text,csharp,cpp}
+\lstdefinelanguage{JavaScript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	morecomment=[l][commentstyle]{//},
+	morecomment=[s][commentstyle]{/*}{*/},
+	morestring=[b][stringstyle]{'},
+	morestring=[b][stringstyle]{"}
+}
+
+\lstloadlanguages{[ANSI]C,[LaTeX]TeX,PHP,HTML,Lisp,SQL,TeX,Python,Java,TutorialD,text,csharp,cpp,JavaScript}
 
 % Definice souvisejících prostředí.
 \newcommand{\upinlinecode}[3] {
@@ -511,8 +525,8 @@ colorlinks=true
     pdfstartview=FitV, breaklinks=true, pdfpagemode=UseNone, 
     plainpages=false, bookmarksnumbered,
     hypertexnames=true, pdfhighlight=/O,
-    urlcolor=webbrown, linkcolor=RoyalBlue, 
-    citecolor=webgreen
+    urlcolor=darkblue, linkcolor=darkblue, 
+    citecolor=darkblue
 }
 
 \newcommand{\mail}[1]{\href{mailto:#1}{\texttt{#1}}}

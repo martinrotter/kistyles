@@ -28,27 +28,27 @@
 \ProcessKeyvalOptions*
 
 \RequirePackage[
-	joinlists=\upd@joinlists,
-	encoding=\upd@encoding,
-	bibencoding=\upd@bibencoding,
-	language=\upd@language,
-	printversion=\upd@printversion,
-	joinlists=\upd@joinlists,
-	figures=\upd@figures,
-	tables=\upd@tables,
-	glossaries=\upd@glossaries,
-	sourcecodes=\upd@sourcecodes,
-	theorems=\upd@theorems
+joinlists=\upd@joinlists,
+encoding=\upd@encoding,
+bibencoding=\upd@bibencoding,
+language=\upd@language,
+printversion=\upd@printversion,
+joinlists=\upd@joinlists,
+figures=\upd@figures,
+tables=\upd@tables,
+glossaries=\upd@glossaries,
+sourcecodes=\upd@sourcecodes,
+theorems=\upd@theorems
 ]{upbase}
 
 % Nastavení geometrie papíru.
 \RequirePackage[
-	paper=a4paper,
-	driver=pdftex,
-	top=3.5cm,
-	left=4cm,
-	bottom=2.5cm,
-	width=1.05\textwidth
+paper=a4paper,
+driver=pdftex,
+top=3.5cm,
+left=4cm,
+bottom=2.5cm,
+width=1.05\textwidth
 ]{geometry}
 
 \ifthenelse{\boolean{@twoside}}{
@@ -61,6 +61,24 @@
 
 % čeština
 \ifthenelse{\equal{\upb@language}{czech}} {
+\newcommand{\uptextsupervisor}{Vedouc\'i pr\'ace: }
+\newcommand{\uptextanot}{Anotace}
+\newcommand{\uptextthx}{Pod\v ekov\'an\'i}
+\newcommand{\uptextfield}{Studijn\'i obor: }
+\newcommand{\uptextdefaultfield}{Aplikovan\'a informatika}
+
+
+\ifthenelse{\boolean{upd@master}} {
+\def\@uppaper{DIPLOMOV\'A PR\'ACE}
+} {
+\def\@uppaper{BAKAL\'A\v RSK\'A PR\'ACE}
+}
+} {
+\relax
+}
+
+% angličtina
+\ifthenelse{\equal{\upb@language}{english}} {
 \newcommand{\uptextsupervisor}{Vedouc\'i pr\'ace: }
 \newcommand{\uptextanot}{Anotace}
 \newcommand{\uptextthx}{Pod\v ekov\'an\'i}
