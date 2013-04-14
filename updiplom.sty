@@ -11,6 +11,7 @@
 
 % Parametry.
 \DeclareBoolOption{master}
+\DeclareStringOption[false]{iwona}[false]
 \DeclareStringOption[utf8]{encoding}[utf8]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
 \DeclareStringOption[czech]{language}[czech]
@@ -27,7 +28,11 @@
 
 \ProcessKeyvalOptions*
 
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+
 \RequirePackage[
+iwona=\upd@iwona,
 joinlists=\upd@joinlists,
 encoding=\upd@encoding,
 bibencoding=\upd@bibencoding,
@@ -80,16 +85,16 @@ width=1.05\textwidth
 % angličtina
 \ifthenelse{\equal{\upb@language}{english}} {
 \newcommand{\uptextsupervisor}{Supervisor: }
-\newcommand{\uptextanot}{Annotation}
-\newcommand{\uptextthx}{Thanks to}
-\newcommand{\uptextfield}{Field: }
+\newcommand{\uptextanot}{Synopsis}
+\newcommand{\uptextthx}{Thanks}
+\newcommand{\uptextfield}{Field of study: }
 \newcommand{\uptextdefaultfield}{Applied computer science}
 
 
 \ifthenelse{\boolean{upd@master}} {
-\def\@uppaper{MASTER'S THESIS}
+\def\@uppaper{MASTER THESIS}
 } {
-\def\@uppaper{BACHELOR'S THESIS}
+\def\@uppaper{BACHELOR THESIS}
 }
 } {
 \relax
@@ -170,16 +175,23 @@ width=1.05\textwidth
 \centering
 \includegraphics[width=2.5cm]{\uplogofile}
 \vfill
-{\noindent
-\begin{tabular}{p{6cm} p{6cm}}
+
+\begin{table}[ht]
+\centering
+\begin{subtable}[t]{0.4\textwidth}
+\begin{tabular}{p{5.5cm}}
 {\Large\@yearofsubmit} \\[1em]
-\uptextsupervisor\@supervisor
+\uptextsupervisor\@supervisor \\
 \end{tabular}
+\end{subtable}
 \hfill
-\begin{tabular}{ll}
+\begin{subtable}[t]{0.4\textwidth}
+\begin{tabular}{p{5.5cm}}
 {\Large\@author} \\[1em]
-\uptextfield\@field
-\end{tabular}}
+\uptextfield\@field \\
+\end{tabular}
+\end{subtable}
+\end{table}
 \end{center}
 \end{titlepage}
 
