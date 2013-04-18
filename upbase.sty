@@ -21,6 +21,8 @@
 \RequirePackage[usenames,dvipsnames,table]{xcolor}
 \RequirePackage{appendix}
 \RequirePackage{chngcntr}
+\RequirePackage{ragged2e}
+\RequirePackage{tabularx}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Deklarace parametrů.
@@ -193,6 +195,14 @@ style=\upb@bibstyle				% Styl bibliografie. Pro českou sazbu patrně numeric.
 % Redeklarace makra \uv, aby používalo csquotes.
 % Makro \uv bude tisknout typ závorek v závislosti na jazyku prostředí.
 \renewcommand{\uv}[1]{\enquote{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Deklarace nových sloupců pro tabulky.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcolumntype{L}[1]{>{\RaggedRight\hspace{0pt}}p{#1}}
+\newcolumntype{R}[1]{>{\RaggedLeft\hspace{0pt}}p{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Rejstřík

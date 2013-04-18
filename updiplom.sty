@@ -176,22 +176,11 @@ width=1.05\textwidth
 \includegraphics[width=2.5cm]{\uplogofile}
 \vfill
 
-\begin{table}[ht]
-\centering
-\begin{subtable}[t]{0.47\textwidth}
-\begin{tabular}{p{6cm}}
-{\Large\@yearofsubmit} \\[1em]
-\uptextsupervisor\@supervisor
+\begin{tabular}{L{6cm}p{1cm}L{5cm}}
+{\Large\@yearofsubmit} & & {\Large\@author} \\[1em]
+\uptextsupervisor\@supervisor & & \uptextfield\@field
 \end{tabular}
-\end{subtable}
-\hfill
-\begin{subtable}[t]{0.47\textwidth}
-\begin{tabular}{p{6cm}}
-{\Large\@author} \\[1em]
-\uptextfield\@field
-\end{tabular}
-\end{subtable}
-\end{table}
+
 \end{center}
 \end{titlepage}
 
@@ -225,8 +214,6 @@ width=1.05\textwidth
 ]{\uptextthx}
 \noindent\@thanks
 }
-
-\setcounter{table}{0}
 
 % tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists
 \tableofcontents
