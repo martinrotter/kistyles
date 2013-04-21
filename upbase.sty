@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{upbase}[2012/09/09 UP Base Style]
-\PackageWarningNoLine{upbase}{[upbase] You are using upbase style 0.82}
+\PackageWarningNoLine{upbase}{[upbase] You are using upbase style 0.83}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Načítání balíků.
@@ -44,7 +44,7 @@ prefix=upb@
 \DeclareStringOption[false]{glossaries}[false]
 \DeclareStringOption[czech]{language}[czech]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
-\DeclareStringOption[numeric-verb]{bibstyle}[numeric-verb]
+\DeclareStringOption[iso-numeric]{bibstyle}[iso-numeric]
 \DeclareStringOption[utf8]{encoding}[utf8]
 
 %% Warn user about unknown parameters.
@@ -59,14 +59,6 @@ prefix=upb@
 \RequirePackage[czech,english,\upb@language]{babel}
 \RequirePackage[autostyle=try]{csquotes}
 \RequirePackage[savemem]{listings}
-\RequirePackage[
-natbib,										% Zapíná kompatibilitu s balíkem natbib.
-sortcites=true,						% Zapíná řazení citací.
-backend=bibtex,						% Program použitý pro generování TeX kódu bibliografie.
-babel=other,							% Zapne autodetekci jazyka bibliografie.
-bibencoding=\upb@bibencoding,		% Kódování souboru s bibliografií.
-style=\upb@bibstyle				% Styl bibliografie. Pro českou sazbu patrně numeric.
-]{biblatex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Nastavení dynamických textů.
@@ -74,6 +66,19 @@ style=\upb@bibstyle				% Styl bibliografie. Pro českou sazbu patrně numeric.
 
 % čestina
 \ifthenelse{\equal{\upb@language}{czech}} {
+
+% načtení BibLaTeXu
+\RequirePackage[
+	natbib,
+	backend=bibtex,
+	sortcites=true,
+	style=\upb@bibstyle,
+	babel=other,
+	sortlocale=cs_CZ,
+	bibencoding=\upb@bibencoding,
+	spacecolon=false
+]{biblatex}
+
 	\newcommand{\uptexttitle}{Tituln\'{i} strana}
 	\newcommand{\uptexttitletop}{P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO}
 	\newcommand{\uptextdept}{KATEDRA INFORMATIKY}
@@ -105,6 +110,19 @@ style=\upb@bibstyle				% Styl bibliografie. Pro českou sazbu patrně numeric.
 
 % angličtina
 \ifthenelse{\equal{\upb@language}{english}} {
+
+% načtení BibLaTeXu
+\RequirePackage[
+	natbib,
+	backend=bibtex,
+	sortcites=true,
+	style=\upb@bibstyle,
+	babel=other,
+	sortlocale=en_GB,
+	bibencoding=\upb@bibencoding,
+	spacecolon=false
+]{biblatex}
+
 	\newcommand{\uptexttitle}{Title page}
 	\newcommand{\uptexttitletop}{FACULTY OF SCIENCE, PALACK\'{Y} UNIVERSITY}
 	\newcommand{\uptextdept}{DEPARTMENT OF COMPUTER SCIENCE}

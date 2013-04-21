@@ -7,6 +7,9 @@ Aktuální verze: 0.8
 
 Změny:
 
+0.83
+ :: Přidána podpora dle ISO 690-2 pro českou a anglickou bibliografii pro BibLaTeX. Slovenština je patrně také podporována.
+
 0.82
  :: Iwonu nahrazuje Iwona Light.
 
