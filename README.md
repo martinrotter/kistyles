@@ -7,6 +7,9 @@ Aktuální verze: 0.8
 
 Změny:
 
+0.82
+ :: Iwonu nahrazuje Iwona Light.
+
 0.81
  :: Minoritní změny, plánovná práce na titulní straně. Přidán JavaScript atp.
 
