@@ -1,11 +1,16 @@
 LaTeX styly pro psaní různých prací na Katedře informatiky PřF UP 
-Olomouc.
+Olomouc. Použitá licence je GNU GPLv3 nebo novější.
 
 !! Tyto styly nejsou určeny k produkčnímu použití. Prozatím se jedná pouze o testovací materiál !!
 
-Aktuální verze: 0.8
+Aktuální verze: 0.84
+
+
 
 Změny:
+
+0.84
+ :: Aktualizovaná verze biblatex-iso690.
 
 0.83
  :: Přidána podpora dle ISO 690-2 pro českou a anglickou bibliografii pro BibLaTeX. Slovenština je patrně také podporována.
