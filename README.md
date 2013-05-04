@@ -10,7 +10,7 @@ Aktuální verze: 0.84
 Změny:
 
 0.84
- :: Aktualizovaná verze biblatex-iso690.
+ :: Aktualizovaná verze biblatex-iso690 -> verze vrácená zpět kvůli chybkám.
 
 0.83
  :: Přidána podpora dle ISO 690-2 pro českou a anglickou bibliografii pro BibLaTeX. Slovenština je patrně také podporována.

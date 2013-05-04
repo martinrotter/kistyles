@@ -44,25 +44,17 @@
 %commands
 %select main language of bibliography. this is needed in fields like number of pages etc.
 %main language is last in babel params list. so if we have \usepackage[english,czech]{babel}, main language is czech
-%\newlength{\trashlength}
+\newlength{\trashlength}
+\newcommand\mainlanguage@n{\blx@langsetup\bbl@main@language}
 %\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}{\settowidth{\trashlength}{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}\kern-\dimexpr \trashlength\relax}}%
-
-%\newcommand\mainlanguage@n{\blx@langsetup\bbl@main@language}
-% Select main document language
-\newcommand\mainlanguage@n{%\setbox0=\hbox{
-	\expandafter\bbl@set@language\expandafter{\bbl@main@language}%}%
-}
 %\newcommand\mainlanguage@n{\expandafter\bbl@set@language\expandafter{\bbl@main@language}}
 
 \newcommand\mainsstring[1]{\mainlanguage@n{}\bibsstring{#1}}
-%\newcommand\mainsstring[1]{\mainlanguage@n\csuse{abx@sstr@#1}}
-
 \newcommand\mainlstring[1]{\mainlanguage@n{}\biblstring{#1}}
-%\newcommand\mainlstring[1]{\mainlanguage@n\csuse{abx@lstr@#1}}
+
 \newcommand\tcolon{%colon between location and publisher, title and subtitle etc.
 \def\colo@n{\printtext{:}}
-%\ifthenelse{\boolean{bbx@tcolon}}{\addspace\colo@n}{\colo@n}%
-\colo@n%
+\ifthenelse{\boolean{bbx@tcolon}}{\addspace\colo@n}{\colo@n}%
 }
 
 \renewcommand\subtitlepunct{\tcolon}
@@ -98,12 +90,12 @@
 \DeclareFieldFormat*{emphatize}{\emph{#1}}
 \DeclareFieldFormat*{edition}{%
   \ifnumeral{#1}%
-	{\mkbibordedition{#1}\addnbspace\bibsstring{edition}}%
+    {\mkbibordedition{#1}}%
     {%
-    %\ifstrequal{#1}{first}{\mkbibordedition{1}}{%
-    %  \ifstrequal{#1}{second}{\mkbibordedition{2}}{
-    %    \ifstrequal{#1}{third}{\mkbibordedition{3}}{
-    \MakeCapital{#1}}%}}%
+    \ifstrequal{#1}{first}{\mkbibordedition{1}}{%
+      \ifstrequal{#1}{second}{\mkbibordedition{2}}{
+        \ifstrequal{#1}{third}{\mkbibordedition{3}}{
+    \MakeCapital{#1}}}}}%
 }
 \DeclareFieldFormat*{pages}{\mainsstring{pages}\space\printtext{#1}}
 \DeclareFieldFormat*{number}{\bibsstring{number}\addspace\printtext{#1}}
@@ -158,7 +150,7 @@
   \ifnameundef{author}%
   {\usebibmacro{editor}}%
   {\printnames{author}}%
-  \usebibmacro{year-label}%
+  \usebibmacro{year-label}
 }
 
 
@@ -248,9 +240,8 @@
 {\printfield{pagetotal}\usebibmacro{loc:pages}}%
 }
 \newbibmacro{book:vol}{%
-	\printfield{edition}
-	%\iffieldundef{edition}{}%
-%{\printfield{edition}\usebibmacro{loc:bookvol}}%
+\iffieldundef{edition}{}%
+{\printfield{edition}\usebibmacro{loc:bookvol}}%
 }
 
 \newbibmacro{titles}[1]{%
@@ -275,8 +266,8 @@
 \usebibmacro{online}
 }
 
-\newbibmacro{in}{%
-	\mainsstring{in}%
+\newbibmacro*{in}{%
+\mainsstring{in}%
 %\addspace%
 }
 
@@ -284,7 +275,7 @@
 %Localisation macros
 \newbibmacro{loc:pages}{\addnbspace\mainsstring{pages}}%\printtext{s}}
 
-%\newbibmacro{loc:bookvol}{\addnbspace\bibsstring{edition}}
+\newbibmacro{loc:bookvol}{\addnbspace\bibsstring{edition}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -372,10 +363,9 @@
 \usebibmacro{bibindex}%
 \usebibmacro{begentry}%
 \printnames{bookauthor}
-\usebibmacro{year-label}%
 \newunit\newblock
-\printfield{booktitle}%
-\printfield[emph-colon]{booksubtitle}%
+\printfield{booktitle}
+\printfield[emph-colon]{booksubtitle}
 \newunit\newblock
 \usebibmacro{book:vol}
 \newunit\newblock
@@ -385,10 +375,9 @@
 \newunit\newblock
 \printfield{chapter}
 \setunit*{\addcomma\addspace}%
-\newunit
 \printfield{title}%
 \printfield[colon]{subtitle}
-\setunit{\addcomma\addspace}%
+\setunit*{\addcomma}%
 \printfield{pages}
 \newunit\newblock
 \printfield{note}
@@ -407,7 +396,7 @@
 \newunit\newblock
 \printfield{title}%
 \printfield[colon]{subtitle}%
-\newunit\newblock
+\newunit
 \usebibmacro{in}
 \usebibmacro{editor}%
 \newunit\newblock%
@@ -452,7 +441,7 @@
 \newunit\newblock
 \printfield{note}
 \newunit\newblock
-%\usebibmacro{availability
+%\usebibmacro{availability}
 \usebibmacro{comment+link}{\mainlstring{url}}\usebibmacro{print-online}
 \newunit\newblock
 \printfield{isbn}
