@@ -1,6 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{upbase}[2012/09/09 UP Base Style]
-\PackageWarningNoLine{upbase}{[upbase] You are using upbase style 0.84}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Načítání balíků.
@@ -28,9 +27,9 @@
 %% Deklarace parametrů.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\SetupKeyvalOptions {
-family=upb,
-prefix=upb@
+\SetupKeyvalOptions{
+  family=upb,
+  prefix=upb@
 }
 
 \DeclareStringOption[false]{iwona}[false]
@@ -47,7 +46,7 @@ prefix=upb@
 \DeclareStringOption[iso-numeric]{bibstyle}[iso-numeric]
 \DeclareStringOption[utf8]{encoding}[utf8]
 
-%% Warn user about unknown parameters.
+%% Varujeme uživatele před neznámými argumenty.
 \DeclareDefaultOption{\PackageWarningNoLine{upbase}{[upbase] Option '\CurrentOption' was not recognized}}
 
 \ProcessKeyvalOptions*
@@ -64,19 +63,19 @@ prefix=upb@
 %% Nastavení dynamických textů.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% čestina
-\ifthenelse{\equal{\upb@language}{czech}} {
+% Čestina.
+\ifthenelse{\equal{\upb@language}{czech}}{
 
-% načtení BibLaTeXu
-\RequirePackage[
-	natbib=true,
-	backend=bibtex,
-	sortcites=true,
-	style=\upb@bibstyle,
-	babel=other,
-	sortlocale=cs_CZ,
-	bibencoding=\upb@bibencoding
-]{biblatex}
+  % Načtení BibLaTeXu.
+  \RequirePackage[
+    natbib=true,
+    backend=bibtex,
+    sortcites=true,
+    style=\upb@bibstyle,
+    babel=other,
+    sortlocale=cs_CZ,
+    bibencoding=\upb@bibencoding
+  ]{biblatex}
 
 	\newcommand{\uptexttitle}{Tituln\'{i} strana}
 	\newcommand{\uptexttitletop}{P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO}
@@ -96,31 +95,31 @@ prefix=upb@
 	\newcommand{\uptextproof}{D\r{u}kaz}
 	\newcommand{\uptextexample}{P\v{r}\'{i}klad}
 
-	\ifthenelse{\equal{\upb@glossaries}{true}} {
+	\ifthenelse{\equal{\upb@glossaries}{true}}{
 		\RequirePackage[acronym,nonumberlist,sanitize=none]{glossaries}
 		\renewcommand{\acronymname}{Seznam zkratek}
-	} {
+	}{
 	\relax
 	}
 
-} {
+}{
 	\relax
 }
 
-% angličtina
-\ifthenelse{\equal{\upb@language}{english}} {
+% Angličtina.
+\ifthenelse{\equal{\upb@language}{english}}{
 
-% načtení BibLaTeXu
-\RequirePackage[
-	natbib,
-	backend=bibtex,
-	sortcites=true,
-	style=\upb@bibstyle,
-	babel=other,
-	sortlocale=en_GB,
-	bibencoding=\upb@bibencoding,
-	spacecolon=false
-]{biblatex}
+  % Načtení BibLaTeXu.
+  \RequirePackage[
+    natbib,
+    backend=bibtex,
+    sortcites=true,
+    style=\upb@bibstyle,
+    babel=other,
+    sortlocale=en_GB,
+    bibencoding=\upb@bibencoding,
+    spacecolon=false
+  ]{biblatex}
 
 	\newcommand{\uptexttitle}{Title page}
 	\newcommand{\uptexttitletop}{FACULTY OF SCIENCE, PALACK\'{Y} UNIVERSITY}
@@ -140,14 +139,14 @@ prefix=upb@
 	\newcommand{\uptextproof}{Proof}
 	\newcommand{\uptextexample}{Example}
 
-	\ifthenelse{\equal{\upb@glossaries}{true}} {
+	\ifthenelse{\equal{\upb@glossaries}{true}}{
 		\RequirePackage[acronym,nonumberlist,sanitize=none]{glossaries}
 		\renewcommand{\acronymname}{List of abbreviations}
-	} {
+	}{
 	\relax
 	}
 
-} {
+}{
 	\relax
 }
 
@@ -155,9 +154,9 @@ prefix=upb@
 %% Načtení balíku iwona pro nepatkové písmo.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\upb@iwona}{true}} {
+\ifthenelse{\equal{\upb@iwona}{true}}{
 	\RequirePackage[light,math]{iwona}
-} {
+}{
 	\relax
 }
 
@@ -165,9 +164,9 @@ prefix=upb@
 %% Načtení balíku graphicx pro sazbu obrázků.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\boolean{pdf}} {
+\ifthenelse{\boolean{pdf}}{
 	\RequirePackage[pdftex]{graphicx}
-} {
+}{
 	\RequirePackage{graphicx}
 }
 
@@ -175,8 +174,8 @@ prefix=upb@
 %% Zkratky a seznam zkratek.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\upb@glossaries}{true}} {
-	% Zapbutí generování zkratek.
+\ifthenelse{\equal{\upb@glossaries}{true}}{
+	% Zapnutí generování zkratek.
 	\makeglossaries
 
 	% Zkratky tučně a bez interpunkce za zkratkou.
@@ -194,7 +193,7 @@ prefix=upb@
 		\addcontentsline{toc}{section}{\acronymname}
 		\orgprintglossary[type=\acronymtype]
 	}
-} {
+}{
 	\relax
 }
 
@@ -213,11 +212,12 @@ prefix=upb@
 % Makro \uv bude tisknout typ závorek v závislosti na jazyku prostředí.
 \renewcommand{\uv}[1]{\enquote{#1}}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Deklarace nových sloupců pro tabulky.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%% Sloupce s uživatelsky stanovenou šířkou a zarovnáním textu na danou stranu.
+%% Použití: \begin{tabular}{| c | L{3cm} | C{3cm} | R{3cm} |}
 \newcolumntype{L}[1]{>{\RaggedRight\hspace{0pt}}p{#1}}
 \newcolumntype{R}[1]{>{\RaggedLeft\hspace{0pt}}p{#1}}
 
@@ -287,15 +287,8 @@ prefix=upb@
 
 \renewcommand{\appendix}{
 	\clearpage
-	%\addtocontents{toc}{\protect\vspace{10pt}}
 	\orgappendix
 }
-
-%% Zarovnání nadpisů plovoucích prostředí na střed.
-%\let\orgcaption=\caption
-%\renewcommand{\caption}[1]{
-%	{\centering\orgcaption{#1}}
-%}
 
 %% Nastaví PDF záložky na kořen.
 \newcommand{\upendofmainmatter}{
@@ -352,8 +345,8 @@ prefix=upb@
 
 \setcounter{tocdepth}{5}
 \setcounter{secnumdepth}{5}
-\newcommand{\subsubsubsection}{\@startsection{paragraph}{4}{0ex}%
-   {-3.25ex plus -1ex minus -0.2ex}%
+\newcommand{\subsubsubsection}{\@startsection{paragraph}{4}{0ex}
+   {-3.25ex plus -1ex minus -0.2ex}
    {1.5ex plus 0.2ex}%
    {\normalfont\normalsize\bfseries}}
 
@@ -414,32 +407,32 @@ prefix=upb@
 		{í}{{\'i}}1
 		{é}{{\'e}}1
 		{ý}{{\'y}}1
-        {ú}{{\'u}}1
-        {ó}{{\'o}}1
-        {ě}{{\v{e}}}1
-        {š}{{\v{s}}}1
-        {č}{{\v{c}}}1
-        {ř}{{\v{r}}}1
-        {ž}{{\v{z}}}1
-        {ď}{{\v{d}}}1
-        {ť}{{\v{t}}}1
-        {ň}{{\v{n}}}1                
-        {ů}{{\r{u}}}1
-        {Á}{{\'A}}1
-        {Í}{{\'I}}1
-        {É}{{\'E}}1
-        {Ý}{{\'Y}}1
-        {Ú}{{\'U}}1
-        {Ó}{{\'O}}1
-        {Ě}{{\v{E}}}1
-        {Š}{{\v{S}}}1
+    {ú}{{\'u}}1
+    {ó}{{\'o}}1
+    {ě}{{\v{e}}}1
+    {š}{{\v{s}}}1
+    {č}{{\v{c}}}1
+    {ř}{{\v{r}}}1
+    {ž}{{\v{z}}}1
+    {ď}{{\v{d}}}1
+    {ť}{{\v{t}}}1
+    {ň}{{\v{n}}}1                
+    {ů}{{\r{u}}}1
+    {Á}{{\'A}}1
+    {Í}{{\'I}}1
+    {É}{{\'E}}1
+    {Ý}{{\'Y}}1
+    {Ú}{{\'U}}1
+    {Ó}{{\'O}}1
+    {Ě}{{\v{E}}}1
+    {Š}{{\v{S}}}1
     {Č}{{\v{C}}}1
-		{Ř}{{\v{R}}}1
+    {Ř}{{\v{R}}}1
     {Ž}{{\v{Z}}}1
     {Ď}{{\v{D}}}1
     {Ť}{{\v{T}}}1
     {Ň}{{\v{N}}}1                
-		{Ů}{{\r{U}}}1    
+    {Ů}{{\r{U}}}1    
 }
 
 % Definice dodatečných jazyků.
@@ -463,7 +456,7 @@ prefix=upb@
 }
 
 \lstdefinelanguage{cpp}{
-	morekeywords={int,enum,struct,static,bool,return,for,if,void,ifndef,define,endif,class,constexpr,new,const,auto,double,public,private,protected,signals,slots},
+  morekeywords={int,enum,struct,static,bool,return,for,if,void,ifndef,define,endif,class,constexpr,new,const,auto,double,public,private,protected,signals,slots},
 	sensitive=false,
 	morecomment=[s][commentstyle]{/*}{*/},
 	morecomment=[l][commentstyle]{//},
@@ -483,25 +476,26 @@ prefix=upb@
 	morestring=[b][stringstyle]{"}
 }
 
+%% Načtení jazyků.
 \lstloadlanguages{[ANSI]C,[LaTeX]TeX,PHP,HTML,Lisp,SQL,TeX,Python,Java,TutorialD,text,csharp,cpp,JavaScript}
 
 % Definice souvisejících prostředí.
-\newcommand{\upinlinecode}[3] {
+\newcommand{\upinlinecode}[3]{
 \noindent\ignorespaces\lstinline[style=upbasestyle,language=#1]#2#3#2\ignorespacesafterend
 }
 
 \lstnewenvironment{upcode}[3]{
-\lstset{language=#1,float=ht,style=upbasestyle,firstnumber=1,caption={#3},label={#2},aboveskip=10px,belowskip=15px}
+  \lstset{language=#1,float=ht,style=upbasestyle,firstnumber=1,caption={#3},label={#2},aboveskip=10px,belowskip=15px}
 }{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Loga.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\upb@blacklogo}{true}} {
-\def\uplogofile{graphics/uplogo-black}
-} {
-\def\uplogofile{graphics/uplogo-white}
+\ifthenelse{\equal{\upb@blacklogo}{true}}{
+  \newcommand{\uplogofile}{graphics/uplogo-black}
+}{
+  \newcommand{\uplogofile}{graphics/uplogo-white}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -526,7 +520,6 @@ prefix=upb@
 	spacebelow=\parskip,
 	headpunct=:
 ]{updefstyle}
-
 
 \declaretheoremstyle[
 	headfont=\normalfont\scshape,
@@ -561,32 +554,33 @@ prefix=upb@
 \let\orglistoftheorems=\listoftheorems
 
 \renewcommand{\listoftheorems}{
-\orglistoftheorems[ignoreall,show={definition,consequence,lemma,remark,theorem,proof,example}]
+  \orglistoftheorems[ignoreall,show={definition,consequence,lemma,remark,theorem,proof,example}]
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Hypertextové odkazy.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\upb@printversion}{true}} {
-\hypersetup {
-colorlinks=false
-}
-} {
-\hypersetup {
-colorlinks=true
-}
-}
-
-\hypersetup {
-    linktocpage=true, pdfstartpage=1, pageanchor=true,
-    pdfstartview=FitV, breaklinks=true, pdfpagemode=UseNone, 
-    plainpages=false, bookmarksnumbered,
-    hypertexnames=true, pdfhighlight=/O,
-    urlcolor=darkblue, linkcolor=darkblue, 
-    citecolor=darkblue
+\ifthenelse{\equal{\upb@printversion}{true}}{
+  \hypersetup{
+    colorlinks=false
+  }
+}{
+  \hypersetup{
+    colorlinks=true
+  }
 }
 
+\hypersetup{
+  linktocpage=true, pdfstartpage=1, pageanchor=true,
+  pdfstartview=FitV, breaklinks=true, pdfpagemode=UseNone, 
+  plainpages=false, bookmarksnumbered,
+  hypertexnames=true, pdfhighlight=/O,
+  urlcolor=darkblue, linkcolor=darkblue, 
+  citecolor=darkblue
+}
+
+%% Tisk klikacího emailu.
 \newcommand{\mail}[1]{\href{mailto:#1}{\texttt{#1}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -598,51 +592,52 @@ colorlinks=true
 %% Sazba seznamů.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\upprintlists{
-\cleardoublepage
-\ifthenelse{\equal{\upb@figures}{true}} {
-\listoffigures
-\ifthenelse{\equal{\upb@joinlists}{true}} {
-\relax
-} {
-\clearpage
-}
-} {
-\relax
-}
-\ifthenelse{\equal{\upb@tables}{true}} {
-\listoftables
-\ifthenelse{\equal{\upb@joinlists}{true}} {
-\relax
-} {
-\clearpage
-}
-} {
-\relax
-}
+\newcommand{\upprintlists}{
+  \cleardoublepage
+  \ifthenelse{\equal{\upb@figures}{true}}{
+    \listoffigures
+    \ifthenelse{\equal{\upb@joinlists}{true}}{
+      \relax
+    }{
+      \clearpage
+    }
+  }{
+    \relax
+  }
+  
+  \ifthenelse{\equal{\upb@tables}{true}}{
+    \listoftables
+    \ifthenelse{\equal{\upb@joinlists}{true}}{
+      \relax
+    }{
+      \clearpage
+    }
+  }{
+    \relax
+  }
 
-\ifthenelse{\equal{\upb@theorems}{true}} {
-\listoftheorems
-\ifthenelse{\equal{\upb@joinlists}{true}} {
-\relax
-} {
-\clearpage
-}
-} {
-\relax
-}
+  \ifthenelse{\equal{\upb@theorems}{true}}{
+    \listoftheorems
+    \ifthenelse{\equal{\upb@joinlists}{true}}{
+      \relax
+    }{
+      \clearpage
+    }
+  }{
+    \relax
+  }
 
-\ifthenelse{\equal{\upb@sourcecodes}{true}} {
-\lstlistoflistings
-\ifthenelse{\equal{\upb@joinlists}{true}} {
-\relax
-} {
-\clearpage
-}
-} {
-\relax
-}
-\cleardoublepage
+  \ifthenelse{\equal{\upb@sourcecodes}{true}}{
+    \lstlistoflistings
+    \ifthenelse{\equal{\upb@joinlists}{true}}{
+      \relax
+    }{
+      \clearpage
+    }
+  }{
+    \relax
+  }
+  \cleardoublepage
 }
 
 \endinput
