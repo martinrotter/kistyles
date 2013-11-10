@@ -84,7 +84,7 @@ prefix=upb@
 	\newcommand{\uptextindex}{Rejst\v{r}\'{i}k}
 	\newcommand{\buno}{bez \'{u}jmy na obecnosti}
 	\newcommand{\Buno}{Bez \'{u}jmy na obecnosti}
-	\renewcommand{\lstlistlistingname}{Seznam zdrojových k\'od\r{u}}
+	\renewcommand{\lstlistlistingname}{Seznam zdrojov\'ych k\'od\r{u}}
 	\renewcommand{\lstlistingname}{Zdrojov\'y k\'od}
 	\newcommand{\listtheoremname}{Seznam v\v et}
 
@@ -347,7 +347,7 @@ prefix=upb@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Makra pro \paragraph.
+%% Makra pro \subsubsubsection.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \setcounter{tocdepth}{5}
@@ -383,7 +383,7 @@ prefix=upb@
 % Typewriter font, který umí i bold.
 \renewcommand{\ttdefault}{pcr}
 
-% Modifikace originálních maker, tak aby respektovala joný obsah.
+% Modifikace originálních maker, tak aby respektovala jiný obsah.
 \lst@UserCommand\lstlistoflistings{\bgroup
     \let\contentsname\lstlistlistingname
     \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{lol}}
@@ -404,16 +404,16 @@ prefix=upb@
 	captionpos=b,
 	numbersep=10pt,
 	inputencoding=\upb@encoding,
-    numberstyle=\scriptsize\ttfamily,
-    stepnumber=1,
-    showstringspaces=false,
+	numberstyle=\scriptsize\ttfamily,
+	stepnumber=1,
+	showstringspaces=false,
 	tabsize=2,
 	extendedchars=true,
-    literate=
+	literate=
 		{á}{{\'a}}1
-        {í}{{\'i}}1
-        {é}{{\'e}}1
-        {ý}{{\'y}}1
+		{í}{{\'i}}1
+		{é}{{\'e}}1
+		{ý}{{\'y}}1
         {ú}{{\'u}}1
         {ó}{{\'o}}1
         {ě}{{\v{e}}}1
@@ -433,13 +433,13 @@ prefix=upb@
         {Ó}{{\'O}}1
         {Ě}{{\v{E}}}1
         {Š}{{\v{S}}}1
-        {Č}{{\v{C}}}1
-        {Ř}{{\v{R}}}1
-        {Ž}{{\v{Z}}}1
-        {Ď}{{\v{D}}}1
-        {Ť}{{\v{T}}}1
-        {Ň}{{\v{N}}}1                
-        {Ů}{{\r{U}}}1    
+    {Č}{{\v{C}}}1
+		{Ř}{{\v{R}}}1
+    {Ž}{{\v{Z}}}1
+    {Ď}{{\v{D}}}1
+    {Ť}{{\v{T}}}1
+    {Ň}{{\v{N}}}1                
+		{Ů}{{\r{U}}}1    
 }
 
 % Definice dodatečných jazyků.
