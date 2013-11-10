@@ -3,11 +3,14 @@ Olomouc. Použitá licence je GNU GPLv3 nebo novější.
 
 !! Tyto styly nejsou určeny k produkčnímu použití. Prozatím se jedná pouze o testovací materiál !!
 
-Aktuální verze: 0.84
+Aktuální verze: 0.85.
 
 
 
 Změny:
+
+0.85
+ :: Vyčištěn kód a sjednocen jeho styl. Přepsán makefile. Vyladění chování některých maker (\href) při sazbě tisknutelné verze dokumentů.
 
 0.84
  :: Aktualizovaná verze biblatex-iso690 -> verze vrácená zpět kvůli chybkám.

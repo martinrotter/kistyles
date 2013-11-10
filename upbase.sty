@@ -465,10 +465,7 @@
 
 \lstdefinelanguage{JavaScript}{
 	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
-	keywordstyle=\color{blue}\bfseries,
 	ndkeywords={class, export, boolean, throw, implements, import, this},
-	ndkeywordstyle=\color{darkgray}\bfseries,
-	identifierstyle=\color{black},
 	sensitive=false,
 	morecomment=[l][commentstyle]{//},
 	morecomment=[s][commentstyle]{/*}{*/},
@@ -578,6 +575,14 @@
   hypertexnames=true, pdfhighlight=/O,
   urlcolor=darkblue, linkcolor=darkblue, 
   citecolor=darkblue
+}
+
+\let\orghref=\href
+
+\ifthenelse{\equal{\upb@printversion}{true}}{
+  \renewcommand{\href}[2]{#2 (\url{#1})}
+}{
+  \relax
 }
 
 %% Tisk klikacího emailu.
