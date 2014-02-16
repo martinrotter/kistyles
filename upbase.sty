@@ -229,6 +229,7 @@
 \makeindex
 
 % Zálohy starých maker.
+\let\orgindex=\index
 \let\orgtheindex=\theindex
 \let\orgendtheindex=\endtheindex
 \let\orgprintindex=\printindex
@@ -259,6 +260,10 @@
 	\clearpage
 	\phantomsection
 	\orgprintindex
+}
+
+\renewcommand{\index}[2]{
+\hyperlink{#1.ind}{#2}\orgindex{#2\protect\hypertarget{#1.ind}{}}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -577,16 +582,15 @@
   citecolor=darkblue
 }
 
+%% Tisk klikacích odkazů.
 \let\orghref=\href
 
 \ifthenelse{\equal{\upb@printversion}{true}}{
   \renewcommand{\href}[2]{#2 (\url{#1})}
+  \newcommand{\mail}[2]{\texttt{#2} (\orghref{mailto:#1}{#1})}
 }{
-  \relax
+	\newcommand{\mail}[2]{\href{mailto:#1}{\texttt{#2}}}
 }
-
-%% Tisk klikacího emailu.
-\newcommand{\mail}[1]{\href{mailto:#1}{\texttt{#1}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Čítání rovnic na základě sekcí.

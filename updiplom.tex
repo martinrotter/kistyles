@@ -2,7 +2,7 @@
 
 \usepackage[
 	iwona=true,
-	printversion=false,					% pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba
+	printversion=true,					% pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba
 	joinlists=true,							% zobrazí seznamy (zkratek, obrázků...) pod sebou
 	glossaries=true,						% povolí podporu zkratek (seznam zkratek, deklarace zkratek)
 	figures=true,								% povolí seznam obrázků
@@ -15,14 +15,14 @@
 	master=true									% mód pro diplomovou práci (Mgr.)
 ]{updiplom}
 
-\title{Dokonalá práce}						% název práce
+\title{Dokonalá práce}				% název práce
 \subtitle{Opravdu dokonalá}
 \yearofsubmit{\the\year}			% rok odevzdání práce (při zakomentování se použije aktuální rok)
 \author{Martin Rotter Albatros Pelikán}
 \field{Aplikovaná nformatika}
 \supervisor{Doc. Ing. Lenka Carr-Motyčková, CSc.}
 
-\annotation{Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn.}			% anotace práce - obvykle jeden odstavec textu
+\annotation{Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn.}												% anotace práce - obvykle jeden odstavec textu
 \thanks{Děkuji všem. Hlavně sobě.}					% poděkování
 
 
@@ -40,7 +40,10 @@
 
 \section{Úvod}
 \lipsum{5-8}
-Koukněte na můj \href{http://www.seznam.cz}{web}.
+Koukněte na můj \href{http://www.seznam.cz}{web}. Nebo na můj \mail{aaa@bbb.com}{e-mail}.
+
+%\hyperlink{aaaaggg}{aaaaggg} \index{aaaa\protect\hypertarget{aaaaggg}{aaaaggg}} avwqvqw.
+Toto je můj klikací \index{indexovany-zaznam}{indexovaný záznam}.
 
 \subsection{Matematika}
 $$\langle f \rangle, \lfloor g \rfloor,
@@ -110,7 +113,7 @@ Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Ab
 \end{lemma}
 
 \begin{consequence}[Název důkazu]
-Abcd. Abcd. \index{Abcd}. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. 
+Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. 
 \end{consequence}
 
 \begin{theorem}[Pumpovací věta]
