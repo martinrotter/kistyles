@@ -584,7 +584,7 @@
 \let\orghref=\href
 
 \ifthenelse{\equal{\upb@printversion}{true}}{
-  \renewcommand{\href}[2]{#2 (\url{#1})}
+  \renewcommand{\href}[2]{#2 (\orghref{#1}{#1})}
   \newcommand{\mail}[2]{#2 (\orghref{mailto:#1}{#1})}
 }{
 	\newcommand{\mail}[2]{\href{mailto:#1}{#2}}

@@ -22,6 +22,11 @@ printversion true nebo false at vidite rozdil)
 JO - \mail dobre, ale myslel jsem upravit jen makra, pomoci kterych je
 mozne vysazet misto adresy jiny text (jako \href a \hyperref, dalsi?),
 makra, ktera vzdy sazi adresu, muzeme nechat
+MR - drobně upraveno chování \mail, \href. Makro \hyperref se primárně používá
+pro navigaci uvnitř dokumentu (podobně makro \hyperlink), navíc obě tato
+makro jsou hutně používána na všemožných místech v dalších balících a předefinováno
+není úplně lehké. Pro externí odkazy se zdaleka nejvíc používají \href a \mail,
+která už jsou poladěná.
 
 - klikaci indexovana slova (viz \IN, \INEM), barva cervenohneda (?)
 MR - myslite to tak ze slova v TEXTU, ktera oindexuju budou klikaci a
@@ -31,6 +36,24 @@ smysl, uvodni implementace pridana
 JO - ano, prvni moznost, druha (po kliku na cislo strany) je
 standardne, ale u \index mel by zustat jen jeden parametr (indexovane
 slovo), jen se vysazi jako odkaz
+MR - Nevím, jak to bylo ve starých stylech, todle není jednoduché docílit. Aby byl indexovaný
+termín klikací, tak je třeba zajistit dvě věci:
+  1. Je třeba mít string, který bude textem odkazu, tedy onen indexovaný termín.
+  2. Je třeba mít název pro samotný odkaz, který bude umístěn do rejstříku, na tento odkaz
+  následně náš klikací string povede.
+  
+Oba stringy nejsou shodné, protože pokud název odkaz obsahuje mezery a podobné znaky, tak mi to házi chybu.
+Takže dva parametry jsou potřeba. Navíc ony dva parametry ani nestaší. Co v případě zanořených indexovaných položek
+\index{literatura!historická}. Tohle musíme domyslet.
+
+Originální \index má jeden argument. Ten se vezme, přeformátuje a hodí do rejstříku, do místa volání se následně
+vloží "label" a na ten se odkáže s rejstříku, tohle je navíc specifikum balíku hyperref. Bez něj dělá index, zdá se,
+zase něco trošku jinak.
+
+Osobně si myslím, že klikací indexové položky v textu nemají valný use-case. Od toho jsou klikací v samotném rejstříku.
+Úplně bych to vyhodil a vrátil se k tomu později. Je riziko, že bych toho víc rozbil, než vylepšil. I ta aktuální
+klikací implementace je děrava a nepodporuje právě to vnořování například.
+
 
 - dejte index pres option index, podobne jako option glossaries pro
 zkratky, tj. \RequirePackage{makeidx}, \makeindex a dalsi indexove
