@@ -1,0 +1,106 @@
+upbase.sty
+==========
+
+? klikaci odkazy (\ref, \pageref, \cite, URL), barva [0.2 0.3 0.6]
+JO - barva OK, el. verze ano jako doposud, tistena take klikaci odkaz
+stejne jako el. verze, ale pokud za nim nebo miste nej neni nejakym
+makrem z hyperref uz vysazena adresa toho odkazu, tak ji za ten odkaz
+vysazet
+MR - upravil jsem chování makra  \href při printversion=true, v tom
+případě se vysází zástupný text hypertextové adresy následován samotnou
+klikací adresou v závorkách
+printversion=false ->>> ukázkový odkaz
+printversion=true  ->>> ukázkový odkaz (http://www.seznam.cz)
+JO - \href OK, ale tyka se to (vysazeni jineho textu misto odkazu)
+pouze \href? Nelze klikaci odkaz s jinym textem vysazet i jinak nez
+pomoci \href? To by pak bylo potreba upravit take.
+MR - myslím, že maker pro sazbu odkazů je hromada \url, \mail,
+\hyperref ...., nevim esli by mělo smysl reimplementovat všechny
+příkazy, nicmene krome href jsem reimplemntoval take makro \mail, viz
+konec "uvodu" v ukazkovem pdf (zkuste si pripadne zkompilovat s
+printversion true nebo false at vidite rozdil)
+JO - \mail dobre, ale myslel jsem upravit jen makra, pomoci kterych je
+mozne vysazet misto adresy jiny text (jako \href a \hyperref, dalsi?),
+makra, ktera vzdy sazi adresu, muzeme nechat
+
+- klikaci indexovana slova (viz \IN, \INEM), barva cervenohneda (?)
+MR - myslite to tak ze slova v TEXTU, ktera oindexuju budou klikaci a
+zavedou me do rejstriku nebo "naopak" tedy ze po kliku na slovo v
+rejstriku me to zavede na zdroj, asi prvni moznost myslim, to dava
+smysl, uvodni implementace pridana
+JO - ano, prvni moznost, druha (po kliku na cislo strany) je
+standardne, ale u \index mel by zustat jen jeden parametr (indexovane
+slovo), jen se vysazi jako odkaz
+
+- dejte index pres option index, podobne jako option glossaries pro
+zkratky, tj. \RequirePackage{makeidx}, \makeindex a dalsi indexove
+veci budou v \ifthenelse{\equal{\upb@index}{true}} {}
+
+! v upbase.sty dejte u options joinlists vychozi true a u figures,
+tables, sourcecodes, glossaries a index false, v updiplom.sty stejne,
+jen u tables a figures true
+MR - hotovo, znamená to, že u diplomek nebudeme moci použít seznam zkratek a zdrojových kodu?
+JO - OK, ale ano, budete, jen to ve vychozim nastaveni bude vypnute,
+tj. pri nepouziti (vetsina diplomantu) se nebudou tisknout nadpisy
+pradnych seznamu, pokud to bude chtit uzivatel pouzit, zapne si to,
+tabulky a obrazky pouzivaji prakticky vsichni diplomanti, takze
+vychozi je zapnute, aby to nemuseli zapinat
+
+updiplom.sty
+============
+
+! seznam literatury stejny z BibLaTeXu (podle normy) a rucne
+(nastylovat thebibliography a bibitem): prijmeni velkymi pismeny ->
+jen prvni pismeno velke, odsazeni dalsich radku polozky vpravo ->
+neodsazene, cisla polozek nalevo (mimo) od leveho okraje textu ->
+odsazeni cele polozky vpravo tak, aby cisla nebyla mimo, cisla do
+hranatych zavorek
+
+! vzorovy dokument jako README k pouziti stylu
+
+uppaper.sty
+===========
+
+MR - puvodne jsem to smazal, pridal sem tedy iniciální styl.
+JO - OK
+
+upsimple.sty -> uppaper.sty
+MR - ted se soustředím na updiplom, viz vaše poslední emaily (23.2.2013)
+JO - ano, vim, az dodelame updiplom, tak podle nej opravite upsimple
+
+! top=2.0cm, bottom=1.0cm, width=1.15\textwidth
+MR - proč tak málo? vždyť původní styl má marginy o dost větší :)
+provedl jsem zde drobné korekce, je třeba řešit hlavně offset na
+vázání práce
+JO - upsimple muze mit mensi marginy, bude na mene "oficialni" prace,
+napr. zapoctove, semestralni, projektove apod.
+
+- zrusit option custompicture, titleanot, titlebookmarktitlepage -
+texty "natvrdo" ve stylu, nevolitelne
+MR - done
+
+- \upanot -> \abstract
+
+- zrusit \upmakeanot
+
+! \upmaketitle -> \upmakefirstpages a vysazi (automaticky) titulni
+stranu, abstrakt, obsah, seznamy (podle option)
+JO - ponechame \maketitle
+
+obecné
+======
+
+- zrusit a4paper, je ve stylu
+MR - mate pravdu, spatne sem cetl dokumentaci baliku geometry
+JO - a bylo by mozne dat do stylu (tj. vynutit) i to 12pt? A kdyz se
+uzivatel pokusi to v dokumentu (u \documentclass) zmenit, jinou
+velikost papiru i pisma, aby dostal chybu?
+
+- \upendofmainmatter nemuzeme po uzivateli chtit, pokud to musi byt
+pred zavery, dejte to do upconclusions, jinak do predefinovani
+\printbibliography a thebibliography
+
+- je mozne pouziti maker \title, \author, \field, \supervisor,
+\annotation, \maketitle, \printbibliography nebo prostredi
+thebibliography a prostredi upconclusions vynutit, tj. aby v dokumentu
+vzdy musely byt, jinak chyba?
