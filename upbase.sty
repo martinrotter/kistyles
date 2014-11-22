@@ -262,9 +262,7 @@
 	\orgprintindex
 }
 
-\renewcommand{\index}[2]{
-\hyperlink{#1.ind}{#2}\orgindex{#2\protect\hypertarget{#1.ind}{}}
-}
+\renewcommand{\index}[2]{\hyperlink{#1.ind}{#2}\orgindex{#2\protect\hypertarget{#1.ind}{}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Dodatečné barvy.
@@ -587,9 +585,9 @@
 
 \ifthenelse{\equal{\upb@printversion}{true}}{
   \renewcommand{\href}[2]{#2 (\url{#1})}
-  \newcommand{\mail}[2]{\texttt{#2} (\orghref{mailto:#1}{#1})}
+  \newcommand{\mail}[2]{#2 (\orghref{mailto:#1}{#1})}
 }{
-	\newcommand{\mail}[2]{\href{mailto:#1}{\texttt{#2}}}
+	\newcommand{\mail}[2]{\href{mailto:#1}{#2}}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
