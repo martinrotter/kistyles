@@ -45,6 +45,7 @@
 \DeclareStringOption[utf8]{bibencoding}[utf8]
 \DeclareStringOption[iso-numeric]{bibstyle}[iso-numeric]
 \DeclareStringOption[utf8]{encoding}[utf8]
+\DeclareStringOption[false]{index}[false]
 
 %% Varujeme uživatele před neznámými argumenty.
 \DeclareDefaultOption{\PackageWarningNoLine{upbase}{[upbase] Option '\CurrentOption' was not recognized}}
@@ -225,6 +226,7 @@
 %% Rejstřík
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\ifthenelse{\equal{\upb@index}{true}}{
 % Zapne rejstříkování.
 \makeindex
 
@@ -239,30 +241,31 @@
 
 % Předefinování prostředí pro sazbu rejstříku.
 \renewenvironment{theindex}{
-	\newpage
-	\bgroup
-	\section*{\uptextindex\@mkboth{\uptextindex}{\uptextindex}}
-	\addcontentsline{toc}{section}{\uptextindex}
-	\def\item{\par}
-	\def\subitem{\par---\kern1ex}
-	\def\subsubitem{\par---\kern1ex---\kern1ex}
-	\def\indexspace{\smallskip}
-	\setlength{\parindent}{-2em}
-	\setlength{\leftskip}{2em}
-	\begin{multicols*}{\indexcolumns}
-} {
-	\end{multicols*}
-	\egroup
+  \newpage
+  \bgroup
+  \section*{\uptextindex\@mkboth{\uptextindex}{\uptextindex}}
+  \addcontentsline{toc}{section}{\uptextindex}
+  \def\item{\par}
+  \def\subitem{\par---\kern1ex}
+  \def\subsubitem{\par---\kern1ex---\kern1ex}
+  \def\indexspace{\smallskip}
+  \setlength{\parindent}{-2em}
+  \setlength{\leftskip}{2em}
+  \begin{multicols*}{\indexcolumns}
+  } {
+\end{multicols*}
+\egroup
 }
 
 % Tiskne rejstřík s vynechanou stranou.
 \renewcommand{\printindex}{
-	\clearpage
-	\phantomsection
-	\orgprintindex
+  \clearpage
+  \phantomsection
+  \orgprintindex
 }
 
-\renewcommand{\index}[2]{\hyperlink{#1.ind}{#2}\orgindex{#2\protect\hypertarget{#1.ind}{}}}
+\renewcommand{\index}[2]{\hyperlink{#1.ind}{#2}\orgindex{#2\protect\hypertarget{#1.ind}{}}}	  
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Dodatečné barvy.

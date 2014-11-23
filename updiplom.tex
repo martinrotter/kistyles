@@ -1,8 +1,8 @@
-\documentclass[12pt]{article}
+\documentclass{updiplom}
 
 \usepackage[
 	iwona=true,
-	printversion=true,					% pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba
+	printversion=false,					% pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba
 	joinlists=true,							% zobrazí seznamy (zkratek, obrázků...) pod sebou
 	glossaries=true,						% povolí podporu zkratek (seznam zkratek, deklarace zkratek)
 	figures=true,								% povolí seznam obrázků
@@ -12,7 +12,8 @@
 	bibencoding=utf8,						% kódování souboru s citacemi
 	language=czech,							% jazyk práce
 	encoding=utf8,							% kódování tohoto a vložených souborů
-	master=true									% mód pro diplomovou práci (Mgr.)
+	master=true,								% mód pro diplomovou práci (Mgr.)
+  index=true
 ]{updiplom}
 
 \title{Dokonalá práce}				% název práce
@@ -147,7 +148,7 @@ table_1 AND table_2;
 
 % způsobí vrácení PDF záložek na kořen, používat zejména pokud dokument
 % obsahuje \part
-\upendofmainmatter
+% \upendofmainmatter
 
 % tiskne český závěr práce
 \begin{upconclusions}[czech]

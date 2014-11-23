@@ -50,24 +50,15 @@ Originální \index má jeden argument. Ten se vezme, přeformátuje a hodí do 
 vloží "label" a na ten se odkáže s rejstříku, tohle je navíc specifikum balíku hyperref. Bez něj dělá index, zdá se,
 zase něco trošku jinak.
 
-Osobně si myslím, že klikací indexové položky v textu nemají valný use-case. Od toho jsou klikací v samotném rejstříku.
+!! Osobně si myslím, že klikací indexové položky v textu nemají valný use-case. Od toho jsou klikací v samotném rejstříku.
 Úplně bych to vyhodil a vrátil se k tomu později. Je riziko, že bych toho víc rozbil, než vylepšil. I ta aktuální
-klikací implementace je děrava a nepodporuje právě to vnořování například.
-
+klikací implementace je děrava a nepodporuje právě to vnořování například !!
 
 - dejte index pres option index, podobne jako option glossaries pro
 zkratky, tj. \RequirePackage{makeidx}, \makeindex a dalsi indexove
 veci budou v \ifthenelse{\equal{\upb@index}{true}} {}
-
-! v upbase.sty dejte u options joinlists vychozi true a u figures,
-tables, sourcecodes, glossaries a index false, v updiplom.sty stejne,
-jen u tables a figures true
-MR - hotovo, znamená to, že u diplomek nebudeme moci použít seznam zkratek a zdrojových kodu?
-JO - OK, ale ano, budete, jen to ve vychozim nastaveni bude vypnute,
-tj. pri nepouziti (vetsina diplomantu) se nebudou tisknout nadpisy
-pradnych seznamu, pokud to bude chtit uzivatel pouzit, zapne si to,
-tabulky a obrazky pouzivaji prakticky vsichni diplomanti, takze
-vychozi je zapnute, aby to nemuseli zapinat
+MR - hotovo, výchozí nastavení je v updiplom na false, pokud nechá uživatel
+false, pak se nevola makeindex a nepředefinují se další indexová makra
 
 updiplom.sty
 ============
@@ -78,14 +69,17 @@ jen prvni pismeno velke, odsazeni dalsich radku polozky vpravo ->
 neodsazene, cisla polozek nalevo (mimo) od leveho okraje textu ->
 odsazeni cele polozky vpravo tak, aby cisla nebyla mimo, cisla do
 hranatych zavorek
+MR - prostředí thebibliography je nastylováno podle starého upstyles, pokud se nepletu,
+jak nastylovat bibitem opravdu netuším, vždyť bibitem se přeci používá právě proto, že tam
+mam 100% svobodu v tom, jak si naformátuju ten daný záznam, zahrnutý BibLatexový styl již
+je podle ISO 690 (https://github.com/michal-h21/biblatex-iso690), jakékoliv úpravy v něm budu reportovat
+autorovy, kterého znám, přijmení podle ISO 690 má být kapitálkami, další opravy nahlásím autorovi
 
 ! vzorovy dokument jako README k pouziti stylu
+MR - zapracuju na tom
 
 uppaper.sty
 ===========
-
-MR - puvodne jsem to smazal, pridal sem tedy iniciální styl.
-JO - OK
 
 upsimple.sty -> uppaper.sty
 MR - ted se soustředím na updiplom, viz vaše poslední emaily (23.2.2013)
@@ -118,12 +112,21 @@ MR - mate pravdu, spatne sem cetl dokumentaci baliku geometry
 JO - a bylo by mozne dat do stylu (tj. vynutit) i to 12pt? A kdyz se
 uzivatel pokusi to v dokumentu (u \documentclass) zmenit, jinou
 velikost papiru i pisma, aby dostal chybu?
+MR - vytvořil jsem dummy třídu "updiplom", která načte sama 12pt v articlu, viz první řádek v
+updiplom.tex, zase bych z uživatele nedělal opici, tím, že zakážu všechny tyhle věci,
+myslím, že v zásadě tím, že něco nastavíme jako výchozí se očekává, že to uživatel nebude měnit,
+pokud je to uživatel amatér, tak stejně neví jak a pokud je to uživatel profík, tak ví, že stanovy
+katedry požadují to, a to, a to... :)
 
 - \upendofmainmatter nemuzeme po uzivateli chtit, pokud to musi byt
 pred zavery, dejte to do upconclusions, jinak do predefinovani
 \printbibliography a thebibliography
+MR - todle makro přehodí výchozí úroveň následujícíh PDF záložek a nemusí se používat,
+jen ve velmi specifických případech, zakomentuji jej v ukázce.
 
 - je mozne pouziti maker \title, \author, \field, \supervisor,
 \annotation, \maketitle, \printbibliography nebo prostredi
 thebibliography a prostredi upconclusions vynutit, tj. aby v dokumentu
 vzdy musely byt, jinak chyba?
+MR - je to nutné? v examplu všechno toto napíšu, opravdu bych předpokládal alespoň
+základní schopnost invence a dedukce u uživatelů :)

@@ -5,11 +5,11 @@ Olomouc. Použitá licence je GNU GPLv3 nebo novější.
 
 Soubor "czech.lbx" obsahuje experimentální verzi překladu pro balík BibLaTeX. Novější instalace TeX distribucí tento překlad již obsahují, a proto lokální "czech.lbx" nemusí být třeba. Je-li toto Váš příklad, tak lokální soubor "czech.lbx" smažte a kompilujte bez něj.
 
-Aktuální verze: 0.87.
-
-
 
 Změny:
+
+0.88
+ :: Upraveno chování několika maker, aktulizována podpora ISO 690.
 
 0.87
  :: Přidán "czech.lbx".

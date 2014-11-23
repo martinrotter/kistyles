@@ -25,6 +25,7 @@
 \DeclareStringOption[false]{theorems}[false]
 \DeclareStringOption[false]{sourcecodes}[false]
 \DeclareStringOption[false]{glossaries}[false]
+\DeclareStringOption[false]{index}[false]
 
 %% Nerozpoznaný parametr hodí chybu.
 \DeclareDefaultOption{\PackageWarningNoLine{updiplom}{[updiplom] Option '\CurrentOption' was not recognized}}
@@ -45,7 +46,8 @@
   glossaries=\upd@glossaries,
   language=\upd@language,
   bibencoding=\upd@bibencoding,
-  encoding=\upd@encoding
+  encoding=\upd@encoding,
+  index=\upd@index
 ]{upbase}
 
 % Nastavení geometrie papíru.
