@@ -227,6 +227,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifthenelse{\equal{\upb@index}{true}}{
+\newcounter{indexno}
+\stepcounter{indexno}
+  
 % Zapne rejstříkování.
 \makeindex
 
@@ -264,7 +267,7 @@
   \orgprintindex
 }
 
-\renewcommand{\index}[2]{\hyperlink{#1.ind}{#2}\orgindex{#2\protect\hypertarget{#1.ind}{}}}	  
+\renewcommand{\index}[1]{\stepcounter{indexno}\hyperlink{\arabic{indexno}ind.ind}{#1}\orgindex{#1\protect\hypertarget{\arabic{indexno}ind.ind}{}}}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

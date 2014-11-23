@@ -1,4 +1,241 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{updiplom}[2012/09/09 UP Diploma Class]
+\PackageWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.88}
 
 \LoadClass[12pt]{article}
+
+\RequirePackage{kvoptions}
+
+\SetupKeyvalOptions {
+	family=upd,
+	prefix=upd@
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Deklarace parametrů.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareBoolOption{master}
+\DeclareStringOption[false]{iwona}[false]
+\DeclareStringOption[utf8]{encoding}[utf8]
+\DeclareStringOption[utf8]{bibencoding}[utf8]
+\DeclareStringOption[czech]{language}[czech]
+\DeclareStringOption[false]{printversion}[false]
+\DeclareStringOption[true]{joinlists}[true]
+\DeclareStringOption[true]{figures}[true]
+\DeclareStringOption[true]{tables}[true]
+\DeclareStringOption[false]{theorems}[false]
+\DeclareStringOption[false]{sourcecodes}[false]
+\DeclareStringOption[false]{glossaries}[false]
+\DeclareStringOption[false]{index}[false]
+
+%% Nerozpoznaný parametr hodí chybu.
+\DeclareDefaultOption{\PackageWarningNoLine{updiplom}{[updiplom] Option '\CurrentOption' was not recognized}}
+
+\ProcessKeyvalOptions*
+
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+
+\RequirePackage[
+  iwona=\upd@iwona,
+  printversion=\upd@printversion,
+  joinlists=\upd@joinlists,
+  figures=\upd@figures,
+  tables=\upd@tables,
+  sourcecodes=\upd@sourcecodes,
+  theorems=\upd@theorems,
+  glossaries=\upd@glossaries,
+  language=\upd@language,
+  bibencoding=\upd@bibencoding,
+  encoding=\upd@encoding,
+  index=\upd@index
+]{upbase}
+
+% Nastavení geometrie papíru.
+\RequirePackage[
+  paper=a4paper,
+  driver=pdftex,
+  top=3.5cm,
+  left=4cm,
+  bottom=3.5cm,
+  width=1.05\textwidth
+]{geometry}
+
+\ifthenelse{\boolean{@twoside}}{
+  \PackageError{updiplom}{Two-sided document mode is not allowed for updiplom}
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Nastavení dynamických textů.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Čeština.
+\ifthenelse{\equal{\upb@language}{czech}}{
+  \newcommand{\uptextsupervisor}{Vedouc\'i pr\'ace: }
+  \newcommand{\uptextanot}{Anotace}
+  \newcommand{\uptextthx}{Pod\v ekov\'an\'i}
+  \newcommand{\uptextfield}{Studijn\'i obor: }
+  \newcommand{\uptextdefaultfield}{Aplikovan\'a informatika}
+
+  \ifthenelse{\boolean{upd@master}}{
+    \def\@uppaper{DIPLOMOV\'A PR\'ACE}
+  }{
+    \def\@uppaper{BAKAL\'A\v RSK\'A PR\'ACE}
+  }
+}{
+  \relax
+}
+
+% Angličtina.
+\ifthenelse{\equal{\upb@language}{english}}{
+  \newcommand{\uptextsupervisor}{Supervisor: }
+  \newcommand{\uptextanot}{Synopsis}
+  \newcommand{\uptextthx}{Thanks}
+  \newcommand{\uptextfield}{Field of study: }
+  \newcommand{\uptextdefaultfield}{Applied computer science}
+
+  \ifthenelse{\boolean{upd@master}}{
+    \def\@uppaper{MASTER THESIS}
+  }{
+    \def\@uppaper{BACHELOR THESIS}
+  }
+}{
+  \relax
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Závěry.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\uptextconclusionscz}{Z\'av\v er}
+\newcommand{\uptextconclusionsen}{Conclusions}
+  
+\newenvironment{upconclusions}[1][czech]{
+  \cleardoublepage
+  \bgroup
+  \phantomsection
+  \ifthenelse{\equal{#1}{czech}}{
+    \addcontentsline{toc}{section}{\uptextconclusionscz}
+    \section*{\uptextconclusionscz}
+  }{
+    \addcontentsline{toc}{section}{\uptextconclusionsen}
+    \section*{\uptextconclusionsen}
+  }
+  \begin{otherlanguage}{#1}
+}{
+  \end{otherlanguage}
+  \egroup
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Titulní strana.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\thanks#1{\gdef\@thanks{#1}}
+\def\annotation#1{\gdef\@annotation{#1}}
+
+%% HACK: Nastavení čísla strany.
+\let\oldsetcounter=\setcounter
+\renewcommand\setcounter[2]{%
+  \def\tempa{#1}%
+  \def\tempb{page}%
+  \ifx\tempa\tempb\else\oldsetcounter{#1}{#2}\fi}
+
+\def\title#1{\gdef\@title{#1}}
+\def\subtitle#1{\gdef\@subtitle{#1}}
+\def\yearofsubmit#1{\gdef\@yearofsubmit{#1}}
+\def\author#1{\gdef\@author{#1}}
+\def\supervisor#1{\gdef\@supervisor{#1}}
+\def\field#1{\gdef\@field{#1}}
+
+% Výchozí hodnoty.
+\subtitle{}
+\thanks{}
+\field{\uptextdefaultfield}
+\yearofsubmit{\the\year}
+
+\def\maketitle{
+\hypertarget{up:paper}{}
+\bookmark[dest=up:paper]{\@title}
+\setcounter{page}{1}
+\begin{titlepage}
+\hypertarget{up:title}{}
+\bookmark[
+  rellevel=1,
+  keeplevel,
+  dest=up:title
+]{\uptexttitle}
+\begin{center}
+{\large \uptexttitletop \par
+        \uptextdept \par}
+\vfill
+{\LARGE\bfseries{\@uppaper} \\}
+\vfill
+{\Large \@title \\[2em]\large\@subtitle}
+
+\vfill
+\centering
+\includegraphics[width=2.5cm]{\uplogofile}
+\vfill
+
+\begin{tabular}{L{6cm}p{1cm}L{5cm}}
+{\Large\@yearofsubmit} & & {\Large\@author} \\[1em]
+\uptextsupervisor\@supervisor & & \uptextfield\@field
+\end{tabular}
+
+\end{center}
+\end{titlepage}
+
+% Tiskne dvě strany s anotací a poděkováním.
+\cleardoublepage
+\thispagestyle{empty}
+\null\vfill
+\hypertarget{up:anotation}{}
+\bookmark[
+  rellevel=1,
+  keeplevel,
+  dest=up:anotation
+]{\uptextanot}
+\begin{center}
+\textbf{\uptextanot}
+\end{center}
+\bigskip
+\emph{\@annotation}
+\vfill\null
+\ifthenelse{\equal{\@thanks}{}} {
+\relax
+} {
+\cleardoublepage
+\thispagestyle{empty}
+\vspace*{\fill}
+\hypertarget{up:thx}{}
+\bookmark[
+  rellevel=1,
+  keeplevel,
+  dest=up:thx
+]{\uptextthx}
+\noindent\@thanks
+}
+
+% Tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists.
+\tableofcontents
+\upprintlists
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hypertexty.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\AtBeginDocument{
+\hypersetup{
+  pdftitle={\@title\ (\@uppaper)},                            % nadpis
+  pdfauthor={\@author\ (\uptextsupervisor\@supervisor)},      % autor dokumentu
+  pdfsubject={\@title\ (\@uppaper)},                          % předmět dokumentu
+  pdfcreator={\@author},                                      % tvůrce dokumentu
+}
+}
+\makeatother
+
+\endinput

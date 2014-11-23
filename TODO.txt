@@ -1,33 +1,6 @@
 upbase.sty
 ==========
 
-? klikaci odkazy (\ref, \pageref, \cite, URL), barva [0.2 0.3 0.6]
-JO - barva OK, el. verze ano jako doposud, tistena take klikaci odkaz
-stejne jako el. verze, ale pokud za nim nebo miste nej neni nejakym
-makrem z hyperref uz vysazena adresa toho odkazu, tak ji za ten odkaz
-vysazet
-MR - upravil jsem chování makra  \href při printversion=true, v tom
-případě se vysází zástupný text hypertextové adresy následován samotnou
-klikací adresou v závorkách
-printversion=false ->>> ukázkový odkaz
-printversion=true  ->>> ukázkový odkaz (http://www.seznam.cz)
-JO - \href OK, ale tyka se to (vysazeni jineho textu misto odkazu)
-pouze \href? Nelze klikaci odkaz s jinym textem vysazet i jinak nez
-pomoci \href? To by pak bylo potreba upravit take.
-MR - myslím, že maker pro sazbu odkazů je hromada \url, \mail,
-\hyperref ...., nevim esli by mělo smysl reimplementovat všechny
-příkazy, nicmene krome href jsem reimplemntoval take makro \mail, viz
-konec "uvodu" v ukazkovem pdf (zkuste si pripadne zkompilovat s
-printversion true nebo false at vidite rozdil)
-JO - \mail dobre, ale myslel jsem upravit jen makra, pomoci kterych je
-mozne vysazet misto adresy jiny text (jako \href a \hyperref, dalsi?),
-makra, ktera vzdy sazi adresu, muzeme nechat
-MR - drobně upraveno chování \mail, \href. Makro \hyperref se primárně používá
-pro navigaci uvnitř dokumentu (podobně makro \hyperlink), navíc obě tato
-makro jsou hutně používána na všemožných místech v dalších balících a předefinováno
-není úplně lehké. Pro externí odkazy se zdaleka nejvíc používají \href a \mail,
-která už jsou poladěná.
-
 - klikaci indexovana slova (viz \IN, \INEM), barva cervenohneda (?)
 MR - myslite to tak ze slova v TEXTU, ktera oindexuju budou klikaci a
 zavedou me do rejstriku nebo "naopak" tedy ze po kliku na slovo v
@@ -36,29 +9,51 @@ smysl, uvodni implementace pridana
 JO - ano, prvni moznost, druha (po kliku na cislo strany) je
 standardne, ale u \index mel by zustat jen jeden parametr (indexovane
 slovo), jen se vysazi jako odkaz
-MR - Nevím, jak to bylo ve starých stylech, todle není jednoduché docílit. Aby byl indexovaný
-termín klikací, tak je třeba zajistit dvě věci:
-  1. Je třeba mít string, který bude textem odkazu, tedy onen indexovaný termín.
-  2. Je třeba mít název pro samotný odkaz, který bude umístěn do rejstříku, na tento odkaz
-  následně náš klikací string povede.
-  
-Oba stringy nejsou shodné, protože pokud název odkaz obsahuje mezery a podobné znaky, tak mi to házi chybu.
-Takže dva parametry jsou potřeba. Navíc ony dva parametry ani nestaší. Co v případě zanořených indexovaných položek
-\index{literatura!historická}. Tohle musíme domyslet.
-
-Originální \index má jeden argument. Ten se vezme, přeformátuje a hodí do rejstříku, do místa volání se následně
-vloží "label" a na ten se odkáže s rejstříku, tohle je navíc specifikum balíku hyperref. Bez něj dělá index, zdá se,
-zase něco trošku jinak.
-
-!! Osobně si myslím, že klikací indexové položky v textu nemají valný use-case. Od toho jsou klikací v samotném rejstříku.
-Úplně bych to vyhodil a vrátil se k tomu později. Je riziko, že bych toho víc rozbil, než vylepšil. I ta aktuální
-klikací implementace je děrava a nepodporuje právě to vnořování například !!
-
-- dejte index pres option index, podobne jako option glossaries pro
-zkratky, tj. \RequirePackage{makeidx}, \makeindex a dalsi indexove
-veci budou v \ifthenelse{\equal{\upb@index}{true}} {}
-MR - hotovo, výchozí nastavení je v updiplom na false, pokud nechá uživatel
-false, pak se nevola makeindex a nepředefinují se další indexová makra
+MR - Nevím, jak to bylo ve starých stylech, todle není jednoduché
+docílit. Aby byl indexovaný termín klikací, tak je třeba zajistit dvě
+věci:
+  1. Je třeba mít string, který bude textem odkazu, tedy onen
+indexovaný termín.
+  2. Je třeba mít název pro samotný odkaz, který bude umístěn do
+rejstříku, na tento odkaz následně náš klikací string povede.
+Oba stringy nejsou shodné, protože pokud název odkaz obsahuje mezery a
+podobné znaky, tak mi to házi chybu. Takže dva parametry jsou potřeba.
+Navíc ony dva parametry ani nestaší. Co v případě zanořených
+indexovaných položek \index{literatura!historická}. Tohle musíme
+domyslet.
+Originální \index má jeden argument. Ten se vezme, přeformátuje a hodí
+do rejstříku, do místa volání se následně vloží "label" a na ten se
+odkáže s rejstříku, tohle je navíc specifikum balíku hyperref. Bez něj
+dělá index, zdá se, zase něco trošku jinak.
+!! Osobně si myslím, že klikací indexové položky v textu nemají valný
+use-case. Od toho jsou klikací v samotném rejstříku. Úplně bych to
+vyhodil a vrátil se k tomu později. Je riziko, že bych toho víc
+rozbil, než vylepšil. I ta aktuální klikací implementace je děrava a
+nepodporuje právě to vnořování například !!
+JO - ve starych stylech to nebylo, tam byl udelany klikaci jen ten
+standardni smer (z rejstriku na stranu se slovem), ale myslim, ze by
+to nemelo byt tak narocne, co treba jednoduse (od slova neodvozeny)
+label INDEX#i, kde #i by byla hodnota counteru (ve starych stylech je
+INDEX#p, kde #p je cislo strany), parametr (termin, v rejstriku) se
+predava cely, libovolne slozity (!,@,| aj.), puvodnimu makru \index,
+ne? vase aktualni implementace ty slozitejsi parametry nepodporuje,
+protoze ten parametr prave pouzivate pro label a ! asi v labelu vadi
+jinak ano, klikaci indexovana slova v textu nejsou zas az tak
+uzitecna, v podstate mi jde spis jen o zvyrazneni tech slov, idealne
+oramovanim jen v prohlizeci jako u odkazu z hyperref (proto proc to
+neudelat rovnou jako odkaz), aby bylo videt, ze to slovo je indexovane
+MR - MATE PRAVDU, nechapu že v texu nedokážu přemýšlet programátorsky,
+reimplementoval jsem to dle vaší idey, pro název interního labelu se nyní
+použije maska ##ind.ind kde ## je číslo z extra counteru indexno, nyní vše funguje,
+nicméně myšlenku musime ještě dotahnout, v originalnim makru \index se totiž nic
+netiskne na výstup, v našem makru \index se tiskne ten jediný argument na výstup +
+se udělá klikacím, jenže co když bude někdo i tak chtít udělat třeba
+\index{dopravní prostředek!auto!motorové}, to znamená vnořené indexy,
+to s jedním argumentem v našem \indexu zkrátka neudělá, za podmínky, že chceme
+zachovat to, že náš index bude tisknout (což bude muset),
+možná bych původní index nechal byt a naše makro pojmenoval \upindex, s tím že bude mít dva
+argumenty \upindex{kod-indexu}{zastupny-text}, tedy třeba
+\upindex{auto!motorové}{motorové auto}.
 
 updiplom.sty
 ============
@@ -69,11 +64,25 @@ jen prvni pismeno velke, odsazeni dalsich radku polozky vpravo ->
 neodsazene, cisla polozek nalevo (mimo) od leveho okraje textu ->
 odsazeni cele polozky vpravo tak, aby cisla nebyla mimo, cisla do
 hranatych zavorek
-MR - prostředí thebibliography je nastylováno podle starého upstyles, pokud se nepletu,
-jak nastylovat bibitem opravdu netuším, vždyť bibitem se přeci používá právě proto, že tam
-mam 100% svobodu v tom, jak si naformátuju ten daný záznam, zahrnutý BibLatexový styl již
-je podle ISO 690 (https://github.com/michal-h21/biblatex-iso690), jakékoliv úpravy v něm budu reportovat
-autorovy, kterého znám, přijmení podle ISO 690 má být kapitálkami, další opravy nahlásím autorovi
+MR - prostředí thebibliography je nastylováno podle starého upstyles,
+pokud se nepletu, jak nastylovat bibitem opravdu netuším, vždyť
+bibitem se přeci používá právě proto, že tam mam 100% svobodu v tom,
+jak si naformátuju ten daný záznam, zahrnutý BibLatexový styl již je
+podle ISO 690 (https://github.com/michal-h21/biblatex-iso690),
+jakékoliv úpravy v něm budu reportovat autorovy, kterého znám,
+přijmení podle ISO 690 má být kapitálkami, další opravy nahlásím
+autorovi
+JO - thebibliography nemusi byt podle stareho stylu, nyni jde o to,
+aby seznam byl nastylovany stejne jako z BibLaTeXu (podle normy),
+bibitem se nestyluje, mate pravdu, ve vzorovem dokumentu dame par
+polozek nastylovanych stejne jako z BibLaTeXu (s poznamkou, ze je to
+prave podle normy), dale ano, prijmeni ma byt podle normy kapitalkami,
+takze OK, ale to odsazeni dalsich radku polozky a cisla vlevo mimo
+okraj textu bych prosil odstranit (parametr block baliku biblatex?),
+cisla v [] byt nemusi, pokud norma rika i to, jak ma vypadat to
+cislovani
+v examplu biblatex-iso690 je backend=biber, nedame biber misto bibtex,
+kdyz uz to mame tak moderni? tridi vubec BibTeX spravne UTF?
 
 ! vzorovy dokument jako README k pouziti stylu
 MR - zapracuju na tom
@@ -92,10 +101,6 @@ vázání práce
 JO - upsimple muze mit mensi marginy, bude na mene "oficialni" prace,
 napr. zapoctove, semestralni, projektove apod.
 
-- zrusit option custompicture, titleanot, titlebookmarktitlepage -
-texty "natvrdo" ve stylu, nevolitelne
-MR - done
-
 - \upanot -> \abstract
 
 - zrusit \upmakeanot
@@ -104,29 +109,50 @@ MR - done
 stranu, abstrakt, obsah, seznamy (podle option)
 JO - ponechame \maketitle
 
-obecné
-======
+*.tex
+=====
 
 - zrusit a4paper, je ve stylu
 MR - mate pravdu, spatne sem cetl dokumentaci baliku geometry
 JO - a bylo by mozne dat do stylu (tj. vynutit) i to 12pt? A kdyz se
 uzivatel pokusi to v dokumentu (u \documentclass) zmenit, jinou
 velikost papiru i pisma, aby dostal chybu?
-MR - vytvořil jsem dummy třídu "updiplom", která načte sama 12pt v articlu, viz první řádek v
-updiplom.tex, zase bych z uživatele nedělal opici, tím, že zakážu všechny tyhle věci,
-myslím, že v zásadě tím, že něco nastavíme jako výchozí se očekává, že to uživatel nebude měnit,
-pokud je to uživatel amatér, tak stejně neví jak a pokud je to uživatel profík, tak ví, že stanovy
-katedry požadují to, a to, a to... :)
+MR - vytvořil jsem dummy třídu "updiplom", která načte sama 12pt v
+articlu, viz první řádek v updiplom.tex, zase bych z uživatele nedělal
+opici, tím, že zakážu všechny tyhle věci, myslím, že v zásadě tím, že
+něco nastavíme jako výchozí se očekává, že to uživatel nebude měnit,
+pokud je to uživatel amatér, tak stejně neví jak a pokud je to
+uživatel profík, tak ví, že stanovy katedry požadují to, a to, a to...
+:)
+JO - s tou tridou jste mi vnuknul myslenku, zda by pro cely styl
+nebyla lepsi trida, vidim to tak, ze pro veci, ktere nelze nebo nema
+smysl pouzit v jine tride (nez article, kterou mame ted, napr. book
+nebo beamer, teoreticky jakekoliv) by mely byt v nove tride a veci,
+ktere lze pouzit i v jinych (vsech) tridach, ponechat v baliku (stylu)
+- neni to tak obecne??, takze muzete vsechno takto rozdelit? tridy
+updiplom, upbase, upppaper, a veci pouzitelne i v jinych tridach dat
+do stylu - pekne se nam to vyviji :-)
+a ano, nakonec bude stacit, kdyz (jak uz jste udelal) nastavite
+vychozi velikost 12pt tak, aby to nebylo v dokumentu (jako parametr
+\documentclass), podobne jako velikost papiru A4, pricejenom, kdyz by
+to student v dokumentu uvidel (hned na prvnim radku), mohlo by ho
+napadnout to (trivialnim zpusobem) zmenit (na vetsi pismo, aby
+"natahl" text), vim, ze mu nic nebrani velikost pisma kdekoliv v
+dokumnetu zmenit, ale kdyz nastaveni velikosti neuvidi, treba ho to
+nenapadne...
+MR - upbase je balíček a je do určité míry "nezavisly" obsahuje nezavisle
+veci, takze ten by balickem mel urcite zustat, nicmene koncove moduly (updiplom, upsimple)
+z hlediska uživatele určitě mohou být třídy
 
 - \upendofmainmatter nemuzeme po uzivateli chtit, pokud to musi byt
 pred zavery, dejte to do upconclusions, jinak do predefinovani
 \printbibliography a thebibliography
-MR - todle makro přehodí výchozí úroveň následujícíh PDF záložek a nemusí se používat,
-jen ve velmi specifických případech, zakomentuji jej v ukázce.
-
-- je mozne pouziti maker \title, \author, \field, \supervisor,
-\annotation, \maketitle, \printbibliography nebo prostredi
-thebibliography a prostredi upconclusions vynutit, tj. aby v dokumentu
-vzdy musely byt, jinak chyba?
-MR - je to nutné? v examplu všechno toto napíšu, opravdu bych předpokládal alespoň
-základní schopnost invence a dedukce u uživatelů :)
+MR - todle makro přehodí výchozí úroveň následujícíh PDF záložek a
+nemusí se používat, jen ve velmi specifických případech, zakomentuji
+jej v ukázce.
+JO - dobre, pokud by jinak zavery a prilohy byly v zalozkach spatne
+zanorene, ale proc to tedy nedat do (re)definice maker pro zavery,
+schovat pred uzivatelem?
+MR - zanoření bude vždy správné, jediný problém, kdy se může stát, že zanoření
+bude o jeden level špatně je, když uživatel použije makro \part, ale to nikdo používat
+nebude, vždy budou používat \section, \subsection ....
