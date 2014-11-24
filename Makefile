@@ -18,6 +18,6 @@ updiplom:	updiplom.tex
 	@pdflatex updiplom
 	@makeindex updiplom.idx
 	@makeglossaries updiplom
-	@bibtex updiplom
+	@biber updiplom
 	@pdflatex updiplom
 	@pdflatex updiplom
