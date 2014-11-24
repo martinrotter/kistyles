@@ -54,6 +54,8 @@ zachovat to, že náš index bude tisknout (což bude muset),
 možná bych původní index nechal byt a naše makro pojmenoval \upindex, s tím že bude mít dva
 argumenty \upindex{kod-indexu}{zastupny-text}, tedy třeba
 \upindex{auto!motorové}{motorové auto}.
+UPDATE: tak dynamický counter být taky nemůže, protože, když uživatel následně v textu použije
+například dvakrát \index{auto}, tak se vytvoří DVA záznamy v rejstříku, namísto jednoho zaznamu s dve odkazy.
 
 updiplom.sty
 ============
