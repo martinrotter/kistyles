@@ -64,6 +64,14 @@
 %% Nastavení dynamických textů.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\uptextdeptcz}{Katedra informatiky}
+\newcommand{\uptextfacultycz}{P\v r\'irodov\v edeck\'a fakulta}
+\newcommand{\uptextunivcz}{Univerzita Palack\'eho v~Olomouci}
+
+\newcommand{\uptextdepten}{Department of Computer Science}
+\newcommand{\uptextfacultyen}{Faculty of Science}
+\newcommand{\uptextuniven}{Palack\'{y} University Olomouc}
+
 % Čestina.
 \ifthenelse{\equal{\upb@language}{czech}}{
 
@@ -79,8 +87,9 @@
   ]{biblatex}
 
 	\newcommand{\uptexttitle}{Tituln\'{i} strana}
-	\newcommand{\uptexttitletop}{P\v R\'IRODOV\v EDECK\'A FAKULTA UNIVERZITY PALACK\'EHO}
-	\newcommand{\uptextdept}{KATEDRA INFORMATIKY}
+	\newcommand{\uptextdept}{\uptextdeptcz}
+        \newcommand{\uptextfaculty}{\uptextfacultycz}
+        \newcommand{\uptextuniv}{\uptextunivcz}
 	\newcommand{\uptextindex}{Rejst\v{r}\'{i}k}
 	\newcommand{\buno}{bez \'{u}jmy na obecnosti}
 	\newcommand{\Buno}{Bez \'{u}jmy na obecnosti}
@@ -123,8 +132,9 @@
   ]{biblatex}
 
 	\newcommand{\uptexttitle}{Title page}
-	\newcommand{\uptexttitletop}{FACULTY OF SCIENCE, PALACK\'{Y} UNIVERSITY}
-	\newcommand{\uptextdept}{DEPARTMENT OF COMPUTER SCIENCE}
+	\newcommand{\uptextdept}{\uptextdepten}
+        \newcommand{\uptextfaculty}{\uptextfacultyen}
+        \newcommand{\uptextuniv}{\uptextuniven}
 	\newcommand{\uptextindex}{Index}
 	\newcommand{\buno}{without loss of generality}
 	\newcommand{\Buno}{Without loss of generality}
@@ -219,8 +229,8 @@
 
 %% Sloupce s uživatelsky stanovenou šířkou a zarovnáním textu na danou stranu.
 %% Použití: \begin{tabular}{| c | L{3cm} | C{3cm} | R{3cm} |}
-\newcolumntype{L}[1]{>{\RaggedRight\hspace{0pt}}p{#1}}
-\newcolumntype{R}[1]{>{\RaggedLeft\hspace{0pt}}p{#1}}
+%\newcolumntype{L}[1]{>{\RaggedRight\hspace{0pt}}p{#1}}
+%\newcolumntype{R}[1]{>{\RaggedLeft\hspace{0pt}}p{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Rejstřík
@@ -229,7 +239,6 @@
 \ifthenelse{\equal{\upb@index}{true}}{
 \newcounter{indexno}
 \stepcounter{indexno}
-  
 % Zapne rejstříkování.
 \makeindex
 
@@ -300,6 +309,8 @@
 }
 
 %% Nastaví PDF záložky na kořen.
+% způsobí vrácení PDF záložek na kořen, používat zejména pokud dokument
+% obsahuje \part
 \newcommand{\upendofmainmatter}{
 	\bookmarksetup{startatroot}
 }

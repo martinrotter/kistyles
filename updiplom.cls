@@ -16,6 +16,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \DeclareBoolOption{master}
+\DeclareStringOption[ainfp]{field}[ainfp]
 \DeclareStringOption[false]{iwona}[false]
 \DeclareStringOption[utf8]{encoding}[utf8]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
@@ -36,6 +37,7 @@
 
 \RequirePackage{caption}
 \RequirePackage{subcaption}
+\RequirePackage{lastpage}
 
 \RequirePackage[
   iwona=\upd@iwona,
@@ -71,95 +73,228 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Čeština.
-\ifthenelse{\equal{\upb@language}{czech}}{
-  \newcommand{\uptextsupervisor}{Vedouc\'i pr\'ace: }
-  \newcommand{\uptextanot}{Anotace}
-  \newcommand{\uptextthx}{Pod\v ekov\'an\'i}
-  \newcommand{\uptextfield}{Studijn\'i obor: }
-  \newcommand{\uptextdefaultfield}{Aplikovan\'a informatika}
+\def\@bachelorcz{bakal\'a\v rsk\'a pr\'ace}
+\def\@mastercz{diplomov\'a pr\'ace}
+\def\@fieldinfcz{Informatika}
+\def\@fieldainfcz{Aplikovan\'a informatika}
+\def\@fieldinfvcz{Informatika pro vzd\v el\'av\'an\'i}
+\def\@fielduvt{U\v citelstv\'i v\'ypo\v cetn\'i techniky pro
+        st\v redn\'i \v skoly}
+\def\@fieldbinf{Bioinformatika}
+\def\@presentformcz{prezen\v cn\'i forma}
+\def\@combinedformcz{kombinovan\'a forma}
 
-  \ifthenelse{\boolean{upd@master}}{
-    \def\@uppaper{DIPLOMOV\'A PR\'ACE}
+\def\@textbibinfocz{Bibliografick\'e \'udaje}
+\def\@texttitlecz{N\'azev pr\'ace}
+\def\@textauthorcz{Autor}
+\def\@textuppapercz{Typ pr\'ace}
+\def\@textdeptcz{Katedra}
+\def\@textyearofsubmitcz{Rok obhajoby}
+\def\@textpagescz{Po\v cet stran}
+\def\@textsupplcz{P\v r\'ilohy}
+\def\@textsupervisorcz{Vedouc\'i pr\'ace}
+\def\@textfieldcz{Studijn\'i obor}
+\def\@textconclusionscz{Z\'av\v er}
+
+% Angličtina.
+\def\@bacheloren{bachelor thesis}
+\def\@masteren{master thesis}
+\def\@fieldinfen{Computer Science}
+\def\@fieldainfen{Applied Computer Science}
+\def\@fieldinfven{Computer Science for Education}
+\def\@fielduvten{Computer Science for Education}
+\def\@fieldbinfen{Bioinformatics}
+\def\@presentformen{present form}
+\def\@combinedformen{combined form}
+
+\def\@textbibinfoen{Bibliograhic info}
+\def\@texttitleen{Title}
+\def\@textauthoren{Author}
+\def\@textuppaperen{Thesis type}
+\def\@textdepten{Department}
+\def\@textyearofsubmiten{Year of defense}
+\def\@textpagesen{Page count}
+\def\@textsupplen{Supplements}
+\def\@textsupervisoren{Supervisor}
+\def\@textfielden{Study field}
+\def\@textconclusionsen{Conclusions}
+
+\ifthenelse{\boolean{upd@master}}{
+  \def\@uppapercz{\@mastercz}
+  \def\@uppaperen{\@masteren}
+  \ifthenelse{\equal{\upd@field}{uvt}}{
+    \def\@fielden{\@fielduvten, \@presentformen}
+    \def\@fieldcz{\@fielduvtcz, \@presentformcz}
   }{
-    \def\@uppaper{BAKAL\'A\v RSK\'A PR\'ACE}
+    \ifthenelse{\equal{\upd@field}{binf}}{
+      \def\@fielden{\@fieldbinfen, \@presentformen}
+      \def\@fieldcz{\@fiendbinfcz, \@presentformcz}
+    }{
+      % \ifthenelse{\equal{\upd@field}{inf}}
+      \def\@fielden{\@fieldinfen, \@presentformen}
+      \def\@fieldcz{\@fieldinfcz, \@presentformcz}
+    }
   }
 }{
-  \relax
+  \def\@uppapercz{\@bachelorcz}
+  \def\@uppaperen{\@bacheloren}
+  \ifthenelse{\equal{\upd@field}{ainfk}}{
+    \def\@fielden{\@fieldainfen, \@combinedformen}
+    \def\@fieldcz{\@fieldainfcz, \@combinedformcz}
+  }{
+    \ifthenelse{\equal{\upd@field}{inf}}{
+      \def\@fielden{\@fieldinfen, \@presentformen}
+      \def\@fieldcz{\@fieldinfcz, \@presentformcz}
+    }{
+      \ifthenelse{\equal{\upd@field}{infv}}{
+        \def\@fielden{\@fieldinfven, \@presentformen}
+        \def\@fieldcz{\@fieldinfvcz, \@presentformcz}
+      }{
+        \ifthenelse{\equal{\upd@field}{binf}}{
+          \def\@fielden{\@fieldbinfen, \@presentformen}
+          \def\@fieldcz{\@fieldbinfcz, \@presentformcz}
+        }{
+          % \ifthenelse{\equal{\upd@field}{ainfp}}
+          \def\@fielden{\@fieldainfen, \@presentformen}
+          \def\@fieldcz{\@fieldainfcz, \@presentformcz}
+        }
+      }
+    }
+  }
 }
 
 % Angličtina.
 \ifthenelse{\equal{\upb@language}{english}}{
-  \newcommand{\uptextsupervisor}{Supervisor: }
-  \newcommand{\uptextanot}{Synopsis}
-  \newcommand{\uptextthx}{Thanks}
-  \newcommand{\uptextfield}{Field of study: }
-  \newcommand{\uptextdefaultfield}{Applied computer science}
-
-  \ifthenelse{\boolean{upd@master}}{
-    \def\@uppaper{MASTER THESIS}
-  }{
-    \def\@uppaper{BACHELOR THESIS}
-  }
+  \def\@uppaper{\@uppaperen}
+  \def\@textfield{\@textfielden}
+  \def\@field{\@fielden}
+  \def\@textsupervisor{\@textsupervisoren}
+  \def\@textanot{Synopsis}
+  \def\@textkeywords{Keywords}
+  \def\@textaffirm{Hereby I affirm that I completed the whole thesis
+    including appendices on my own and that I included all the sources
+    used during the thesis creation.}
+  \def\@textsubmitdate{Date of thesis submission}
+  \def\@textsigniture{Author's signature}
 }{
-  \relax
+  % Čeština.
+  % \ifthenelse{\equal{\upb@language}{czech}}
+  \def\@uppaper{\@uppapercz}
+  \def\@textfield{\@textfieldcz}
+  \def\@field{\@fieldcz}
+  \def\@textsupervisor{\@textsupervisorcz}
+  \def\@textanot{Anotace}
+  \def\@textkeywords{Klí\v cov\'a slova}
+  \def\@textaffirm{M\'istop\v r\'ise\v zn\v e prohla\v suji, \v ze
+    jsem celou pr\'aci v\v cetn\v e p\v r\'iloh vypracoval/a
+    samostatn\v e a \v ze jsem uvedl/a v\v sechny zdroje pou\v zit\'e p\v ri tvorb\v e pr\'ace.}
+  \def\@textsubmitdate{Datum odevzd\'an\'i pr\'ace}
+  \def\@textsigniture{Podpis autora}
 }
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Závěry.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\uptextconclusionscz}{Z\'av\v er}
-\newcommand{\uptextconclusionsen}{Conclusions}
-  
-\newenvironment{upconclusions}[1][czech]{
+\newenvironment{upconclusions}[1][\upb@language]{
   \cleardoublepage
   \bgroup
   \phantomsection
-  \ifthenelse{\equal{#1}{czech}}{
-    \addcontentsline{toc}{section}{\uptextconclusionscz}
-    \section*{\uptextconclusionscz}
+  \ifthenelse{\equal{#1}{english}}{
+    \addcontentsline{toc}{section}{\@textconclusionsen}
+    \section*{\@textconclusionsen}
+    \begin{otherlanguage}{english}
   }{
-    \addcontentsline{toc}{section}{\uptextconclusionsen}
-    \section*{\uptextconclusionsen}
+    \addcontentsline{toc}{section}{\@textconclusionscz}
+    \section*{\@textconclusionscz}
+    \begin{otherlanguage}{czech}
   }
-  \begin{otherlanguage}{#1}
 }{
   \end{otherlanguage}
   \egroup
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Titulní strana.
+%% Titulní strany.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%\def\title#1{\gdef\@title{#1}}
+\renewcommand{\title}[2][\upb@language]{
+  \ifthenelse{\equal{#1}{english}}{
+    \gdef\@titleen{#2}
+  }{
+    \gdef\@titlecz{#2}
+  }
+}
+%\def\subtitle#1{\gdef\@subtitle{#1}}
+\newcommand{\subtitle}[2][\upb@language]{
+  \ifthenelse{\equal{#1}{english}}{
+    \gdef\@subtitleen{#2}
+  }{
+    \gdef\@subtitlecz{#2}
+  }
+}
+\newcommand{\supplements}[2][\upb@language]{
+  \ifthenelse{\equal{#1}{english}}{
+    \gdef\@supplen{#2}
+  }{
+    \gdef\@supplcz{#2}
+  }
+}
+\ifthenelse{\equal{\upb@language}{english}}{
+  \gdef\@title{\@titleen}
+  \gdef\@subtitle{\@subtitleen}
+}{
+  \gdef\@title{\@titlecz}
+  \gdef\@subtitle{\@subtitlecz}
+}
+\def\author#1{\gdef\@author{#1}}
+\def\yearofsubmit#1{\gdef\@yearofsubmit{#1}}
+\def\supervisor#1{\gdef\@supervisor{#1}}
 \def\thanks#1{\gdef\@thanks{#1}}
 \def\annotation#1{\gdef\@annotation{#1}}
-
-%% HACK: Nastavení čísla strany.
-\let\oldsetcounter=\setcounter
-\renewcommand\setcounter[2]{%
-  \def\tempa{#1}%
-  \def\tempb{page}%
-  \ifx\tempa\tempb\else\oldsetcounter{#1}{#2}\fi}
-
-\def\title#1{\gdef\@title{#1}}
-\def\subtitle#1{\gdef\@subtitle{#1}}
-\def\yearofsubmit#1{\gdef\@yearofsubmit{#1}}
-\def\author#1{\gdef\@author{#1}}
-\def\supervisor#1{\gdef\@supervisor{#1}}
-\def\field#1{\gdef\@field{#1}}
+\def\keywords#1{\gdef\@keywords{#1}}
 
 % Výchozí hodnoty.
-\subtitle{}
-\thanks{}
-\field{\uptextdefaultfield}
+\ifthenelse{\equal{\upb@language}{english}}{
+  \author{Author name}
+  \supervisor{Supervisor name}
+  \annotation{Apposite thesis synopsis}
+  \keywords{short appropriate keywords}
+}{
+  \author{Jm\'eno autora}
+  \supervisor{Jm\'eno vedouc\'iho pr\'ace}
+  \annotation{V\'ysti\v zn\'a anotace pr\'ace}
+  \keywords{stru\v cn\'a vhodn\'a kl\'i\v cov\'a slova}
+}
+\title[czech]{N\'azev pr\'ace}
+\title[english]{Thesis title}
+\subtitle[czech]{}
+\subtitle[english]{}
 \yearofsubmit{\the\year}
+\supplements[czech]{1 CD/DVD}
+\supplements[english]{1 CD/DVD}
+
+\ifthenelse{\equal{\upb@language}{czech}}{
+  %% HACK: Nastavení čísla strany.
+  \let\orgsetcounter=\setcounter
+  \renewcommand\setcounter[2]{%
+    \def\tempa{#1}%
+    \def\tempb{page}%
+    \ifx\tempa\tempb\else\orgsetcounter{#1}{#2}\fi}
+}{
+  \relax
+}
 
 \def\maketitle{
 \hypertarget{up:paper}{}
 \bookmark[dest=up:paper]{\@title}
+\ifthenelse{\equal{\upb@language}{english}}{
+  \pagenumbering{roman}
+}{}
 \setcounter{page}{1}
+
+% Titulní strana.
 \begin{titlepage}
 \hypertarget{up:title}{}
 \bookmark[
@@ -168,10 +303,10 @@
   dest=up:title
 ]{\uptexttitle}
 \begin{center}
-{\large \uptexttitletop \par
-        \uptextdept \par}
+{\fontfamily{ppl}\selectfont \large \MakeUppercase{\uptextdept} \par
+  \MakeUppercase{\uptextfaculty} \par \MakeUppercase{\uptextuniv}}
 \vfill
-{\LARGE\bfseries{\@uppaper} \\}
+{\LARGE\bfseries{\MakeUppercase{\@uppaper}} \\}
 \vfill
 {\Large \@title \\[2em]\large\@subtitle}
 
@@ -180,15 +315,60 @@
 \includegraphics[width=2.5cm]{\uplogofile}
 \vfill
 
-\begin{tabular}{L{6cm}p{1cm}L{5cm}}
-{\Large\@yearofsubmit} & & {\Large\@author} \\[1em]
-\uptextsupervisor\@supervisor & & \uptextfield\@field
+\begin{tabular}{@{}p{6cm}@{}@{\hspace{1cm}}@{}p{7cm}@{}}
+{\Large\@yearofsubmit} & {\Large\@author} \\[1em]
+\@textsupervisor: \@supervisor & \@textfield: \@field
 \end{tabular}
 
 \end{center}
 \end{titlepage}
 
-% Tiskne dvě strany s anotací a poděkováním.
+% Strana s bibliografickými identifikačními údaji
+\thispagestyle{empty}
+{\small
+{\bf \@textbibinfocz} \par
+\bigskip
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}p{2.5cm}@{\hspace{1cm}}@{}p{10cm}@{}}
+\@texttitlecz: & \@titlecz%
+\ifthenelse{\equal{\@subtitlecz}{}}{%
+  \relax
+}{%
+, \@subtitlecz
+} \\
+\@textauthorcz: & \@author \\
+\@textuppapercz: & \@uppapercz \\
+\@textdeptcz: & \uptextdeptcz, \uptextfacultycz, \uptextunivcz \\
+\@textyearofsubmitcz: & \@yearofsubmit \\
+\@textsupervisorcz: & \@supervisor \\
+\@textfieldcz: & \@fieldcz \\
+\@textpagescz: & \pageref{LastPage} \\
+\@textsupplcz: & \@supplcz
+\end{tabular}
+\par
+\vspace*{5ex}
+{\bf \@textbibinfoen} \par
+\bigskip
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}p{2.5cm}@{\hspace{1cm}}@{}p{10cm}@{}}
+\@texttitleen: & \@titleen%
+\ifthenelse{\equal{\@subtitleen}{}}{%
+  \relax
+}{%
+, \@subtitleen
+} \\
+\@textauthoren: & \@author \\
+\@textuppaperen: & \@uppaperen \\
+\@textdepten: & \uptextdepten, \uptextfacultyen, \uptextuniven \\
+\@textyearofsubmiten: & \@yearofsubmit \\
+\@textsupervisoren: & \@supervisor \\
+\@textfielden: & \@fielden \\
+\@textpagesen: & \pageref{LastPage} \\
+\@textsupplen: & \@supplen
+\end{tabular}
+}
+
+% Strana s anotací a klíčovými slovy.
 \cleardoublepage
 \thispagestyle{empty}
 \null\vfill
@@ -197,45 +377,51 @@
   rellevel=1,
   keeplevel,
   dest=up:anotation
-]{\uptextanot}
+]{\@textanot}
 \begin{center}
-\textbf{\uptextanot}
+\textbf{\@textanot}
 \end{center}
 \bigskip
 \emph{\@annotation}
+\par
+\vspace*{5em}
+\noindent\textbf{\@textkeywords:} \@keywords
 \vfill\null
-\ifthenelse{\equal{\@thanks}{}} {
-\relax
-} {
-\cleardoublepage
+
+% Strana s prohlášením
+\clearpage
 \thispagestyle{empty}
-\vspace*{\fill}
-\hypertarget{up:thx}{}
-\bookmark[
-  rellevel=1,
-  keeplevel,
-  dest=up:thx
-]{\uptextthx}
+\null\vfill
+\ifthenelse{\equal{\@thanks}{}}{
+\relax
+}{
 \noindent\@thanks
 }
+\vfill
+\noindent\@textaffirm\par
+\vspace*{3cm}
+\noindent\@textsubmitdate \hfill \@textsigniture
 
-% Tiskne obsah a seznamy obrázku, tabulek a případně zdr. kódů, více v makrech \uptableofcontents a \upprintlists.
+% Obsah a seznamy obrázků, tabulek, vět a zdrojových kódů.
 \tableofcontents
 \upprintlists
+
+\ifthenelse{\equal{\upb@language}{english}}{
+  \pagenumbering{arabic}
+  \setcounter{page}{1}
+}{}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Hypertexty.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\makeatletter
 \AtBeginDocument{
 \hypersetup{
   pdftitle={\@title\ (\@uppaper)},                            % nadpis
-  pdfauthor={\@author\ (\uptextsupervisor\@supervisor)},      % autor dokumentu
+  pdfauthor={\@author\ (\@textsupervisor\@supervisor)},      % autor dokumentu
   pdfsubject={\@title\ (\@uppaper)},                          % předmět dokumentu
   pdfcreator={\@author},                                      % tvůrce dokumentu
 }
 }
-\makeatother
 
 \endinput

@@ -11,19 +11,22 @@
 	language=czech,							% jazyk práce
 	encoding=utf8,							% kódování tohoto a vložených souborů
 	master=true,								% mód pro diplomovou práci (Mgr.)
+        field=inf,
   index=true									% chceme používat práci s rejstříkováním
 ]{updiplom}
 
 \title{Dokonalá práce}				% název práce
-\subtitle{Opravdu dokonalá}		% podnadpis
+\subtitle{Opravdu dokonalá} % volitelný podnázev práce
+\title[english]{Perfect thesis}
+\subtitle[english]{Really perfect}
 \yearofsubmit{\the\year}			% rok odevzdání práce (při zakomentování se použije aktuální rok)
 \author{Martin Rotter Albatros Pelikán}
-\field{Aplikovaná nformatika}
 \supervisor{Doc. Ing. Lenka Carr-Motyčková, CSc.}
 
 \annotation{Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn.}												% anotace práce - obvykle jeden odstavec textu
-\thanks{Děkuji všem. Hlavně sobě.}					% poděkování
-
+\keywords{dokument; fajn} % klíčová slova, oddělená středníkem
+\thanks{Děkuji všem. Hlavně sobě.} % volitelné poděkování
+\supplements{jedno kulaté CD/DVD} % přílohy
 
 %% aktivuje bibliografii s daným souborem
 \bibliography{bibliografie.bib}
@@ -41,8 +44,7 @@
 \lipsum{5-8}
 Koukněte na můj \href{http://www.seznam.cz}{web}. Nebo na můj \mail{aaa@bbb.com}{e-mail} a navíc něco přes \hyperlink{http://www.abc.cz}{web ABC}.
 
-%\hyperlink{aaaaggg}{aaaaggg} \index{aaaa\protect\hypertarget{aaaaggg}{aaaaggg}} avwqvqw.
-Toto je můj klikací \index{indexovaný záznam} a ještě jeden \index{indexovaný záznam}.
+Toto je můj klikací \index{indexovaný záznam}.
 
 \subsection{Matematika}
 $$\langle f \rangle, \lfloor g \rfloor,
@@ -144,12 +146,8 @@ SELECT * FROM table_1; /* komentar */
 table_1 AND table_2;
 \end{upcode}
 
-% způsobí vrácení PDF záložek na kořen, používat zejména pokud dokument
-% obsahuje \part
-% \upendofmainmatter
-
 % tiskne český závěr práce
-\begin{upconclusions}[czech]
+\begin{upconclusions}
 Závěr práce v \uv{českém} jazyce.
 \end{upconclusions}
 
