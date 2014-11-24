@@ -56,6 +56,30 @@ argumenty \upindex{kod-indexu}{zastupny-text}, tedy třeba
 \upindex{auto!motorové}{motorové auto}.
 UPDATE: tak dynamický counter být taky nemůže, protože, když uživatel následně v textu použije
 například dvakrát \index{auto}, tak se vytvoří DVA záznamy v rejstříku, namísto jednoho zaznamu s dve odkazy.
+JO - taky jsem si uvedomil, ze originalni \index nic netiskne, dobre,
+nebudeme tisknout parametr \index (heslo v rejstriku), ale cislo z
+toho counteru, klikaci, pri pouziti \index hned za indexovanym
+terminem (napsat do dokumentace), podobne jako treba citace do seznamu
+literatury, to muze byt napr. v {} (citace byvaji v [] nebo ()), napr.
+indexovany termin{10}, nejake zvyrazneni indexovanych terminu bude
+(bude za nimi {cislo}) a jeste to bude mit bonus v tom, ze uzivatel
+bude videt, kolik jich ma, to by melo fungovat i se slozitejsimi
+(vnorenymi) hesly, protoze parametr se nebude pouzivat, jen predavat
+originalnimu \index
+dva zaznamy do rejstriku to dava asi proto, ze za heslem je vysledek
+\hypertarget s ruznymi cisly a on to cele bere jako dve ruzna hesla ->
+prozkoumejte pouziti | za heslem, tj. heslo|\hypertarget, to by melo
+jit, ale mohl by byt problem, pokud | pouzije i uzivatel, tj. otazka
+je, zda-li je mozne pouzit | vicekrat, pokud ne, tak kdyz to pouzije
+uzivatel, bude se to muset nejak zjistit a pridat \hypertarget k jeho
+kodu za |
+MR - s | mi to bohužel nefunguje, a navic jsem koukal do zdrojáků byliku hyperref,
+konkretně makro hyperindexformat (ten obstarava usek parametru za |, a ani to nemuze
+fungovat, prostě komplet argument z \index{###}, tedy ### se celý (přetransformovaný)
+vždy narve do makra \indexentry, to se objevi v souboru .idx, odkud se v prubehu
+kompilace narve do vysledku, dosahnout klikacich, ta prvni cast navrhu: tedy
+tisknout misto parametru index jen čislo je super, ale nema smysl jej pridavat
+pokud nevyresime prave tento problem
 
 updiplom.sty
 ============
@@ -104,14 +128,11 @@ provedl jsem zde drobné korekce, je třeba řešit hlavně offset na
 vázání práce
 JO - upsimple muze mit mensi marginy, bude na mene "oficialni" prace,
 napr. zapoctove, semestralni, projektove apod.
+! \bigskip mezi nadpisem abstraktu a abstraktem
 
-- \upanot -> \abstract
+! sazba na lichou stranu (\cleardoublepage): abstrakt, obsah
 
-- zrusit \upmakeanot
-
-! \upmaketitle -> \upmakefirstpages a vysazi (automaticky) titulni
-stranu, abstrakt, obsah, seznamy (podle option)
-JO - ponechame \maketitle
+! \vfill pred logem na titulni strane misto \vspace{3em}
 
 *.tex
 =====
@@ -147,6 +168,8 @@ nenapadne...
 MR - upbase je balíček a je do určité míry "nezavisly" obsahuje nezavisle
 veci, takze ten by balickem mel urcite zustat, nicmene koncove moduly (updiplom, upsimple)
 z hlediska uživatele určitě mohou být třídy
+JO - OK, snazte se tedy upbase.sty drzet v maximalni mire pouzitelne
+nezavisle kdekoliv, rekneme takovy "up utilities" balicek
 
 - \upendofmainmatter nemuzeme po uzivateli chtit, pokud to musi byt
 pred zavery, dejte to do upconclusions, jinak do predefinovani
@@ -160,3 +183,7 @@ schovat pred uzivatelem?
 MR - zanoření bude vždy správné, jediný problém, kdy se může stát, že zanoření
 bude o jeden level špatně je, když uživatel použije makro \part, ale to nikdo používat
 nebude, vždy budou používat \section, \subsection ....
+JO - OK, do ukazkoveho zdrojaku ho tedy ani nedavejte (ani
+zakomentovane), pokud vim, \part se pouziva jen u tridy book (knihy),
+takze to pripadne poznamenejte (+ zakomentovane ve zrojaku) az u
+nejake dalsi UP tridy odvozene z book, jestli bude

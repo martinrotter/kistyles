@@ -72,13 +72,15 @@
 \newcommand{\uptextfacultyen}{Faculty of Science}
 \newcommand{\uptextuniven}{Palack\'{y} University Olomouc}
 
+\newcommand{\upbibliobackend}{biber}
+
 % Čestina.
 \ifthenelse{\equal{\upb@language}{czech}}{
 
   % Načtení BibLaTeXu.
   \RequirePackage[
     natbib=true,
-    backend=biber,
+    backend=\upbibliobackend,
     sortcites=true,
     style=\upb@bibstyle,
     babel=other,
@@ -122,7 +124,7 @@
   % Načtení BibLaTeXu.
   \RequirePackage[
     natbib,
-    backend=biber,
+    backend=\upbibliobackend,
     sortcites=true,
     style=\upb@bibstyle,
     babel=other,
@@ -235,6 +237,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Rejstřík
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \ifthenelse{\equal{\upb@index}{true}}{
 \newcounter{indexno}
