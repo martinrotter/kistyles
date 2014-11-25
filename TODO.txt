@@ -138,40 +138,6 @@ napr. zapoctove, semestralni, projektove apod.
 *.tex
 =====
 
-- zrusit a4paper, je ve stylu
-MR - mate pravdu, spatne sem cetl dokumentaci baliku geometry
-JO - a bylo by mozne dat do stylu (tj. vynutit) i to 12pt? A kdyz se
-uzivatel pokusi to v dokumentu (u \documentclass) zmenit, jinou
-velikost papiru i pisma, aby dostal chybu?
-MR - vytvořil jsem dummy třídu "updiplom", která načte sama 12pt v
-articlu, viz první řádek v updiplom.tex, zase bych z uživatele nedělal
-opici, tím, že zakážu všechny tyhle věci, myslím, že v zásadě tím, že
-něco nastavíme jako výchozí se očekává, že to uživatel nebude měnit,
-pokud je to uživatel amatér, tak stejně neví jak a pokud je to
-uživatel profík, tak ví, že stanovy katedry požadují to, a to, a to...
-:)
-JO - s tou tridou jste mi vnuknul myslenku, zda by pro cely styl
-nebyla lepsi trida, vidim to tak, ze pro veci, ktere nelze nebo nema
-smysl pouzit v jine tride (nez article, kterou mame ted, napr. book
-nebo beamer, teoreticky jakekoliv) by mely byt v nove tride a veci,
-ktere lze pouzit i v jinych (vsech) tridach, ponechat v baliku (stylu)
-- neni to tak obecne??, takze muzete vsechno takto rozdelit? tridy
-updiplom, upbase, upppaper, a veci pouzitelne i v jinych tridach dat
-do stylu - pekne se nam to vyviji :-)
-a ano, nakonec bude stacit, kdyz (jak uz jste udelal) nastavite
-vychozi velikost 12pt tak, aby to nebylo v dokumentu (jako parametr
-\documentclass), podobne jako velikost papiru A4, pricejenom, kdyz by
-to student v dokumentu uvidel (hned na prvnim radku), mohlo by ho
-napadnout to (trivialnim zpusobem) zmenit (na vetsi pismo, aby
-"natahl" text), vim, ze mu nic nebrani velikost pisma kdekoliv v
-dokumnetu zmenit, ale kdyz nastaveni velikosti neuvidi, treba ho to
-nenapadne...
-MR - upbase je balíček a je do určité míry "nezavisly" obsahuje nezavisle
-veci, takze ten by balickem mel urcite zustat, nicmene koncove moduly (updiplom, upsimple)
-z hlediska uživatele určitě mohou být třídy
-JO - OK, snazte se tedy upbase.sty drzet v maximalni mire pouzitelne
-nezavisle kdekoliv, rekneme takovy "up utilities" balicek
-
 - \upendofmainmatter nemuzeme po uzivateli chtit, pokud to musi byt
 pred zavery, dejte to do upconclusions, jinak do predefinovani
 \printbibliography a thebibliography
@@ -188,3 +154,4 @@ JO - OK, do ukazkoveho zdrojaku ho tedy ani nedavejte (ani
 zakomentovane), pokud vim, \part se pouziva jen u tridy book (knihy),
 takze to pripadne poznamenejte (+ zakomentovane ve zrojaku) az u
 nejake dalsi UP tridy odvozene z book, jestli bude
+MR - přesně tak, ok

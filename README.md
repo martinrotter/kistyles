@@ -10,7 +10,8 @@ Změny:
 
 0.89
  :: Opraven formát bibliografií, použit biber jak backend pro BibLaTeX.
-
+ :: Zakázána některá makra.
+ 
 0.88
  :: Upraveno chování několika maker, aktulizována podpora ISO 690.
 

@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{updiplom}[2012/09/09 UP Diploma Class]
-\PackageWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.89}
+\ClassWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.89}
 
 \LoadClass[12pt]{article}
 
@@ -31,7 +31,7 @@
 \DeclareStringOption[false]{index}[false]
 
 %% Nerozpoznaný parametr hodí chybu.
-\DeclareDefaultOption{\PackageWarningNoLine{updiplom}{[updiplom] Option '\CurrentOption' was not recognized}}
+\DeclareDefaultOption{\ClassWarningNoLine{updiplom}{[updiplom] Option '\CurrentOption' was not recognized}}
 
 \ProcessKeyvalOptions*
 
@@ -65,7 +65,7 @@
 ]{geometry}
 
 \ifthenelse{\boolean{@twoside}}{
-  \PackageError{updiplom}{Two-sided document mode is not allowed for updiplom}
+  \ClassError{updiplom}{Two-sided document mode is not allowed for updiplom}
 }{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
