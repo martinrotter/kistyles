@@ -322,6 +322,32 @@
 %% Bibliografie
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% První řádek záznamu nechceme předsazovat.
+\setlength{\bibhang}{0pt}
+
+% přidat k číslu v bibliografii tečku a ozávorkovat
+\renewcommand\MethodFormat{
+  \printtext[labelnumberwidth]{
+  %\mkbibbrackets{
+  \printfield{prefixnumber}
+  \printfield{labelnumber} \adddot
+  %}
+  }
+}
+
+\ifthenelse{\equal{\upb@bibstyle}{iso-numeric}}{
+  \renewcommand\MethodFormat{
+    \printtext[labelnumberwidth]{
+      %\mkbibbrackets{
+      \printfield{prefixnumber}
+      \printfield{labelnumber} \adddot
+      %}
+    }
+  }
+} {
+	\relax  
+}
+
 % Záloha bibliografie.
 \let\orgprintbibliography=\printbibliography
 

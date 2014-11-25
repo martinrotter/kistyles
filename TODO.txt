@@ -111,6 +111,7 @@ v examplu biblatex-iso690 je backend=biber, nedame biber misto bibtex,
 kdyz uz to mame tak moderni? tridi vubec BibTeX spravne UTF?
 MR - přepnul jsem na biber, zbytek věcí nahlásím autorovi balíku, přepinac block
 se stara o mezery mezi castmi zaznamu, to je trosku neco jineho
+MR - předsazování prvních řádků bibliografie vypnuto, do číslování záznamu přidána tečka
 
 ! vzorovy dokument jako README k pouziti stylu
 MR - zapracuju na tom
