@@ -8,7 +8,7 @@
 \RequirePackage{booktabs}
 \RequirePackage{makeidx}
 \RequirePackage{multicol}
-\RequirePackage[unicode]{hyperref}
+\RequirePackage[unicode,breaklinks=true]{hyperref}
 \RequirePackage{ifpdf}
 \RequirePackage{ifthen}
 \RequirePackage{amsmath}
@@ -606,6 +606,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Hypertextové odkazy.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\nohref}[1]{\begin{NoHyper}#1\end{NoHyper}}
 
 \ifthenelse{\equal{\upb@printversion}{true}}{
   \hypersetup{

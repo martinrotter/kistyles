@@ -104,7 +104,7 @@
 \def\@fieldinfven{Computer Science for Education}
 \def\@fielduvten{Computer Science for Education}
 \def\@fieldbinfen{Bioinformatics}
-\def\@presentformen{present form}
+\def\@presentformen{full-time form}
 \def\@combinedformen{combined form}
 
 \def\@textbibinfoen{Bibliograhic info}
@@ -323,7 +323,7 @@
 \end{center}
 \end{titlepage}
 
-% Strana s bibliografickými identifikačními údaji
+% Strana s bibliografickými identifikačními údaji.
 \thispagestyle{empty}
 {\small
 {\bf \@textbibinfocz} \par
@@ -342,7 +342,7 @@
 \@textyearofsubmitcz: & \@yearofsubmit \\
 \@textsupervisorcz: & \@supervisor \\
 \@textfieldcz: & \@fieldcz \\
-\@textpagescz: & \pageref{LastPage} \\
+\@textpagescz: & \nohref{\pageref{LastPage}} \\
 \@textsupplcz: & \@supplcz
 \end{tabular}
 \par
@@ -363,7 +363,7 @@
 \@textyearofsubmiten: & \@yearofsubmit \\
 \@textsupervisoren: & \@supervisor \\
 \@textfielden: & \@fielden \\
-\@textpagesen: & \pageref{LastPage} \\
+\@textpagesen: & \nohref{\pageref{LastPage}} \\
 \@textsupplen: & \@supplen
 \end{tabular}
 }
@@ -388,7 +388,7 @@
 \noindent\textbf{\@textkeywords:} \@keywords
 \vfill\null
 
-% Strana s prohlášením
+% Strana s prohlášením.
 \clearpage
 \thispagestyle{empty}
 \null\vfill
@@ -417,10 +417,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginDocument{
 \hypersetup{
-  pdftitle={\@title\ (\@uppaper)},                            % nadpis
+  pdftitle={\@title\ (\@uppaper)},                           % nadpis
   pdfauthor={\@author\ (\@textsupervisor\@supervisor)},      % autor dokumentu
-  pdfsubject={\@title\ (\@uppaper)},                          % předmět dokumentu
-  pdfcreator={\@author},                                      % tvůrce dokumentu
+  pdfsubject={\@title\ (\@uppaper)},                         % předmět dokumentu
+  pdfcreator={\@author},                                     % tvůrce dokumentu
 }
 }
 
