@@ -8,6 +8,9 @@ Soubor "czech.lbx" obsahuje experimentální verzi překladu pro balík BibLaTeX
 
 Změny:
 
+0.89
+ :: Opraven formát bibliografií, použit biber jak backend pro BibLaTeX.
+
 0.88
  :: Upraveno chování několika maker, aktulizována podpora ISO 690.
 

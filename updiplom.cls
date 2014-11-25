@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{updiplom}[2012/09/09 UP Diploma Class]
-\PackageWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.88}
+\PackageWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.89}
 
 \LoadClass[12pt]{article}
 
