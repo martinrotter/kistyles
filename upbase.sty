@@ -630,6 +630,9 @@
 
 %% Tisk klikacích odkazů.
 \let\orghref=\href
+\let\orgurl=\url
+
+\renewcommand{\url}[1]{\orghref{#1}{#1}}
 
 \ifthenelse{\equal{\upb@printversion}{true}}{
   \renewcommand{\href}[2]{#2 (\orghref{#1}{#1})}
