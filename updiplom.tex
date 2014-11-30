@@ -1,52 +1,163 @@
 \documentclass[
-	iwona=true,									% bezpatkový font
-	printversion=false,					% pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba
-	joinlists=true,							% zobrazí seznamy (zkratek, obrázků...) pod sebou
-	glossaries=true,						% povolí podporu zkratek (seznam zkratek, deklarace zkratek)
-	figures=true,								% povolí seznam obrázků
-	tables=true,								% povolí seznam tabulek
-	sourcecodes=true,						% povolí seznam zdr. kódů
-	theorems=true,							% povolí seznam vět a teorémů
-	bibencoding=utf8,						% kódování souboru s citacemi
-	language=czech,							% jazyk práce
-	encoding=utf8,							% kódování tohoto a vložených souborů
-	master=true,								% mód pro diplomovou práci (Mgr.)
-  field=inf,									% studovaný obor (další možné hodnoty: uvt, binf)
-  index=true									% chceme používat práci s rejstříkováním
+  master=false                % Mód pro diplomovou práci (Mgr.).
+  font=sans,                  % Bezpatkový font.
+  printversion=false,         % Pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba.
+  joinlists=true,             % Zobrazí seznamy (zkratek, obrázků...) pod sebou.
+  glossaries=true,            % Povolí podporu zkratek (seznam zkratek, deklarace zkratek).
+  figures=true,               % Povolí seznam obrázků.
+  tables=true,                % Povolí seznam tabulek.
+  sourcecodes=true,					  % Povolí seznam zdr. kódů.
+  theorems=true,						  % Povolí seznam vět a teorémů.
+  bibencoding=utf8,           % Kódování souboru s citacemi.
+  language=czech,             % Jazyk práce.
+  encoding=utf8,              % Kódování tohoto a vložených souborů.
+  field=inf,                  % Studovaný obor (další možné hodnoty: uvt, binf).
+  index=true,                 % Chceme používat práci s rejstříkováním.
 ]{updiplom}
 
-\title{Dokonalá práce}				% název práce
-\subtitle{Opravdu dokonalá} % volitelný podnázev práce
-\title[english]{Perfect thesis}
-\subtitle[english]{Really perfect}
-\yearofsubmit{\the\year}			% rok odevzdání práce (při zakomentování se použije aktuální rok)
-\author{Martin Rotter Albatros Pelikán}
-\supervisor{doc. Ing. Lenka Carr-Motyčková, CSc.}
+\title{Dokonalá práce}                % Název práce.
+\subtitle{Opravdu dokonalá}           % Volitelný podnázev práce.
 
-\annotation{Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn.}												% anotace práce - obvykle jeden odstavec textu
-\keywords{dokument; fajn} % klíčová slova, oddělená středníkem
-\thanks{Děkuji všem. Hlavně sobě.} % volitelné poděkování
-\supplements{jedno kulaté CD/DVD} % přílohy
+\title[english]{Perfect thesis}       % Název práce (anglicky).
+\subtitle[english]{Really perfect}    % Volitelný podnázev práce (anglicky).
+\yearofsubmit{\the\year}			        % Rok odevzdání.
 
-%% aktivuje bibliografii s daným souborem
-\bibliography{bibliografie.bib}
+\author{Martin Rotter}
+\supervisor{doc. Ing. Martin Vilém}
 
+
+\annotation{Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn.}                    % Anotace, jeden odstavec textu.
+\annotation[english]{This document is good. This document is
+  good. This document is good. This document is good. This document is
+  good. This document is good. This document is good.}
+
+\keywords{dokument; fajn}             % Klíčová slova oddělená středníkem.
+\keywords[english]{document; good}
+
+\thanks{Děkuji všem. Hlavně sobě.}    % Poděkování.
+\supplements{jedno kulaté CD/DVD}     % Popis příloh.
+
+\bibliography{bibliografie.bib}       % Aktivuje bibliografii přes systém Biber/BibLaTex. Toto je třeba zakomentovat při použití manuální sazby bybliografie.
+
+% Tyto balíčky jsou zde pouze pro účely tohoto dokumentu. Práce je nemusí obsahovat.
 \usepackage{multirow}
 \usepackage{ltxdockit}
-\usepackage{lipsum}
+
 
 \begin{document}
-
-% tiskne titulní stranu
+% Tiskné úvodní stránku, seznamy, anotaci, poděkování atp.
 \maketitle
 
-\section{Úvod}
-\lipsum{5-8}
-Koukněte na můj \href{http://www.seznam.cz}{web}. Nebo na můj \mail{aaa@bbb.com}{e-mail} a navíc něco přes \hyperlink{http://www.abc.cz}{web ABC}, a další odkaz \url{http://www.seznam.cz}.
+\section{Styly pro psaní bakalářských a diplomových prací}
+Toto jsou styly pro psaní bakalářských a diplomových prací přes typografický systém \LaTeX{}, tedy \textbf{upstyles}.
 
-Toto je můj klikací \index{indexovaný záznam} a \index{indexovaný záznam}.
+\subsection{Požadavky a podprovaná prostředí}
+Sada balíku \textbf{upstyles} podporuje následující distribuce systému \LaTeX{}:
+\begin{itemize}
+\item \TeX{} Live.
+\end{itemize}
+
+Jsou podporovány všechny výstupní ovladače, tedy jak \textbf{dvi}, tak \textbf{pdf} i \textbf{ps}. Funkčnost zmiňovaných distribucí byla ověřena na několika operačních systémech, mezi které patří:
+\begin{enumerate}
+\item Windows $8.1$,
+\item Archlinux,
+\item Debian.
+\end{enumerate}
+
+Důrazně se doporučuje používat aktuální verzi dané distribuce systému \LaTeX{}.
+
+
+\subsection{Přepínače}
+Styl updiplom je z hlediska uživatele zastoupen ekvivalentně nazvanou třídou, kterou je třeba volat na záčátku dokumentu:
+\begin{upcode}{TeX}{}{Volání třídy \textbf{updiplom}}
+\documentclass[
+  master=true,
+  iwona=true,
+  printversion=false,
+  joinlists=true,
+  glossaries=true,
+  figures=true,
+  tables=true,
+  sourcecodes=true,
+  theorems=true,
+  bibencoding=utf8,
+  language=czech,
+  encoding=utf8,
+  field=inf,
+  index=true,
+]{updiplom}
+\end{upcode}
+
+Následuje přehled přepínačů, je vždy uvedeno jméno přepínač, včetně výchozí hodnoty. Přepínače uvádí tabulka \ref{tab:prepinace}.
+
+\begin{table}
+\begin{center}
+\caption{Seznam přepínačů}\label{tab:prepinace}
+\begin{tabular}{>{\bfseries}l >{\ttfamily}c L{8cm}}
+{\normalfont Přepínač} & {\normalfont Výchozí hodnota} & {\normalfont Popis} \\
+\hline
+master & false & Povolí nebo zakáže režim diplomové práce. Výchozí režim je tedy bakalářská práce. \\
+
+field & ainfp & Specifikuje studijní obor:\newline
+\begin{description}
+\item[ainf] Aplikovaná informatika\,--\,prezenční,
+\item[ainfk] Aplikovaná informatika\,--\,kombinovaná,
+\item[inf] Informatika\,--\,prezenční,
+\item[infv] Informatika ve vzdělávání\,--\,kombinovaná,
+\item[binf] Bioinformatika\,--\,prezenční.
+\end{description} \\
+
+iwona & false & Zapne či vypne podporu pěkného bezpatkového fontu. \\
+
+encoding & utf8 & Kódování souboru dokumentu, doporučuje se ponechat výchozí hodnotu. \\
+
+bibencoding & utf8 & Kódování souboru bibliografie. Tato volba má smysl pouze, pokud je použita bibliografie skrze balíček Bib\LaTeX{}. \\
+
+language & czech & Jazyk hlavní práce. \\
+
+printversion & false & Je-li zapnuto, pak budou odkazy vysázeny optimalizovaně pro knižní sazbu. Tuto volbu je nutno použít pro tisk práce. \\
+
+joinlists & true & Je-li zapnuto, pak seznamy obrázků, tabulek či zdrojových kódů nebudou rozděleny na samostatné stránky. \\
+
+figures & true & Je-li zapnuto, pak v seznamech položek bude zahrnut seznam obrázků. \\
+
+tables & true & Je-li zapnuto, pak v seznamech položek bude zahrnut seznam tabulek. \\
+
+theorems & false & Je-li zapnuto, pak v seznamech bude zahrnut seznam teorémů. \\
+
+sourcecodes & false & Je-li zapnuto, pak v seznamech bude zahrnut seznam zdrojových kódů. \\
+
+glossaries & false & Je-li zapnuto, pak na konci dokumentu bude vysázen seznam zkratek. \\
+
+index & false & Zapíná podporu sazby rejstříku.
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsection{Geometrie stránky}
+Tento styl používá list velikosti $A4$. Pro sazbu prací je třeba použít jednostrannou sazbu. Levý okraj je rozšířen s ohledem na vazbu výsledné knižní podoby práce.
+
+\section{Sazba částí dokumentu}
+\subsection{Sazba úvodní strany či obsahu}
+Vysázení všech podstatných částí úvodu práce obstará makro \upinlinecode{TeX}{!}{\\maketitle}. Pro správné vysázení všech částí a meta-informací je potřeba použí makra \upinlinecode{TeX}{!}{\\title}, \upinlinecode{TeX}{!}{\\author} a další. Jejich přehled lze najít ve zdrojovém souboru tohoto dokumentu. V případě použítí \textbf{pdf} výstupu se generuje i dodatečná hlavička souboru s meta-informacemi jako je autor dokumentu, název práce či dalšími.
+
+\subsection{Závěry}
+Závěr práce by se měl poskytnout ja v původním (českém jazyce), tak v jazyce anglickém. Pro sazbu závěru jsou k dispozici příslušná makra. Berte na vědomí, že v anglickém závěru se aktivuje plně anglická sazba se všemi konvencemi. Tedy je třeba používat anglické uvozovky a další správné typografické prvky.
+
+\begin{upcode}{TeX}{}{Sazba závěrů}
+% Tiskne český závěr práce.
+\begin{upconclusions}
+Závěr práce v \uv{českém} jazyce.
+\end{upconclusions}
+
+% Tiskne anglický závěr práce.
+\begin{upconclusions}[english]
+Thesis conclusions written in \uv{English}.
+\end{upconclusions}
+\end{upcode}
 
 \subsection{Matematika}
+Pro sazbu matematiky je k dispozici sada standardních maker.
 $$\langle f \rangle, \lfloor g \rfloor,
 \lceil h \rceil, \ulcorner i \urcorner$$
 
@@ -70,8 +181,29 @@ M = \begin{bmatrix}
      \end{bmatrix}
 $$
 
-\section{Další sekce}
-\lipsum{5-8}
+\subsection{Sazba literatury}
+Pro sazbu literatury má uživatel dvě možnosti. Může použít služeb balíků Bib\LaTeX{}, který je pro \textbf{upstyles} zapnutý, či lze použít manuální sazbu bibliografie.
+\subsubsection{Sazba bibliografie přes Bib\LaTeX{}}
+Při použití tohoto balíku se data o použité literatuře ukládají do dedikovaného textového souboru, ukázku najdete i v tomto stylu pod jménem \upinlinecode{text}{!}{bibliografie.bib}.
+
+Formát daného souboru je nad rámec této dokumentace a je na každém uživateli, aby si jej nastudoval. Bibliografie se tiskne makrem \upinlinecode{TeX}{!}{\\printbibliography}. Taktéž v preambuli dokumentu je třeba definovat, který soubor data bibliografie obsahuje, tedy například \upinlinecode{TeX}{!}{\\bibliography\{bibliografie.bib\}}.
+
+Dokument, který využívá Bib\LaTeX{} je následně nutné přeložit jak pomocí překladače zvoleného ovladače, tak pomocí aplikace \upinlinecode{text}{!}{biber}. Více informací poskytne soubor \upinlinecode{text}{!}{Makefile} z distribuce tohoto stylu.
+
+Výhodou tohoto přístupu je, že bibliografie se vysází automaticky a (obvykle) není třeba manuální úprava formátování.
+
+\subsubsection{Manuální sazba bibliografie}
+Manuální sazba obnáší vysázení prostředí \upinlinecode{text}{!}{thebibliography} ručně. To je nad rámec tohoto dokumentu. Ukázku tohoto přístupu lze samozřejmě nalézt ve zdrojovém souboru tohoto dokumentu nebo také \href{http://www.math.uiuc.edu/~hildebr/tex/bibliographies.html}{zde}.
+
+\subsection{Drobná makra}
+Základní styl definuje hne několik maker pro usnadnění práce. Například makro \upinlinecode{TeX}{!}{\\buno} vysází řetezec \uv{bez újmy na obecnosti}. Je k dispozici i verze s prvním velkým písmenem, \upinlinecode{TeX}{!}{\\Buno}.
+
+\index{položka indexu}
+
+\index{položka indexu}
+
+\index{položka indexu}
+
 
 \begin{lemma}[Démonické lemma]
 Naše nové lemma.
@@ -81,15 +213,6 @@ Naše nové lemma.
 2+489 \\
 7+2
 \end{align}
-
-
-\begin{table}
-\begin{tabular}{c | c}
-aaa & bbb 
-\end{tabular}
-\caption{Krutá tabulka}
-\end{table}
-
 
 \newacronym{UPOL}{UPOL}{Univerita Palackého}
 

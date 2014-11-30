@@ -32,7 +32,7 @@
   prefix=upb@
 }
 
-\DeclareStringOption[false]{iwona}[false]
+\DeclareStringOption[serif]{font}[serif]
 \DeclareStringOption[false]{printversion}[false]
 \DeclareStringOption[false]{blacklogo}[false]
 \DeclareStringOption[true]{joinlists}[true]
@@ -167,7 +167,7 @@
 %% Načtení balíku iwona pro nepatkové písmo.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\upb@iwona}{true}}{
+\ifthenelse{\equal{\upb@font}{sans}}{
 	\RequirePackage[light,math]{iwona}
 }{
 	\relax
@@ -231,8 +231,8 @@
 
 %% Sloupce s uživatelsky stanovenou šířkou a zarovnáním textu na danou stranu.
 %% Použití: \begin{tabular}{| c | L{3cm} | C{3cm} | R{3cm} |}
-%\newcolumntype{L}[1]{>{\RaggedRight\hspace{0pt}}p{#1}}
-%\newcolumntype{R}[1]{>{\RaggedLeft\hspace{0pt}}p{#1}}
+\newcolumntype{L}[1]{>{\RaggedRight\hspace{0pt}}p{#1}}
+\newcolumntype{R}[1]{>{\RaggedLeft\hspace{0pt}}p{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Rejstřík
@@ -279,7 +279,7 @@
   \orgprintindex
 }
 
-\renewcommand{\index}[1]{\stepcounter{indexno}\hyperlink{\arabic{indexno}ind.ind}{#1}\orgindex{#1\protect\hypertarget{\arabic{indexno}ind.ind}{}}}
+\renewcommand{\index}[1]{\stepcounter{indexno}\hyperlink{\arabic{indexno}ind.ind}{\arabic{indexno}}\orgindex{#1\protect\hypertarget{\arabic{indexno}ind.ind}}}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -325,25 +325,9 @@
 % První řádek záznamu nechceme předsazovat.
 \setlength{\bibhang}{0pt}
 
-% přidat k číslu v bibliografii tečku a ozávorkovat
-\renewcommand\MethodFormat{
-  \printtext[labelnumberwidth]{
-  %\mkbibbrackets{
-  \printfield{prefixnumber}
-  \printfield{labelnumber} \adddot
-  %}
-  }
-}
-
+% Přeformátovat číslo záznamu.
 \ifthenelse{\equal{\upb@bibstyle}{iso-numeric}}{
-  \renewcommand\MethodFormat{
-    \printtext[labelnumberwidth]{
-      %\mkbibbrackets{
-      \printfield{prefixnumber}
-      \printfield{labelnumber} \adddot
-      %}
-    }
-  }
+  \renewcommand\MethodFormat{\printtext[labelnumberwidth]{\mkbibbrackets{\printfield{prefixnumber}\printfield{labelnumber}}}}
 } {
 	\relax  
 }
@@ -526,9 +510,7 @@
 \lstloadlanguages{[ANSI]C,[LaTeX]TeX,PHP,HTML,Lisp,SQL,TeX,Python,Java,TutorialD,text,csharp,cpp,JavaScript}
 
 % Definice souvisejících prostředí.
-\newcommand{\upinlinecode}[3]{
-\noindent\ignorespaces\lstinline[style=upbasestyle,language=#1]#2#3#2\ignorespacesafterend
-}
+\newcommand{\upinlinecode}[3]{\lstinline[style=upbasestyle,language=#1]#2#3#2\ignorespacesafterend}
 
 \lstnewenvironment{upcode}[3]{
   \lstset{language=#1,float=ht,style=upbasestyle,firstnumber=1,caption={#3},label={#2},aboveskip=10px,belowskip=15px}

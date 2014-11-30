@@ -17,7 +17,7 @@
 
 \DeclareBoolOption{master}
 \DeclareStringOption[ainfp]{field}[ainfp]
-\DeclareStringOption[false]{iwona}[false]
+\DeclareStringOption[serif]{font}[serif]
 \DeclareStringOption[utf8]{encoding}[utf8]
 \DeclareStringOption[utf8]{bibencoding}[utf8]
 \DeclareStringOption[czech]{language}[czech]
@@ -40,7 +40,7 @@
 \RequirePackage{lastpage}
 
 \RequirePackage[
-  iwona=\upd@iwona,
+  font=\upd@font,
   printversion=\upd@printversion,
   joinlists=\upd@joinlists,
   figures=\upd@figures,
@@ -78,22 +78,27 @@
 \def\@fieldinfcz{Informatika}
 \def\@fieldainfcz{Aplikovan\'a informatika}
 \def\@fieldinfvcz{Informatika pro vzd\v el\'av\'an\'i}
-\def\@fielduvt{U\v citelstv\'i v\'ypo\v cetn\'i techniky pro
+\def\@fielduvtcz{U\v citelstv\'i v\'ypo\v cetn\'i techniky pro
         st\v redn\'i \v skoly}
-\def\@fieldbinf{Bioinformatika}
+\def\@fieldbinfcz{Bioinformatika}
 \def\@presentformcz{prezen\v cn\'i forma}
 \def\@combinedformcz{kombinovan\'a forma}
+\def\@czlangcz{\v cesk\'y}
+\def\@enlangcz{anglick\'y}
 
 \def\@textbibinfocz{Bibliografick\'e \'udaje}
 \def\@texttitlecz{N\'azev pr\'ace}
 \def\@textauthorcz{Autor}
 \def\@textuppapercz{Typ pr\'ace}
-\def\@textdeptcz{Katedra}
+\def\@textdeptcz{Pracovi\v st\v e}
 \def\@textyearofsubmitcz{Rok obhajoby}
 \def\@textpagescz{Po\v cet stran}
 \def\@textsupplcz{P\v r\'ilohy}
 \def\@textsupervisorcz{Vedouc\'i pr\'ace}
 \def\@textfieldcz{Studijn\'i obor}
+\def\@textlangcz{Jazyk práce}
+\def\@textanotcz{Anotace}
+\def\@textkeywordscz{Klí\v cov\'a slova}
 \def\@textconclusionscz{Z\'av\v er}
 
 % Angličtina.
@@ -106,6 +111,8 @@
 \def\@fieldbinfen{Bioinformatics}
 \def\@presentformen{full-time form}
 \def\@combinedformen{combined form}
+\def\@czlangen{czech}
+\def\@enlangen{english}
 
 \def\@textbibinfoen{Bibliograhic info}
 \def\@texttitleen{Title}
@@ -117,6 +124,9 @@
 \def\@textsupplen{Supplements}
 \def\@textsupervisoren{Supervisor}
 \def\@textfielden{Study field}
+\def\@textlangen{Thesis language}
+\def\@textanoten{Synopsis}
+\def\@textkeywordsen{Keywords}
 \def\@textconclusionsen{Conclusions}
 
 \ifthenelse{\boolean{upd@master}}{
@@ -169,13 +179,15 @@
   \def\@textfield{\@textfielden}
   \def\@field{\@fielden}
   \def\@textsupervisor{\@textsupervisoren}
-  \def\@textanot{Synopsis}
-  \def\@textkeywords{Keywords}
+  \def\@langcz{\@enlangcz}
+  \def\@langen{\@enlangen}
+  \def\@textanot{\@textanoten}
+  \def\@textkeywords{\@textkeywordsen}
   \def\@textaffirm{Hereby I affirm that I completed the whole thesis
-    including appendices on my own and that I included all the sources
-    used during the thesis creation.}
-  \def\@textsubmitdate{Date of thesis submission}
-  \def\@textsigniture{Author's signature}
+    including appendices on my own and that I cite in the thesis text and
+    include in the bibliography list all used sources.}
+  \def\@textsubmitdate{date of thesis submission}
+  \def\@textsigniture{author's signature}
 }{
   % Čeština.
   % \ifthenelse{\equal{\upb@language}{czech}}
@@ -183,13 +195,16 @@
   \def\@textfield{\@textfieldcz}
   \def\@field{\@fieldcz}
   \def\@textsupervisor{\@textsupervisorcz}
-  \def\@textanot{Anotace}
-  \def\@textkeywords{Klí\v cov\'a slova}
+  \def\@langcz{\@czlangcz}
+  \def\@langen{\@czlangen}
+  \def\@textanot{\@textanotcz}
+  \def\@textkeywords{\@textkeywordscz}
   \def\@textaffirm{M\'istop\v r\'ise\v zn\v e prohla\v suji, \v ze
     jsem celou pr\'aci v\v cetn\v e p\v r\'iloh vypracoval/a
-    samostatn\v e a \v ze jsem uvedl/a v\v sechny zdroje pou\v zit\'e p\v ri tvorb\v e pr\'ace.}
-  \def\@textsubmitdate{Datum odevzd\'an\'i pr\'ace}
-  \def\@textsigniture{Podpis autora}
+    samostatn\v e a \v ze v\v sechny pou\v zit\'e zdroje v textu pr\'ace cituji a
+    uv\'ad\'im v seznamu literatury.}
+  \def\@textsubmitdate{datum odevzd\'an\'i pr\'ace}
+  \def\@textsigniture{podpis autora}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -234,6 +249,20 @@
     \gdef\@subtitlecz{#2}
   }
 }
+\newcommand{\annotation}[2][\upb@language]{
+  \ifthenelse{\equal{#1}{english}}{
+    \gdef\@annotationen{#2}
+  }{
+    \gdef\@annotationcz{#2}
+  }
+}
+\newcommand{\keywords}[2][\upb@language]{
+  \ifthenelse{\equal{#1}{english}}{
+    \gdef\@keywordsen{#2}
+  }{
+    \gdef\@keywordscz{#2}
+  }
+}
 \newcommand{\supplements}[2][\upb@language]{
   \ifthenelse{\equal{#1}{english}}{
     \gdef\@supplen{#2}
@@ -252,25 +281,23 @@
 \def\yearofsubmit#1{\gdef\@yearofsubmit{#1}}
 \def\supervisor#1{\gdef\@supervisor{#1}}
 \def\thanks#1{\gdef\@thanks{#1}}
-\def\annotation#1{\gdef\@annotation{#1}}
-\def\keywords#1{\gdef\@keywords{#1}}
 
 % Výchozí hodnoty.
 \ifthenelse{\equal{\upb@language}{english}}{
   \author{Author name}
   \supervisor{Supervisor name}
-  \annotation{Apposite thesis synopsis}
-  \keywords{short appropriate keywords}
 }{
   \author{Jm\'eno autora}
   \supervisor{Jm\'eno vedouc\'iho pr\'ace}
-  \annotation{V\'ysti\v zn\'a anotace pr\'ace}
-  \keywords{stru\v cn\'a vhodn\'a kl\'i\v cov\'a slova}
 }
 \title[czech]{N\'azev pr\'ace}
 \title[english]{Thesis title}
 \subtitle[czech]{}
 \subtitle[english]{}
+\annotation[czech]{V\'ysti\v zn\'a anotace pr\'ace}
+\annotation[english]{Apposite thesis synopsis}
+\keywords[czech]{stru\v cn\'a vhodn\'a kl\'i\v cov\'a slova}
+\keywords[english]{short appropriate keywords}
 \yearofsubmit{\the\year}
 \supplements[czech]{1 CD/DVD}
 \supplements[english]{1 CD/DVD}
@@ -304,11 +331,11 @@
 ]{\uptexttitle}
 \begin{center}
 {\fontfamily{ppl}\selectfont \large \MakeUppercase{\uptextdept} \par
-  \MakeUppercase{\uptextfaculty} \par \MakeUppercase{\uptextuniv}}
+  \MakeUppercase{\uptextfaculty} \par \MakeUppercase{\uptextuniv} \par}
 \vfill
 {\LARGE\bfseries{\MakeUppercase{\@uppaper}} \\}
 \vfill
-{\Large \@title \\[2em]\large\@subtitle}
+{\Large \@title \\[4ex]\large\@subtitle}
 
 \vfill
 \centering
@@ -316,7 +343,7 @@
 \vfill
 
 \begin{tabular}{@{}p{6cm}@{}@{\hspace{1cm}}@{}p{7cm}@{}}
-{\Large\@yearofsubmit} & {\Large\@author} \\[1em]
+{\Large\@yearofsubmit} & {\Large\@author} \\[2ex]
 \@textsupervisor: \@supervisor & \@textfield: \@field
 \end{tabular}
 
@@ -329,42 +356,44 @@
 {\bf \@textbibinfocz} \par
 \bigskip
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{@{}p{2.5cm}@{\hspace{1cm}}@{}p{10cm}@{}}
+\begin{tabular}{@{}p{2.7cm}@{\hspace{.5cm}}@{}p{10cm}@{}}
+\@textauthorcz: & \@author \\
 \@texttitlecz: & \@titlecz%
 \ifthenelse{\equal{\@subtitlecz}{}}{%
   \relax
 }{%
 , \@subtitlecz
 } \\
-\@textauthorcz: & \@author \\
 \@textuppapercz: & \@uppapercz \\
 \@textdeptcz: & \uptextdeptcz, \uptextfacultycz, \uptextunivcz \\
 \@textyearofsubmitcz: & \@yearofsubmit \\
-\@textsupervisorcz: & \@supervisor \\
 \@textfieldcz: & \@fieldcz \\
+\@textsupervisorcz: & \@supervisor \\
 \@textpagescz: & \nohref{\pageref{LastPage}} \\
-\@textsupplcz: & \@supplcz
+\@textsupplcz: & \@supplcz \\
+\@textlangcz: & \@langcz
 \end{tabular}
 \par
-\vspace*{5ex}
+\vspace*{8ex}
 {\bf \@textbibinfoen} \par
 \bigskip
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{@{}p{2.5cm}@{\hspace{1cm}}@{}p{10cm}@{}}
+\begin{tabular}{@{}p{2.7cm}@{\hspace{.5cm}}@{}p{10cm}@{}}
+\@textauthoren: & \@author \\
 \@texttitleen: & \@titleen%
 \ifthenelse{\equal{\@subtitleen}{}}{%
   \relax
 }{%
 , \@subtitleen
 } \\
-\@textauthoren: & \@author \\
 \@textuppaperen: & \@uppaperen \\
 \@textdepten: & \uptextdepten, \uptextfacultyen, \uptextuniven \\
 \@textyearofsubmiten: & \@yearofsubmit \\
-\@textsupervisoren: & \@supervisor \\
 \@textfielden: & \@fielden \\
+\@textsupervisoren: & \@supervisor \\
 \@textpagesen: & \nohref{\pageref{LastPage}} \\
-\@textsupplen: & \@supplen
+\@textsupplen: & \@supplen \\
+\@textlangen: & \@langen
 \end{tabular}
 }
 
@@ -379,13 +408,22 @@
   dest=up:anotation
 ]{\@textanot}
 \begin{center}
-\textbf{\@textanot}
+\textbf{\@textanotcz}
 \end{center}
 \bigskip
-\emph{\@annotation}
+\emph{\@annotationcz}
+\vspace*{4ex}
+\begin{center}
+\textbf{\@textanoten}
+\end{center}
+\bigskip
+\emph{\@annotationen}
 \par
-\vspace*{5em}
-\noindent\textbf{\@textkeywords:} \@keywords
+\vspace*{10ex}
+\noindent\textbf{\@textkeywordscz:} \@keywordscz
+\par
+\vspace*{2ex}
+\noindent\textbf{\@textkeywordsen:} \@keywordsen
 \vfill\null
 
 % Strana s prohlášením.
@@ -398,8 +436,8 @@
 \noindent\@thanks
 }
 \vfill
-\noindent\@textaffirm\par
-\vspace*{3cm}
+\noindent\textit{\@textaffirm}\par
+\vspace*{10ex}
 \noindent\@textsubmitdate \hfill \@textsigniture
 
 % Obsah a seznamy obrázků, tabulek, vět a zdrojových kódů.
