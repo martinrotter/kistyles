@@ -1,5 +1,5 @@
 \documentclass[
-  master=false                % Mód pro diplomovou práci (Mgr.).
+  master=false,               % Mód pro diplomovou práci (Mgr.).
   font=sans,                  % Bezpatkový font.
   printversion=false,         % Pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba.
   joinlists=true,             % Zobrazí seznamy (zkratek, obrázků...) pod sebou.
@@ -25,7 +25,6 @@
 \author{Martin Rotter}
 \supervisor{doc. Ing. Martin Vilém}
 
-
 \annotation{Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn.}                    % Anotace, jeden odstavec textu.
 \annotation[english]{This document is good. This document is
   good. This document is good. This document is good. This document is
@@ -42,7 +41,7 @@
 % Tyto balíčky jsou zde pouze pro účely tohoto dokumentu. Práce je nemusí obsahovat.
 \usepackage{multirow}
 \usepackage{ltxdockit}
-
+\usepackage{lipsum}
 
 \begin{document}
 % Tiskné úvodní stránku, seznamy, anotaci, poděkování atp.
@@ -72,7 +71,7 @@ Styl updiplom je z hlediska uživatele zastoupen ekvivalentně nazvanou třídou
 \begin{upcode}{TeX}{}{Volání třídy \textbf{updiplom}}
 \documentclass[
   master=true,
-  iwona=true,
+  font=sans,
   printversion=false,
   joinlists=true,
   glossaries=true,
@@ -107,7 +106,11 @@ field & ainfp & Specifikuje studijní obor:\newline
 \item[binf] Bioinformatika\,--\,prezenční.
 \end{description} \\
 
-iwona & false & Zapne či vypne podporu pěkného bezpatkového fontu. \\
+font & serif & Zapne či vypne podporu pěkného bezpatkového fontu. Možné hodnoty jsou:\newline
+\begin{description}
+\item[sans] Bezpatkové písmo (písmo Iwona).
+\item[serif] Patkové písmo (písmo Computer Modern).
+\end{description} \\
 
 encoding & utf8 & Kódování souboru dokumentu, doporučuje se ponechat výchozí hodnotu. \\
 
@@ -196,16 +199,42 @@ Výhodou tohoto přístupu je, že bibliografie se vysází automaticky a (obvyk
 Manuální sazba obnáší vysázení prostředí \upinlinecode{text}{!}{thebibliography} ručně. To je nad rámec tohoto dokumentu. Ukázku tohoto přístupu lze samozřejmě nalézt ve zdrojovém souboru tohoto dokumentu nebo také \href{http://www.math.uiuc.edu/~hildebr/tex/bibliographies.html}{zde}.
 
 \subsection{Drobná makra}
-Základní styl definuje hne několik maker pro usnadnění práce. Například makro \upinlinecode{TeX}{!}{\\buno} vysází řetezec \uv{bez újmy na obecnosti}. Je k dispozici i verze s prvním velkým písmenem, \upinlinecode{TeX}{!}{\\Buno}.
+Základní styl definuje hned několik maker pro usnadnění práce. Například makro \upinlinecode{TeX}{!}{\\buno} vysází řetezec \uv{bez újmy na obecnosti}. Je k dispozici i verze s prvním velkým písmenem, \upinlinecode{TeX}{!}{\\Buno}.
 
 Je rovněž možno přidávat položky do seznamu zkratek. K tomu slouží makro \upinlinecode{TeX}{!}{\\newacronym}, které lze použít například jednoduše jako \upinlinecode{TeX}{!}{\\newacronym\{UPOL\}\{UPOL\}\{Univerita Palackého\}}. Na danou zkratku se pak lze odkazovat jednoduše, \upinlinecode{TeX}{!}{\\gls\{UPOL\}}.
 
+Sazba uvozovek respektuje nastavení částí dokumentu, a proto se doporučuje používat makro \upinlinecode{TeX}{!}{\\uv}. V anglické závěru práce toto platí taky, viz tato PDF ukázka.
 
-\index{položka indexu}
+Styl podporuje sazbu odstavců v tabulkách, více obsahuje tabulka \ref{tab:odstavce}.
 
-\index{položka indexu}
+\begin{table}
+\begin{center}
+\caption{Seznam přepínačů}\label{tab:odstavce}
+\begin{tabular}{L{4cm}|R{4cm}|L{4cm}}
+\lipsum[23] & \lipsum[22] & \lipsum[21]
+\end{tabular}
+\end{center}
+\end{table}
 
-\index{položka indexu}
+K dispozici jsou také makra pro sazbu \csharp{} (\upinlinecode{TeX}{!}{\\csharp}) či \cpp{} (\upinlinecode{TeX}{!}{\\cpp}).
+
+\subsection{Sazba rejstříku}
+Sazba rejstříku sestává z několika kroku:
+
+\begin{enumerate}
+\item Je třeba přes volbu \upinlinecode{TeX}{!}{index=true} rejstříkování povolit.
+\item Použítím maker \upinlinecode{TeX}{!}{\\upindex} či \upinlinecode{TeX}{!}{\\index} rejstříkovat vybrané pojmy.
+\item Kompilovat s použitím utility \upinlinecode{TeX}{!}{makeindex}. Pro specifika tohoto kroku si stačí prohlédnout soubor \upinlinecode{text}{!}{Makefile}.
+\end{enumerate}
+
+\subsubsection{Přes které makro rejstříkovat?}
+Makro \upinlinecode{TeX}{!}{\\upindex} používejte v případě, že chcete klikací odkaz na rejstříkovaný výraz. Jediným argumentem výrazu je právě ten výraz. Výsledek vypadá takto\upindex{výsledek rejstříkování}.
+
+\textbf{Makro \upinlinecode{TeX}{!}{\\upindex} má jedno kritické omezení. Nelze jej používat v případě, že chcete přes cílový záznam referencovat, například volání \upinlinecode{TeX}{!}{\\upindex\{záznam|see \{hello\}\}} není možné.}
+
+Makro \upinlinecode{TeX}{!}{\\index} zůstává od původní funkčnosti nezměněno.
+
+Rejstřík lze vysázet pomocí makra \upinlinecode{TeX}{!}{\\printindex}.
 
 
 \begin{lemma}[Démonické lemma]

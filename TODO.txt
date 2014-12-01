@@ -98,15 +98,16 @@ uzivateli do dokumentace napsat, ze pokud chce pouzit |makro a pritom
 mit odkaz, at si (re)definuje \makro s pouzitim \odkaz (nebo obracene
 + pouziti puvodniho \odkaz), stejne, jako by to musel udelat, pokud
 bych chtel napr. oboji |textbf i |see{}
-MR -  
+MR - dobře a co tedy makra pojmenovat \index (originalni index} a \upindex (náš index), případně projdu zdrojak originalniho indexu a zjistim jak tam delaji to parsovani
 
 - proc redefinujete \url pomoci \href?
-MR - Už ani přesně nevím, tuším, že to \url interně používá biblatex a ten příkaz není z hyperrefu a neumí tuším zalamovat
-odkazy, takže to často přetíká v bibliografiích generovaných biblatexem. Makro \href umí lépe pracovat právě s těmi zlomy, ikdyž
-i tady je to obecně problém a vyžaduje to trošku citu od uživatele. S tím se nedá nic moc dělat.
-
-updiplom.sty
-============
+MR - Už ani přesně nevím, tuším, že to \url interně používá biblatex a
+ten příkaz není z hyperrefu a neumí tuším zalamovat odkazy, takže to
+často přetíká v bibliografiích generovaných biblatexem. Makro \href
+umí lépe pracovat právě s těmi zlomy, ikdyž i tady je to obecně
+problém a vyžaduje to trošku citu od uživatele. S tím se nedá nic moc
+dělat.
+JO - OK, ano, s tim pretekanim, to jsem uz asi pozoroval taky
 
 ! seznam literatury stejny z BibLaTeXu (podle normy) a rucne
 (nastylovat thebibliography a bibitem): prijmeni velkymi pismeny ->
@@ -146,16 +147,47 @@ vlevo)
 cisla polozek mimo levy okraj nechame (jsou tak i cisla radku
 zdrojaku), ale pokud norma nerika, jak maji vypadat, tak je dame do []
 a bez tecky (tak, jak jsou sazeny citace v textu)
-MR - nahlásím problemy autorovi, opravil jsem odsazovani dvoucifernych cisel a
-opravil jsem i ten format
+MR - nahlásím problemy autorovi, opravil jsem odsazovani dvoucifernych
+cisel a opravil jsem i ten format
+JO - az na to "Dostupny take z" OK
+MR - ok, ohledne "Dostupny tak z" kontaktuji autora, vypada to že to
+dela jen tady u toho konkretniho rezezce
 
 ! v obsahu a PDF zalozkach je 'Bibliografie/Bibliography', ale nadpis
 je 'Literatura/References', dejte vsude to druhe (je to podle normy?) 
-MR - to je ale feature, ne bug, originální bib(la)tex to taky tak dělá,
-norma neříká jaký nadpis má mít seznam použítích citací
+MR - to je ale feature, ne bug, originální bib(la)tex to taky tak
+dělá, norma neříká jaký nadpis má mít seznam použítích citací
+JO - feature je, ze v obsahu a zalozkach je neco jineho nez nadpis te
+sekce??
+MR - ano, skutečně, tohle je feature. latex pro to má dokonce dvě makra, \bibname (nadpis bibliografie), \refname (název bibliografie v odkazech, záložkách, ...), \contentsname (nazev bibliografie v obsahu), a pokud se nepletu, pak skutečně mají ty makra různé počáteční stringy,
+ale opravím to, je fakt, že to může být poněkud matoucí, pokud se podivat do upbase.sty, tak vidíte, že ta makra nikde neredefinuji
+
+! vety a spol. jsou cislovane sekcne, zatimco tabulky a zdrojaky (a
+obrazky?) globalne, dejte globalne i ty vety a spol.
+MR - věty/důkazy atp předělány globálně. rozmyslete se, zda chcete, aby všechy ty typy vět sdílely čítač,
+mě se zdá divné když v seznamu vět je
+
+1 Lemma........
+1 Věta.......
+1 Příklad........
+2 Příklad..........
+2 Věta..........
+
+Všechny typy vět teda ted sdílí counter. Takže v obsahu bude:
+
+1 Lemma........
+2 Věta.......
+3 Příklad........
+4 Příklad..........
+5 Věta..........
+
+To se mi zdá lepší.
+
+updiplom.sty
+============
 
 ! vzorovy dokument jako README k pouziti stylu
-MR - zapracuju na tom
+MR - dost jsem pokročil.
 
 uppaper.sty
 ===========

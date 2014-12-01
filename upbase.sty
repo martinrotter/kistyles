@@ -246,7 +246,6 @@
 \makeindex
 
 % Zálohy starých maker.
-\let\orgindex=\index
 \let\orgtheindex=\theindex
 \let\orgendtheindex=\endtheindex
 \let\orgprintindex=\printindex
@@ -279,7 +278,11 @@
   \orgprintindex
 }
 
-\renewcommand{\index}[1]{\stepcounter{indexno}\hyperlink{\arabic{indexno}ind.ind}{$^{\lbrace\arabic{indexno}\rbrace}$}\orgindex{#1|hypertarget{\arabic{indexno}ind.ind}}}
+\ifthenelse{\equal{\upb@printversion}{true}}{
+\newcommand{\upindex}[1]{\index{#1}}
+}{
+\newcommand{\upindex}[1]{\stepcounter{indexno}\hyperlink{\arabic{indexno}ind.ind}{$^{\lbrace\arabic{indexno}\rbrace}$}\index{#1|hypertarget{\arabic{indexno}ind.ind}}}
+}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -339,7 +342,7 @@
 \renewcommand{\printbibliography}{
 	\clearpage
 	\phantomsection
-	\addcontentsline{toc}{section}{\bibname}
+	\addcontentsline{toc}{section}{\refname}
 	\orgprintbibliography
 }
 
@@ -570,12 +573,12 @@
 \let\proof\@undefined
 
 % Definice prostředí pro sazbu teorémů.
-\declaretheorem[within=section,style=updefstyle,numbered=yes,name=\uptextdefinition]{definition}
-\declaretheorem[within=section,style=upthmstyle,numbered=yes,name=\uptextlemma]{lemma}
-\declaretheorem[within=section,style=upthmstyle,numbered=yes,name=\uptextconsequence]{consequence}
-\declaretheorem[within=section,style=upremexstyle,numbered=yes,name=\uptextremark]{remark}
-\declaretheorem[within=section,style=upremexstyle,numbered=yes,name=\uptextexample]{example}
-\declaretheorem[within=section,style=upthmstyle,numbered=yes,name=\uptexttheorem]{theorem}
+\declaretheorem[style=updefstyle,numbered=yes,name=\uptextdefinition]{definition}
+\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\uptextlemma]{lemma}
+\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\uptextconsequence]{consequence}
+\declaretheorem[sibling=definition,style=upremexstyle,numbered=yes,name=\uptextremark]{remark}
+\declaretheorem[sibling=definition,style=upremexstyle,numbered=yes,name=\uptextexample]{example}
+\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\uptexttheorem]{theorem}
 \declaretheorem[style=upproofstyle,numbered=no,name=\uptextproof]{proof}
 
 % Záloha a definice seznamu teorémů.

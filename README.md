@@ -8,6 +8,9 @@ Soubor "czech.lbx" obsahuje experimentální verzi překladu pro balík BibLaTeX
 
 Změny:
 
+0.92
+ :: Zavedeno makro \upindex a ošetřeno jeho chování při printversion=true. Refresh úvodních stran. Opraveno číslování a názvosloví bibliografie.
+
 0.89
  :: Opraven formát bibliografií, použit biber jak backend pro BibLaTeX.
  :: Zakázána některá makra.
