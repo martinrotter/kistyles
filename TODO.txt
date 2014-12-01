@@ -161,6 +161,7 @@ JO - feature je, ze v obsahu a zalozkach je neco jineho nez nadpis te
 sekce??
 MR - ano, skutečně, tohle je feature. latex pro to má dokonce dvě makra, \bibname (nadpis bibliografie), \refname (název bibliografie v odkazech, záložkách, ...), \contentsname (nazev bibliografie v obsahu), a pokud se nepletu, pak skutečně mají ty makra různé počáteční stringy,
 ale opravím to, je fakt, že to může být poněkud matoucí, pokud se podivat do upbase.sty, tak vidíte, že ta makra nikde neredefinuji
+MR - opraveno
 
 ! vety a spol. jsou cislovane sekcne, zatimco tabulky a zdrojaky (a
 obrazky?) globalne, dejte globalne i ty vety a spol.
