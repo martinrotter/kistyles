@@ -1,3 +1,7 @@
+%%%  KI UP Base Style
+%%%  Copyright (C) 2012 Martin Rotter, <rotter.martinos@gmail.com>
+%%%  Copyright (C) 2014 Jan Outrata, <jan.outrata@upol.cz>
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{upbase}[2012/09/09 UP Base Style]
 
@@ -11,6 +15,8 @@
 \RequirePackage[unicode,breaklinks=true]{hyperref}
 \RequirePackage{ifpdf}
 \RequirePackage{ifthen}
+
+%% AMS styly.
 \RequirePackage{amsmath}
 \RequirePackage{amsbsy}
 \RequirePackage{amssymb}
@@ -246,10 +252,12 @@
 \makeindex
 
 % Zálohy starých maker.
+\let\orgindex=\index
 \let\orgtheindex=\theindex
 \let\orgendtheindex=\endtheindex
 \let\orgprintindex=\printindex
 
+\newcommand{\odkaz}[2]{\hypertarget{#1}{#2}}
 \newcommand{\indexcolumns}{2}
 \newcommand{\indexemph}[1]{{\itshape #1}}
 
@@ -279,9 +287,9 @@
 }
 
 \ifthenelse{\equal{\upb@printversion}{true}}{
-\newcommand{\upindex}[1]{\index{#1}}
+\relax
 }{
-\newcommand{\upindex}[1]{\stepcounter{indexno}\hyperlink{\arabic{indexno}ind.ind}{$^{\lbrace\arabic{indexno}\rbrace}$}\index{#1|hypertarget{\arabic{indexno}ind.ind}}}
+\renewcommand{\index}[1]{\stepcounter{indexno}\hyperlink{\arabic{indexno}ind.ind}{$^{\lbrace\arabic{indexno}\rbrace}$}\orgindex{#1|hypertarget{\arabic{indexno}ind.ind}}}
 }
 }
 
@@ -629,7 +637,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Čítání rovnic na základě sekcí.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\counterwithin{equation}{section}
+%\counterwithin{equation}{section}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Sazba seznamů.

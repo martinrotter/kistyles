@@ -1,6 +1,10 @@
+%%%  KI UP Diplom Class
+%%%  Copyright (C) 2012 Martin Rotter, <rotter.martinos@gmail.com>
+%%%  Copyright (C) 2014 Jan Outrata, <jan.outrata@upol.cz>
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{updiplom}[2012/09/09 UP Diploma Class]
-\ClassWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.89}
+\ClassWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.93}
 
 \LoadClass[12pt]{article}
 
@@ -233,6 +237,7 @@
 %% Titulní strany.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Název práce.
 %\def\title#1{\gdef\@title{#1}}
 \renewcommand{\title}[2][\upb@language]{
   \ifthenelse{\equal{#1}{english}}{
@@ -241,6 +246,8 @@
     \gdef\@titlecz{#2}
   }
 }
+
+% Podnázev práce.
 %\def\subtitle#1{\gdef\@subtitle{#1}}
 \newcommand{\subtitle}[2][\upb@language]{
   \ifthenelse{\equal{#1}{english}}{
@@ -249,6 +256,8 @@
     \gdef\@subtitlecz{#2}
   }
 }
+
+% Anotace.
 \newcommand{\annotation}[2][\upb@language]{
   \ifthenelse{\equal{#1}{english}}{
     \gdef\@annotationen{#2}
@@ -278,8 +287,12 @@
   \gdef\@subtitle{\@subtitlecz}
 }
 \def\author#1{\gdef\@author{#1}}
+
+% Datum odevzdání práce.
 \def\yearofsubmit#1{\gdef\@yearofsubmit{#1}}
 \def\supervisor#1{\gdef\@supervisor{#1}}
+
+% Poděkování.
 \def\thanks#1{\gdef\@thanks{#1}}
 
 % Výchozí hodnoty.
@@ -303,7 +316,8 @@
 \supplements[english]{1 CD/DVD}
 
 \ifthenelse{\equal{\upb@language}{czech}}{
-  %% HACK: Nastavení čísla strany.
+  %% HACK: pro sekvenční fyzické číslování stránek, protože
+  %% např. \tableofcontents číslování resetuje.
   \let\orgsetcounter=\setcounter
   \renewcommand\setcounter[2]{%
     \def\tempa{#1}%
@@ -319,6 +333,7 @@
 \ifthenelse{\equal{\upb@language}{english}}{
   \pagenumbering{roman}
 }{}
+% Číslování stran od 1.
 \setcounter{page}{1}
 
 % Titulní strana.
@@ -356,7 +371,7 @@
 {\bf \@textbibinfocz} \par
 \bigskip
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{@{}p{2.7cm}@{\hspace{.5cm}}@{}p{10cm}@{}}
+\begin{tabular}{@{}p{3cm}@{\hspace{.5cm}}@{}p{10cm}@{}}
 \@textauthorcz: & \@author \\
 \@texttitlecz: & \@titlecz%
 \ifthenelse{\equal{\@subtitlecz}{}}{%
@@ -378,7 +393,7 @@
 {\bf \@textbibinfoen} \par
 \bigskip
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{@{}p{2.7cm}@{\hspace{.5cm}}@{}p{10cm}@{}}
+\begin{tabular}{@{}p{3cm}@{\hspace{.5cm}}@{}p{10cm}@{}}
 \@textauthoren: & \@author \\
 \@texttitleen: & \@titleen%
 \ifthenelse{\equal{\@subtitleen}{}}{%
@@ -436,7 +451,7 @@
 \noindent\@thanks
 }
 \vfill
-\noindent\textit{\@textaffirm}\par
+\noindent\emph{\@textaffirm}\par
 \vspace*{10ex}
 \noindent\@textsubmitdate \hfill \@textsigniture
 
@@ -451,12 +466,12 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Hypertexty.
+%% Info o dokumentu.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginDocument{
 \hypersetup{
   pdftitle={\@title\ (\@uppaper)},                           % nadpis
-  pdfauthor={\@author\ (\@textsupervisor\@supervisor)},      % autor dokumentu
+  pdfauthor={\@author\ (\@textsupervisor: \@supervisor)},    % autor dokumentu
   pdfsubject={\@title\ (\@uppaper)},                         % předmět dokumentu
   pdfcreator={\@author},                                     % tvůrce dokumentu
 }
