@@ -237,15 +237,14 @@ Sazba rejstříku sestává z několika kroku:
 
 \begin{enumerate}
 \item Je třeba přes volbu \upinlinecode{TeX}{!}{index=true} rejstříkování povolit.
-\item Použítím maker \upinlinecode{TeX}{!}{\\upindex} či \upinlinecode{TeX}{!}{\\index} rejstříkovat vybrané pojmy.
+\item Použítím makra \upinlinecode{TeX}{!}{\\index} rejstříkovat vybrané pojmy.
 \item Kompilovat s použitím utility \upinlinecode{TeX}{!}{makeindex}. Pro specifika tohoto kroku si stačí prohlédnout soubor \upinlinecode{text}{!}{Makefile}.
 \end{enumerate}
 
-\subsubsection{Přes které makro rejstříkovat?}
-Makro \upinlinecode{TeX}{!}{\\index} používejte v případě, že chcete klikací odkaz na rejstříkovaný výraz. Jediným argumentem výrazu je právě ten výraz. Výsledek vypadá takto\index{výsledek rejstříkování}.
+Makro \upinlinecode{TeX}{!}{\\index} je redefinováno tak, že sází klikací odkaz na výraz v rejstříku. Je doporučeno jej použít ihned za výrazem\index{výraz}.
 
-\textbf{Makro \upinlinecode{TeX}{!}{\\index} má jedno kritické omezení. Nelze jej používat v případě, že chcete přes cílový záznam referencovat, například volání \upinlinecode{TeX}{!}{\\index\{záznam|textit\}} není možné. Pokud chcete použít toto chování, pak je třeba Vaše cílové makro (v tomto případě makro \upinlinecode{TeX}{!}{\\textit} obalit }
-
+\textbf{Omezení redefinovaného makra \upinlinecode{TeX}{!}{\\index}}: klikací odkaz nefunguje, pokud použijete konstrukci \upinlinecode{TeX}{!}{\\index\{výraz|makro\}} (resp. \upinlinecode{TeX}{!}{\\index\{výraz|(makro\}}), např. \upinlinecode{TeX}{!}{\\index\{výraz|textit\}}.
+  
 Rejstřík lze vysázet pomocí makra \upinlinecode{TeX}{!}{\\printindex}.
 
 \begin{lemma}[Démonické lemma]

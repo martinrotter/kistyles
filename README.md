@@ -9,6 +9,7 @@ Soubor "czech.lbx" obsahuje experimentální verzi překladu pro balík BibLaTeX
 Změny:
 
 0.93
+ :: Upraveno zalamování v důkazech.
  :: Opraveno zalamováno v bibliografiích.
 
 0.92

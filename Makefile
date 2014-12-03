@@ -10,7 +10,7 @@ finish:
 	@echo UPstyles compilation finished...;
 
 clean:
-	@rm -v -f *.lo* *.aux *.ind *.idx *.ilg *.toc *.acn *.run.xml *-blx.bib *.ist *.glo  *.blg *.bbl  *.gls *.glg *.alg *.acr
+	@rm -v -f *.glsdefs *.bcf *.lo* *.aux *.ind *.idx *.ilg *.toc *.acn *.run.xml *-blx.bib *.ist *.glo  *.blg *.bbl  *.gls *.glg *.alg *.acr
 	
 # Updiplom component.  
 updiplom:	updiplom.tex

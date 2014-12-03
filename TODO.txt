@@ -105,10 +105,24 @@ JO - \upindex nepotrebujeme, predefinujte \index; pokud se nepodari v
 redefinici \index parsovanim zjistit | a redefinovat \hypertarget s
 provedenim toho, co dela \hyperindexformat, jen bez tvorby odkazu (viz
 vyse), nazval bych to makro pro odkaz (\odkaz vyse) \upindexhref
-MR - mergnul jsem vaše změny, ale tady v tomdle bodu jsem už totálně ztracen.
-nevim presne (at se snazim jakkoliv), jak to s tim \odkaz-em myslíte,
-kdyztak doplnte nejaky zakladni priklad do .tex souboru, treba jak tedy
-docilit klikacího záznamu přes \orgindex{autíčko|textit} či podobně
+MR - mergnul jsem vaše změny, ale tady v tomdle bodu jsem už totálně
+ztracen. nevim presne (at se snazim jakkoliv), jak to s tim \odkaz-em
+myslíte, kdyztak doplnte nejaky zakladni priklad do .tex souboru,
+treba jak tedy docilit klikacího záznamu přes
+\orgindex{autíčko|textit} či podobně
+JO - zkousel jsem to implementovat, ale nepodarilo se, totiz uzivatel
+nemuze pouzit (re)definovane \makro s pouzitim \odkaz, protoze \odkaz
+by se vyhodnotilo az pri sazbe rejstriku a tam je hodnota naseho
+counteru az ta posledni, potrebujeme \odkaz (s uvedenim counteru!)
+vyhodnotit uz pri vyhodnocovani \index, obracene ale, redefinovany
+\odkaz s pouzitim \makro a puvodniho \odkaz by musel zustat
+redefinovany pri sazbe rejstriku, kde by se to ale pouzilo na vsechny
+polozky... takze zatim tedy v dokumentaci dame poznamku, ze s
+\index{heslo|makro} klikaci odkaz nefunguje, kdyztak zkuste to
+parsovanim zjisteni makra za | a redefinici \hypertarget (to, co
+chceme z toho, co dela \hyperindexformat, je aplikace makra z jeho
+prvniho parametru na jeho druhy parametr (= cislo stranky))
+MR - ok, prozatím to nechme, mrknu časem na ten hyperref
 
 ! seznam literatury stejny z BibLaTeXu (podle normy) a rucne
 (nastylovat thebibliography a bibitem): prijmeni velkymi pismeny ->
@@ -154,24 +168,8 @@ JO - az na to "Dostupny take z" OK
 MR - ok, ohledne "Dostupny tak z" kontaktuji autora, vypada to že to
 dela jen tady u toho konkretniho rezezce
 MR - opraveno
-
-! v obsahu a PDF zalozkach je 'Bibliografie/Bibliography', ale nadpis
-je 'Literatura/References', dejte vsude to druhe (je to podle normy?) 
-MR - to je ale feature, ne bug, originální bib(la)tex to taky tak
-dělá, norma neříká jaký nadpis má mít seznam použítích citací
-JO - feature je, ze v obsahu a zalozkach je neco jineho nez nadpis te
-sekce??
-MR - ano, skutečně, tohle je feature. latex pro to má dokonce dvě
-makra, \bibname (nadpis bibliografie), \refname (název bibliografie v
-odkazech, záložkách, ...), \contentsname (nazev bibliografie v
-obsahu), a pokud se nepletu, pak skutečně mají ty makra různé
-počáteční stringy, ale opravím to, je fakt, že to může být poněkud
-matoucí, pokud se podivat do upbase.sty, tak vidíte, že ta makra nikde
-neredefinuji
-MR - Zdá se, že makro \refname (viz todo) se používá jen v třídě
-report či book. Sjednotím to tedy.
-MR - opraveno
-JO - OK
+JO - dobre, ted jeste nastylovat thebibliography a do examplu dat par
+bibitem tak, aby se to vysazelo stejne jako z BibLaTeXu, viz vyse
 
 ! vety a spol. jsou cislovane sekcne, zatimco tabulky a zdrojaky (a
 obrazky?) globalne, dejte globalne i ty vety a spol., dal jejich
@@ -193,6 +191,7 @@ Všechny typy vět teda ted sdílí counter. Takže v obsahu bude:
 5 Věta..........
 To se mi zdá lepší.
 JO - ano, sdileny counter je lepsi, jeste to zalomeni
+MR - pridal jsem tedy aby obsah toho důkazu byl vždy na dalším řádku a aby byl první řádek odsazen (\indent), viz PDF ukázka
 
 updiplom.sty
 ============
