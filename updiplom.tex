@@ -27,6 +27,7 @@
   encoding=utf8,              % Kódování tohoto a vložených souborů.
   field=inf,                  % Studovaný obor (další možné hodnoty: uvt, binf).
   index=true,                 % Chceme používat práci s rejstříkováním.
+  biblatex=true               % Chceme sázet bibliografii přes balík BibLaTeX.
 ]{updiplom}
 
 \title{Dokonalá práce}                % Název práce.
@@ -98,6 +99,7 @@ Styl updiplom je z hlediska uživatele zastoupen ekvivalentně nazvanou třídou
   encoding=utf8,
   field=inf,
   index=true,
+  biblatex=true
 ]{updiplom}
 \end{upcode}
 
@@ -106,7 +108,7 @@ Následuje přehled přepínačů, je vždy uvedeno jméno přepínač, včetně
 \begin{table}
 \begin{center}
 \caption{Seznam přepínačů}\label{tab:prepinace}
-\begin{tabular}{>{\bfseries}l >{\ttfamily}c L{8cm}}
+\scalebox{0.95}{\begin{tabular}{>{\bfseries}l >{\ttfamily}c L{8cm}}
 {\normalfont Přepínač} & {\normalfont Výchozí hodnota} & {\normalfont Popis} \\
 \hline
 master & false & Povolí nebo zakáže režim diplomové práce. Výchozí režim je tedy bakalářská práce. \\
@@ -146,8 +148,10 @@ sourcecodes & false & Je-li zapnuto, pak v seznamech bude zahrnut seznam zdrojov
 
 glossaries & false & Je-li zapnuto, pak na konci dokumentu bude vysázen seznam zkratek. \\
 
-index & false & Zapíná podporu sazby rejstříku.
-\end{tabular}
+index & false & Zapíná podporu sazby rejstříku. \\
+
+biblatex & true & Zapne sazbu bibliografie přes balík Bib\LaTeX{}.
+\end{tabular}}
 \end{center}
 \end{table}
 
@@ -211,6 +215,8 @@ Výhodou tohoto přístupu je, že bibliografie se vysází automaticky a (obvyk
 
 \subsubsection{Manuální sazba bibliografie}
 Manuální sazba obnáší vysázení prostředí \upinlinecode{text}{!}{thebibliography} ručně. To je nad rámec tohoto dokumentu. Ukázku tohoto přístupu lze samozřejmě nalézt ve zdrojovém souboru tohoto dokumentu nebo také \href{http://www.math.uiuc.edu/~hildebr/tex/bibliographies.html}{zde}.
+
+Pro aktivaci manuální sazby bibliografie je třeba volat třídu \upinlinecode{text}{!}{updiplom} s parametrem \upinlinecode{text}{!}{biblatex=false}. Mějte, prosím, na paměti, že v tomto módu jsou makra \upinlinecode{text}{!}{\\bibliography} a \upinlinecode{text}{!}{\\printbibliography} nedostupná.
 
 \subsection{Drobná makra}
 Základní styl definuje hned několik maker pro usnadnění práce. Například makro \upinlinecode{TeX}{!}{\\buno} vysází řetezec \uv{bez újmy na obecnosti}. Je k dispozici i verze s prvním velkým písmenem, \upinlinecode{TeX}{!}{\\Buno}.
@@ -338,8 +344,7 @@ Text druhé přílohy
 
 % Použijte direktní bibliografii, pokud chcete.
 %\begin{thebibliography}{9}
-%
-%\bibitem{lamport94}
+%\bibitem{kniha2}
 %   Leslie Lamport,
 %   \emph{\LaTeX: A Document Preparation System}.
 %   Addison Wesley, Massachusetts,

@@ -52,6 +52,7 @@
 \DeclareStringOption[iso-numeric]{bibstyle}[iso-numeric]
 \DeclareStringOption[utf8]{encoding}[utf8]
 \DeclareStringOption[false]{index}[false]
+\DeclareStringOption[true]{biblatex}[true]
 
 %% Varujeme uživatele před neznámými argumenty.
 \DeclareDefaultOption{\PackageWarningNoLine{upbase}{[upbase] Option '\CurrentOption' was not recognized}}
@@ -83,16 +84,20 @@
 % Čestina.
 \ifthenelse{\equal{\upb@language}{czech}}{
 
-  % Načtení BibLaTeXu.
-  \RequirePackage[
-    natbib=true,
-    backend=\upbibliobackend,
-    sortcites=true,
-    style=\upb@bibstyle,
-    babel=other,
-    sortlocale=cs_CZ,
-    bibencoding=\upb@bibencoding
-  ]{biblatex}
+  \ifthenelse{\equal{\upb@biblatex}{true}}{
+    % Načtení BibLaTeXu.
+    \RequirePackage[
+      natbib=true,
+      backend=\upbibliobackend,
+      sortcites=true,
+      style=\upb@bibstyle,
+      babel=other,
+      sortlocale=cs_CZ,
+      bibencoding=\upb@bibencoding
+    ]{biblatex}
+  }{
+    \relax
+  }
 
 	\newcommand{\uptexttitle}{Tituln\'{i} strana}
 	\newcommand{\uptextdept}{\uptextdeptcz}
@@ -127,17 +132,21 @@
 % Angličtina.
 \ifthenelse{\equal{\upb@language}{english}}{
 
-  % Načtení BibLaTeXu.
-  \RequirePackage[
-    natbib,
-    backend=\upbibliobackend,
-    sortcites=true,
-    style=\upb@bibstyle,
-    babel=other,
-    sortlocale=en_GB,
-    bibencoding=\upb@bibencoding,
-    spacecolon=false
-  ]{biblatex}
+  \ifthenelse{\equal{\upb@biblatex}{true}}{
+    % Načtení BibLaTeXu.
+    \RequirePackage[
+      natbib=true,
+      backend=\upbibliobackend,
+      sortcites=true,
+      style=\upb@bibstyle,
+      babel=other,
+      sortlocale=en_GB,
+      bibencoding=\upb@bibencoding,
+      spacecolon=false
+    ]{biblatex}
+  }{
+    \relax
+  }
 
 	\newcommand{\uptexttitle}{Title page}
 	\newcommand{\uptextdept}{\uptextdepten}
@@ -333,32 +342,36 @@
 %% Bibliografie
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% První řádek záznamu nechceme předsazovat.
-\setlength{\bibhang}{0pt}
+\ifthenelse{\equal{\upb@biblatex}{true}}{
+  % První řádek záznamu nechceme předsazovat.
+  \setlength{\bibhang}{0pt}
 
-% Přeformátovat číslo záznamu.
-\ifthenelse{\equal{\upb@bibstyle}{iso-numeric}}{
-  \renewcommand\MethodFormat{\printtext[labelnumberwidth]{\mkbibbrackets{\printfield{prefixnumber}\printfield{labelnumber}}}}
-} {
-	\relax  
+  % Přeformátovat číslo záznamu.
+  \ifthenelse{\equal{\upb@bibstyle}{iso-numeric}}{
+    \renewcommand\MethodFormat{\printtext[labelnumberwidth]{\mkbibbrackets{\printfield{prefixnumber}\printfield{labelnumber}}}}
+  } {
+    \relax  
+  }
+
+  % Záloha bibliografie.
+  \let\orgprintbibliography=\printbibliography
+
+  % Tisk bibliografie + záznam v obsahu.
+  \renewcommand{\printbibliography}{
+    \clearpage
+    \phantomsection
+    \addcontentsline{toc}{section}{\refname}
+    \orgprintbibliography
+  }
+
+  % Makra, která umlčí překladač TeX v případě "drobných" přetečení textu, která
+  % se v bibliografii dějí běžně.
+  \setcounter{biburlnumpenalty}{9000}
+  \setcounter{biburlucpenalty}{9000}
+  \setcounter{biburllcpenalty}{9000}
+}{
+  \relax
 }
-
-% Záloha bibliografie.
-\let\orgprintbibliography=\printbibliography
-
-% Tisk bibliografie + záznam v obsahu.
-\renewcommand{\printbibliography}{
-	\clearpage
-	\phantomsection
-	\addcontentsline{toc}{section}{\refname}
-	\orgprintbibliography
-}
-
-% Makra, která umlčí překladač TeX v případě "drobných" přetečení textu, která
-% se v bibliografii dějí běžně.
-\setcounter{biburlnumpenalty}{9000}
-\setcounter{biburlucpenalty}{9000}
-\setcounter{biburllcpenalty}{9000}
 
 \renewenvironment{thebibliography}[1]{
 	\section*{\refname

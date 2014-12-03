@@ -33,6 +33,7 @@
 \DeclareStringOption[false]{sourcecodes}[false]
 \DeclareStringOption[false]{glossaries}[false]
 \DeclareStringOption[false]{index}[false]
+\DeclareStringOption[true]{biblatex}[true]
 
 %% Nerozpoznaný parametr hodí chybu.
 \DeclareDefaultOption{\ClassWarningNoLine{updiplom}{[updiplom] Option '\CurrentOption' was not recognized}}
@@ -55,7 +56,8 @@
   language=\upd@language,
   bibencoding=\upd@bibencoding,
   encoding=\upd@encoding,
-  index=\upd@index
+  index=\upd@index,
+  biblatex=\upd@biblatex
 ]{upbase}
 
 % Nastavení geometrie papíru.
