@@ -374,9 +374,9 @@
 }
 
 \renewenvironment{thebibliography}[1]{
-	\section*{\refname
+	\section*{\bibname
     \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}
-	\addcontentsline{toc}{section}{\refname}
+	\addcontentsline{toc}{section}{\bibname}
 	\list{\@biblabel{\@arabic\c@enumiv}}
 	{\settowidth\labelwidth{\@biblabel{#1}}
     \leftmargin\labelwidth
@@ -582,8 +582,8 @@
 ]{upremexstyle}
 
 \declaretheoremstyle[
-	headfont=\normalfont\scshape,
-	notefont=\normalfont\scshape,
+	headfont=\normalfont\itshape,
+	notefont=\normalfont\itshape,
 	spaceabove=\parskip,
 	spacebelow=\parskip,
 	qed=\qedsymbol,

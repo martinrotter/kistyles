@@ -11,6 +11,7 @@ Změny:
 0.93
  :: Upraveno zalamování v důkazech.
  :: Opraveno zalamováno v bibliografiích.
+ :: Přidána ukázková manuální bibliografie.
 
 0.92
  :: Zavedeno makro \upindex a ošetřeno jeho chování při printversion=true. Refresh úvodních stran. Opraveno číslování a názvosloví bibliografie.

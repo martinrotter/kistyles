@@ -170,6 +170,12 @@ dela jen tady u toho konkretniho rezezce
 MR - opraveno
 JO - dobre, ted jeste nastylovat thebibliography a do examplu dat par
 bibitem tak, aby se to vysazelo stejne jako z BibLaTeXu, viz vyse
+MR - pokročil jsem
+JO - v obsahu, zalozkach i nadpis je Reference misto Literatura,
+nezacina to na nove strance, cislo neni vlevo, prijmeni bych dal
+u ukazkovych bibitemu do \uppercase{}, za prijmeni carka a jmena,
+dalsi clovek oddeleny ;, pak .
+MR - opraven nadpis literatura, přidano par bibitemů
 
 ! vety a spol. jsou cislovane sekcne, zatimco tabulky a zdrojaky (a
 obrazky?) globalne, dejte globalne i ty vety a spol., dal jejich
@@ -191,7 +197,12 @@ Všechny typy vět teda ted sdílí counter. Takže v obsahu bude:
 5 Věta..........
 To se mi zdá lepší.
 JO - ano, sdileny counter je lepsi, jeste to zalomeni
-MR - pridal jsem tedy aby obsah toho důkazu byl vždy na dalším řádku a aby byl první řádek odsazen (\indent), viz PDF ukázka
+MR - pridal jsem tedy aby obsah toho důkazu byl vždy na dalším řádku a
+aby byl první řádek odsazen (\indent), viz PDF ukázka
+JO - OK, jeste jsem udelal prazdne radky pred a za i pri czech a
+zahlavi dukazu \itshape
+MR - převzato, chcete přehodit i ty mezery v těch důkazových makrech na \baselineskip (ja mam \parskip)
+jak to mate v tom vašem upbase.sty?
 
 updiplom.sty
 ============
