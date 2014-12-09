@@ -1,66 +1,135 @@
-%%%  Vzorový dokument a dokumentace ke stylu pro závěrečnou práci na KI UP
+%%%  Vzorový text a dokumentace stylu pro text závěrečné práce na KI
+%%%  PřF UP v Olomouci
 %%%  Copyright (C) 2012 Martin Rotter, <rotter.martinos@gmail.com>
 %%%  Copyright (C) 2014 Jan Outrata, <jan.outrata@upol.cz>
 
-%%%  Pro získání PDF souboru dokumentu je třeba tento zdrojový text v
-%%%  LaTeXu přeložit (dvakrát) programem pdfLaTeX a poté, v případě
-%%%  použití programu BibLaTeX pro tvorbu seznamu literatury spustit
-%%%  program Biber s parametrem jméno souboru zdrojového textu bez
-%%%  přípony, v případě tvorby rejstříku přeložit vygenerovaný soubor
-%%%  .idx programem Makeindex a v případě tvorby seznamu zkratek
-%%%  spustit program Makeglossaries s parametrem jméno souboru
-%%%  zdrojového textu bez přípony a následně opět (dvakrát) přeložit
-%%%  zdrojový text programem pdfLaTeX.
+
+%%  Pro získání PDF souboru dokumentu je třeba tento zdrojový text v
+%%  LaTeXu přeložit (dvakrát) programem pdfLaTeX.
+
+%%  V případě použití programu BibLaTeX pro tvorbu seznamu literatury
+%%  je poté ještě třeba spustit program Biber s parametrem jméno
+%%  souboru zdrojového textu bez přípony a následně opět (dvakrát)
+%%  přeložit zdrojový text programem pdfLaTeX.
+
+%%  Postup získání Postscriptového souboru je popsán v dokumentaci.
+
+
+%%  Třída dokumentu pro závěrečnou práci. Vybrané nepovinné parametry
+%%  (ostatní v dokumentaci):
+
+%%  'master' pro sazbu diplomové práce, jinak se sází bakalářská práce
+
+%%  'field=kód' pro Váš studijní obor, kódy pro diplomovou práci 'uvt'
+%%  pro Učitelství výpočetní techniky pro střední školy a 'binf' pro
+%%  Bioinformatiku, jinak je výchozí Informatika, a pro bakalářskou
+%%  práci 'ainfk' pro Aplikovanou informatiku v kombinované formě,
+%%  'inf' pro Informatiku, 'infv' pro Informatiku pro vzdělávání a
+%%  'binf' pro Bioinfomatiku, jinak je výchozí Aplikovaná informatika
+%%  v prezenční formě
+
+%%  'printversion' pro sazbu verze pro tisk (nebarevné logo a odkazy,
+%%  odkazy s uvedením URL za odkazem, ne odkazy do rejstříku), jinak
+%%  verze pro prohlížeč
+
+%%  'biblatex' pro zapnutí podpory pro sazbu bibliografie pomocí
+%%  BibLaTeXu, jinak je výchozí sazba v prostředí thebibliography
+
+%%  'language=jazyk' pro jazyk práce, jazyky english pro anglický,
+%%  jinak je výchozí czech pro český
+
+%%  'font=sans' pro bezpatkový font (Iwona Light), jinak výchozí
+%%  patkový (Latin Modern)
 
 \documentclass[
-  master=false,               % Mód pro diplomovou práci (Mgr.).
-  font=sans,                  % Bezpatkový font.
-  printversion=false,         % Pro finální sazbu (nepoužijí se barevné odkazy atp.), knižní sazba.
-  joinlists=true,             % Zobrazí seznamy (zkratek, obrázků...) pod sebou.
-  glossaries=true,            % Povolí podporu zkratek (seznam zkratek, deklarace zkratek).
-  figures=true,               % Povolí seznam obrázků.
-  tables=true,                % Povolí seznam tabulek.
-  sourcecodes=true,					  % Povolí seznam zdr. kódů.
-  theorems=true,						  % Povolí seznam vět a teorémů.
-  bibencoding=utf8,           % Kódování souboru s citacemi.
-  language=czech,             % Jazyk práce.
-  encoding=utf8,              % Kódování tohoto a vložených souborů.
-  field=inf,                  % Studovaný obor (další možné hodnoty: uvt, binf).
-  index=true,                 % Chceme používat práci s rejstříkováním.
-  biblatex=true               % Chceme sázet bibliografii přes balík BibLaTeX.
+%  master,
+%  field=inf,
+%  printversion,
+  biblatex,
+%  language=english,
+  font=sans,
+  glossaries,
+  index
 ]{updiplom}
 
-\title{Dokonalá práce}                % Název práce.
-\subtitle{Opravdu dokonalá}           % Volitelný podnázev práce.
+%% Informace pro úvodní strany. Česky a anglicky. Uveďte všechny, u
+%% kterých není v komentáři uvedeno, že jsou volitelné. Při neuvedení
+%% se použijí výchozí texty. Text pro jiný než nastavený jazyk
+%% dokumentu (nepovinným parametrem language makra \documentclass,
+%% výchozí český) se zadává použitím makra s uvedením jazyka jako
+%% nepovinného parametru.
 
-\title[english]{Perfect thesis}       % Název práce (anglicky).
-\subtitle[english]{Really perfect}    % Volitelný podnázev práce (anglicky).
-\yearofsubmit{\the\year}			        % Rok odevzdání (při zakomentování se použije aktuální rok).
+%% Název práce, včetně anglického. Měl by se vysázet na jeden řádek.
+\title{Styl pro text závěrečné práce}
+\title[english]{A style for graduation thesis}
 
+%% Volitelný podnázev práce, včetně anglického. Měl by se vysázet na
+%% jeden řádek. Výchozí je prázdný.
+\subtitle{Vzorový text a dokumentace stylu v \LaTeX{}u}
+\subtitle[english]{Sample text and documentation of the \LaTeX{} style}
+
+%% Jméno autora práce. Makro nemá nepovinný parametr pro uvedení
+%% jazyka.
 \author{Martin Rotter}
-\supervisor{doc. Ing. Martin Vilém}
 
-\annotation{Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn. Tento dokument je fajn.}                    % Anotace, jeden odstavec textu.
-\annotation[english]{This document is good. This document is
-  good. This document is good. This document is good. This document is
-  good. This document is good. This document is good.} % Anotace práce anglicky - obvykle překlad anotace česky.
+%% Jméno vedoucího práce (včetně titulů). Makro nemá nepovinný
+%% parametr pro uvedení jazyka.
+\supervisor{Mgr. Jan Outrata, Ph.D.}
 
-\keywords{dokument; fajn}             % Klíčová slova oddělená středníkem.
-\keywords[english]{document; good}
+%% Volitelný rok odevzdání práce. Výchozí je aktuální (kalendářní)
+%% rok. Makro nemá nepovinný parametr pro uvedení jazyka.
+%\yearofsubmit{\the\year}
 
-\thanks{Děkuji všem. Hlavně sobě.}    % Volitelné poděkování.
-\supplements{jedno kulaté CD/DVD}     % Popis příloh.
+%% Anotace práce, včetně anglické (obvykle překlad české). Jeden
+%% odstavec!
+\annotation{Vzorový text závěrečné práce na Katedře informatiky
+  Přírodovědecké fakulty Univerzity Palackého v Olomouci, který je
+  zároveň dokumentací stylu pro text práce v \LaTeX{}u. Zdrojový text
+  v \LaTeX{}u je doporučeno použít jako šablonu pro text skutečné
+  závěrečné práce studenta.}
 
-\bibliography{bibliografie.bib}       % Aktivuje bibliografii přes systém Biber/BibLaTex. Toto je třeba zakomentovat při použití manuální sazby bybliografie.
+\annotation[english]{Sample text of graduation thesis at the
+  \uptextdepten, \uptextfacultyen, \uptextuniven{} and, at the same
+  time, documentation of the \LaTeX{} style for the text. The source
+  text in \LaTeX{} is recommended to be used as a template for real
+  student's graduation thesis text.}
 
-% Tyto balíčky jsou zde pouze pro účely tohoto dokumentu. Práce je nemusí obsahovat.
-\usepackage{multirow}
-\usepackage{ltxdockit}
+%% Klíčová slova práce, včetně anglických. Oddělená (obvykle) středníkem.
+\keywords{styl textu; závěrečná práce; dokumentace; vzorový text}
+\keywords[english]{text style; graduation thesis; documentation; sample text}
+
+%% Volitelná specifikace příloh textu práce, i anglicky. Výchozí je '1
+%% CD/DVD'.
+%\supplements{jedno kulaté placaté CD/DVD s malou kulatou dírou uprostřed}
+%\supplements[english]{one round flat CD/DVD with a small round hole in the middle}
+
+%% Volitelné poděkování. Stručné! Výchozí je prázdný. Makro nemá
+%% nepovinný parametr pro uvedení jazyka.
+\thanks{Děkuji, děkuji, děkuji.}
+
+%% Soubor s bibliografií pro její sazbu pomocí BibLaTeXu (zvolenou
+%% nepovinným parametrem biblatex makra \documentclass). Použijte
+%% pouze při této sazbě, ne při (výchozí) sazbě v prostředí
+%% thebibliography.
+\bibliography{bibliografie.bib}
+
+%% Další balíky potřebné pro sazbu vlastního textu práce.
 \usepackage{lipsum}
 
 \begin{document}
-% Tiskné úvodní stránku, seznamy, anotaci, poděkování atp.
+%% Sazba úvodních stran -- titulní, s bibliografickými údaji, s
+%% anotací a klíčovými slovy, s poděkováním a prohlášením, s obsahem a
+%% se seznamy obrázků, tabulek, vět a zdrojových kódů (pokud jejich
+%% sazba není vypnutá).
 \maketitle
+
+%% Vlastní text závěrečné práce. Pro povinné závěry, před přílohami,
+%% použijte prostředí upconclusions. Povinná je i příloha s obsahem
+%% přiloženého CD/DVD.
+
+%% -------------------------------------------------------------------
+
+\newcommand{\BibLaTeX}{\textsc{Bib}\LaTeX}
 
 \section{Styly pro psaní bakalářských a diplomových prací}
 Toto jsou styly pro psaní bakalářských a diplomových prací přes typografický systém \LaTeX{}, tedy \textbf{upstyles}.
@@ -80,6 +149,12 @@ Jsou podporovány všechny výstupní ovladače, tedy jak \textbf{dvi}, tak \tex
 
 Důrazně se doporučuje používat aktuální verzi dané distribuce systému \LaTeX{}.
 
+%%%  Po přeložení programem CSLaTeX (třikrát) je potřeba použít
+%%%  program DVIPS a takto získaný PostScriptový soubor vytisknout
+%%%  na PostScriptové tiskárně nebo pomocí programu GhostScript.
+%%%
+%%%  Rovněž je možné použít program DVIPDFM a vytvořit z dokumentu
+%%%  soubor ve formátu PDF včetně hypertextových odkazů.
 
 \subsection{Přepínače}
 Styl updiplom je z hlediska uživatele zastoupen ekvivalentně nazvanou třídou, kterou je třeba volat na záčátku dokumentu:
@@ -128,15 +203,25 @@ font & serif & Zapne či vypne podporu pěkného bezpatkového fontu. Možné ho
 \item[serif] Patkové písmo (písmo Computer Modern).
 \end{description} \\
 
+%%  'encoding=kódování' pro kódování tohoto a vložených zdrojových
+%%  textů v kódování jiném než výchozím utf8
 encoding & utf8 & Kódování souboru dokumentu, doporučuje se ponechat výchozí hodnotu. \\
 
-bibencoding & utf8 & Kódování souboru bibliografie. Tato volba má smysl pouze, pokud je použita bibliografie skrze balíček Bib\LaTeX{}. \\
+bibencoding & utf8 & Kódování souboru bibliografie. Tato volba má smysl pouze, pokud je použita bibliografie skrze balíček \BibLaTeX{}. \\
 
 language & czech & Jazyk hlavní práce. \\
 
 printversion & false & Je-li zapnuto, pak budou odkazy vysázeny optimalizovaně pro knižní sazbu. Tuto volbu je nutno použít pro tisk práce. \\
 
-joinlists & true & Je-li zapnuto, pak seznamy obrázků, tabulek či zdrojových kódů nebudou rozděleny na samostatné stránky. \\
+%%% Nepovinné argumenty `tables' a `figures' použijte pouze v případě,
+%%% že váš dokument obsahuje tabulky a obrázky a chcete vytvořit
+%%% jejich seznamy za obsahem.
+%%%
+%%% Argument `joinlists' způsobí zřetězení obsahu a seznamů tabulek a obrázků.
+%%% Není-li použít, všechny seznamy jsou uvedeny na samostatných stránkách.
+
+joinlists & true & Je-li zapnuto, pak seznamy obrázků, tabulek, vět a
+zdrojových kódů sázené za obsahem nebudou rozděleny na samostatné stránky. \\
 
 figures & true & Je-li zapnuto, pak v seznamech položek bude zahrnut seznam obrázků. \\
 
@@ -150,7 +235,7 @@ glossaries & false & Je-li zapnuto, pak na konci dokumentu bude vysázen seznam 
 
 index & false & Zapíná podporu sazby rejstříku. \\
 
-biblatex & true & Zapne sazbu bibliografie přes balík Bib\LaTeX{}.
+biblatex & true & Zapne sazbu bibliografie přes balík \BibLaTeX{}.
 \end{tabular}}
 \end{center}
 \end{table}
@@ -203,13 +288,13 @@ M = \begin{bmatrix}
 $$
 
 \subsection{Sazba literatury}
-Pro sazbu literatury má uživatel dvě možnosti. Může použít služeb balíků Bib\LaTeX{}, který je pro \textbf{upstyles} zapnutý, či lze použít manuální sazbu bibliografie.
-\subsubsection{Sazba bibliografie přes Bib\LaTeX{}}
+Pro sazbu literatury má uživatel dvě možnosti. Může použít služeb balíků \BibLaTeX{}, který je pro \textbf{upstyles} zapnutý, či lze použít manuální sazbu bibliografie.
+\subsubsection{Sazba bibliografie přes \BibLaTeX{}}
 Při použití tohoto balíku se data o použité literatuře ukládají do dedikovaného textového souboru, ukázku najdete i v tomto stylu pod jménem \upinlinecode{text}{!}{bibliografie.bib}.
 
 Formát daného souboru je nad rámec této dokumentace a je na každém uživateli, aby si jej nastudoval. Bibliografie se tiskne makrem \upinlinecode{TeX}{!}{\\printbibliography}. Taktéž v preambuli dokumentu je třeba definovat, který soubor data bibliografie obsahuje, tedy například \upinlinecode{TeX}{!}{\\bibliography\{bibliografie.bib\}}.
 
-Dokument, který využívá Bib\LaTeX{} je následně nutné přeložit jak pomocí překladače zvoleného ovladače, tak pomocí aplikace \upinlinecode{text}{!}{biber}. Více informací poskytne soubor \upinlinecode{text}{!}{Makefile} z distribuce tohoto stylu.
+Dokument, který využívá \BibLaTeX{} je následně nutné přeložit jak pomocí překladače zvoleného ovladače, tak pomocí aplikace \upinlinecode{text}{!}{biber}. Více informací poskytne soubor \upinlinecode{text}{!}{Makefile} z distribuce tohoto stylu.
 
 Výhodou tohoto přístupu je, že bibliografie se vysází automaticky a (obvykle) není třeba manuální úprava formátování.
 
@@ -221,7 +306,7 @@ Pro aktivaci manuální sazby bibliografie je třeba volat třídu \upinlinecode
 \subsection{Drobná makra}
 Základní styl definuje hned několik maker pro usnadnění práce. Například makro \upinlinecode{TeX}{!}{\\buno} vysází řetezec \uv{bez újmy na obecnosti}. Je k dispozici i verze s prvním velkým písmenem, \upinlinecode{TeX}{!}{\\Buno}.
 
-Je rovněž možno přidávat položky do seznamu zkratek. K tomu slouží makro \upinlinecode{TeX}{!}{\\newacronym}, které lze použít například jednoduše jako \upinlinecode{TeX}{!}{\\newacronym\{UPOL\}\{UPOL\}\{Univerita Palackého\}}. Na danou zkratku se pak lze odkazovat jednoduše, \upinlinecode{TeX}{!}{\\gls\{UPOL\}}.
+Je rovněž možno přidávat položky do seznamu zkratek. K tomu slouží makro \upinlinecode{TeX}{!}{\\newacronym}, které lze použít například jednoduše jako \upinlinecode{TeX}{!}{\\newacronym\{UPOL\}\{UPOL\}\{\\uptextunivcz\}}. Na danou zkratku se pak lze odkazovat jednoduše, \upinlinecode{TeX}{!}{\\gls\{UPOL\}}.
 
 Sazba uvozovek respektuje nastavení částí dokumentu, a proto se doporučuje používat makro \upinlinecode{TeX}{!}{\\uv}. V anglické závěru práce toto platí taky, viz tato PDF ukázka.
 
@@ -238,6 +323,12 @@ Styl podporuje sazbu odstavců v tabulkách, více obsahuje tabulka \ref{tab:ods
 
 K dispozici jsou také makra pro sazbu \csharp{} (\upinlinecode{TeX}{!}{\\csharp}) či \cpp{} (\upinlinecode{TeX}{!}{\\cpp}).
 
+%% v případě tvorby rejstříku přeložit vygenerovaný soubor .idx
+%% programem Makeindex a v případě tvorby seznamu zkratek spustit
+%% program Makeglossaries s parametrem jméno souboru zdrojového textu
+%% bez přípony a následně opět (dvakrát) přeložit zdrojový text
+%% programem pdfLaTeX.
+
 \subsection{Sazba rejstříku}
 Sazba rejstříku sestává z několika kroku:
 
@@ -250,7 +341,7 @@ Sazba rejstříku sestává z několika kroku:
 Makro \upinlinecode{TeX}{!}{\\index} je redefinováno tak, že sází klikací odkaz na výraz v rejstříku. Je doporučeno jej použít ihned za výrazem\index{výraz}.
 
 \textbf{Omezení redefinovaného makra \upinlinecode{TeX}{!}{\\index}}: klikací odkaz nefunguje, pokud použijete konstrukci \upinlinecode{TeX}{!}{\\index\{výraz|makro\}} (resp. \upinlinecode{TeX}{!}{\\index\{výraz|(makro\}}), např. \upinlinecode{TeX}{!}{\\index\{výraz|textit\}}.
-  
+
 Rejstřík lze vysázet pomocí makra \upinlinecode{TeX}{!}{\\printindex}.
 
 \begin{lemma}[Démonické lemma]
@@ -262,7 +353,16 @@ Naše nové lemma~\cite{kniha2}.
 7+2
 \end{align}
 
-\newacronym{UPOL}{UPOL}{Univerita Palackého}
+
+\begin{table}
+\begin{tabular}{c | c}
+aaa & bbb 
+\end{tabular}
+\caption{Krutá tabulka}
+\end{table}
+
+
+\newacronym{UPOL}{UPOL}{\uptextunivcz}
 
 \begin{definition}[Název definice]
 Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. \gls{UPOL}
@@ -317,41 +417,122 @@ SELECT * FROM table_1; /* komentar */
 table_1 AND table_2;
 \end{upcode}
 
-% tiskne český závěr práce
+%% Závěry práce. Česky a anglicky. Text pro jiný než nastavený jazyk
+%% dokumentu (nepovinným parametrem language makra \documentclass,
+%% výchozí český) se zadává použitím makra s uvedením jazyka jako
+%% nepovinného parametru.
 \begin{upconclusions}
 Závěr práce v \uv{českém} jazyce.
 \end{upconclusions}
 
-% tiskne anglický závěr práce
 \begin{upconclusions}[english]
-Thesis conclusions written in \uv{english}.
+Thesis conclusions in \uv{English}.
 \end{upconclusions}
 
-% tiskne přílohy
+%% Přílohy obsahu textu práce, za makrem \appendix.
 \appendix
+
 \section{První příloha}
 Text první přílohy
 
 \section{Druhá příloha}
 Text druhé přílohy
 
+%% Obsah přiloženého CD/DVD. Poslední příloha. Upravte podle vlastní
+%% práce!
+\section{Obsah přiloženého CD/DVD} \label{ObsahCD}
+
+Na samotném konci textu práce je uveden stručný popis obsahu
+přiloženého CD/DVD, tj.~jeho závazné adresářové struktury, důležitých
+souborů apod.
+
+\begin{description}
+
+\item[\texttt{bin/}] \hfill \\
+  Instalátor \textsc{Instalator} programu, popř.~program
+  \textsc{Program}, spustitelné přímo z~CD/DVD. / Kompletní adresářová
+  struktura webové aplikace \textsc{Webovka} (v~ZIP archivu) pro
+  zkopírování na webový server. Adresář obsahuje i~všechny runtime
+  knihovny a~další soubory potřebné pro bezproblémový běh instalátoru
+  a~programu z~CD/DVD / pro bezproblémový provoz webové aplikace na
+  webovém serveru.
+
+\item[\texttt{doc/}] \hfill \\
+  Text práce ve formátu PDF, vytvořený s~použitím závazného stylu KI
+  PřF UP v~Olomouci pro závěrečné práce, včetně všech příloh,
+  a~všechny soubory potřebné pro bezproblémové vygenerování PDF
+  dokumentu textu (v~ZIP archivu), tj.~zdrojový text textu, vložené
+  obrázky, apod.
+
+\item[\texttt{src/}] \hfill \\
+  Kompletní zdrojové texty programu \textsc{Program} / webové aplikace
+  \textsc{Webovka} se všemi potřebnými (příp.~převzatými) zdrojovými
+  texty, knihovnami a~dalšími soubory potřebnými pro bezproblémové
+  vytvoření spustitelných verzí programu / adresářové struktury pro
+  zkopírování na webový server.
+
+\item[\texttt{readme.txt}] \hfill \\
+  Instrukce pro instalaci a~spuštění programu \textsc{Program}, včetně
+  všech požadavků pro jeho bezproblémový provoz. / Instrukce pro
+  nasazení webové aplikace \textsc{Webovka} na webový server, včetně
+  všech požadavků pro její bezproblémový provoz, a~webová adresa, na
+  které je aplikace nasazena pro účel testování při tvorbě posudků
+  práce a~pro účel obhajoby práce.
+
+\end{description}
+
+Navíc CD/DVD obsahuje:
+
+\begin{description}
+
+\item[\texttt{data/}] \hfill \\
+  Ukázková a~testovací data použitá v~práci a~pro potřeby testování
+  práce při tvorbě posudků a~obhajoby práce.
+
+\item[\texttt{install/}] \hfill \\
+  Instalátory aplikací, runtime knihoven a~jiných souborů potřebných
+  pro provoz programu \textsc{Program} / webové aplikace
+  \textsc{Webovka}, které nejsou standardní součástí operačního
+  systému určeného pro běh programu / provoz webové aplikace.
+
+\item[\texttt{literature/}] \hfill \\
+  Vybrané položky bibliografie, příp.~jiná užitečná literatura
+  vztahující se k~práci.
+
+\end{description}
+
+U~veškerých cizích převzatých materiálů obsažených na CD/DVD jejich
+zahrnutí dovolují podmínky pro jejich šíření nebo přiložený souhlas
+držitele copyrightu. Pro všechny použité (a~citované) materiály,
+u~kterých toto není splněno a~nejsou tak obsaženy na CD/DVD, je uveden
+jejich zdroj (např.~webová adresa) v~bibliografii nebo textu práce
+nebo v souboru \texttt{readme.txt}.
+
+%% -------------------------------------------------------------------
+
+%% Sazba volitelného seznamu zkratek, za přílohami.
 \printglossary
 
-% tiskne bibliografii
-% bibliografie používá BibLaTeX
-\nocite{*}							% Vytiskne i necitované zdroje.
+%% Sazba povinné bibliografie, za přílohami (případně i za seznamem
+%% zkratek). Při použití BibLaTeXu použijte makro
+%% \printbibliography. jinak prostředí thebibliography. Ne obojí!
+
+%% Sazba i v textu necitovaných zdrojů, při použití
+%% BibLaTeXu. Volitelné.
+\nocite{*}
+%% Vlastní sazba bibliografie při použití BibLaTeXu.
 \printbibliography
 
-% Použijte direktní bibliografii, pokud chcete.
-%\begin{thebibliography}{99}
+%% Bibliografie, včetně sazby, při nepoužití BibLaTeXu.
+% \begin{thebibliography}{9}
 %\bibitem{kniha2} \uppercase{Hawke}, Paul. NanoHttpd: Light-weight HTTP server designed for embedding in other applications. GitHub [online]. 2014-05-12. [cit. 2014-12-06]. Dostupné z: \url{https://github.com/NanoHttpd/nanohttpd}
 %
 %\bibitem{jeske13} \uppercase{Jeske}, David; \uppercase{Novák}, Josef. Simple HTTP Server in \csharp: Threaded synchronous HTTP Server abstract class, to respond to HTTP requests. CodeProject: For those who code [online]. 2014-05-24. [cit. 2014-12-06]. Dostupné z: \url{http://www.codeproject.com/Articles/137979/Simple-HTTP-Server-in-C}
 %
 %\bibitem{uzis2012} \uppercase{ÚSTAV ZDRAVOTNICKÝCH INFORMACÍ A STATISTIKY ČR}. Lékaři, zubní lékaři a farmaceuti 2012 [online]. Praha 2, Palackého náměstí 4: Ústav zdravotnických informací a statistiky ČR, 2012 [cit. 2014-12-06]. ISBN 978-80-7472-089-5. Dostupné z: \url{http://www.uzis.cz/publikace/lekari-zubni-lekari-farmaceuti-2012}
-%\end{thebibliography}
+% \end{thebibliography}
 
-% tiskne rejstřík
+%% Sazba volitelného rejstříku, za bibliografií.
 \printindex
 
 \end{document}

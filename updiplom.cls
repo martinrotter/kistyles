@@ -6,7 +6,12 @@
 \ProvidesClass{updiplom}[2012/09/09 UP Diploma Class]
 \ClassWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.93}
 
+%% Základní třída a velikost písma 12pt.
 \LoadClass[12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Parametry.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \RequirePackage{kvoptions}
 
@@ -15,52 +20,59 @@
 	prefix=upd@
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Deklarace parametrů.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%% [init]{name}[default]
+%% diplomová práce, jinak bakalářská
 \DeclareBoolOption{master}
+%% studijní obor autora: pro diplomovou práci uvt a binf, jinak inf,
+%% pro bakalářskou práci ainfk, inf, infv a binf, jinak ainfp
 \DeclareStringOption[ainfp]{field}[ainfp]
-\DeclareStringOption[serif]{font}[serif]
-\DeclareStringOption[utf8]{encoding}[utf8]
-\DeclareStringOption[utf8]{bibencoding}[utf8]
-\DeclareStringOption[czech]{language}[czech]
-\DeclareStringOption[false]{printversion}[false]
+\DeclareStringOption[false]{printversion}[true]
 \DeclareStringOption[true]{joinlists}[true]
 \DeclareStringOption[true]{figures}[true]
 \DeclareStringOption[true]{tables}[true]
-\DeclareStringOption[false]{theorems}[false]
-\DeclareStringOption[false]{sourcecodes}[false]
-\DeclareStringOption[false]{glossaries}[false]
-\DeclareStringOption[false]{index}[false]
-\DeclareStringOption[true]{biblatex}[true]
+\DeclareStringOption[true]{theorems}[true]
+\DeclareStringOption[true]{sourcecodes}[true]
+\DeclareStringOption[false]{biblatex}[true]
+\DeclareStringOption[czech]{language}[czech]
+\DeclareStringOption[false]{glossaries}[true]
+\DeclareStringOption[false]{index}[true]
+\DeclareStringOption[serif]{font}[serif]
+\DeclareStringOption[utf8]{encoding}[utf8]
+\DeclareStringOption[utf8]{bibencoding}[utf8]
 
 %% Nerozpoznaný parametr hodí chybu.
 \DeclareDefaultOption{\ClassWarningNoLine{updiplom}{[updiplom] Option '\CurrentOption' was not recognized}}
 
 \ProcessKeyvalOptions*
 
-\RequirePackage{caption}
-\RequirePackage{subcaption}
-\RequirePackage{lastpage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Balíky.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%% KI UP Base styl.
 \RequirePackage[
-  font=\upd@font,
   printversion=\upd@printversion,
   joinlists=\upd@joinlists,
   figures=\upd@figures,
   tables=\upd@tables,
-  sourcecodes=\upd@sourcecodes,
   theorems=\upd@theorems,
-  glossaries=\upd@glossaries,
+  sourcecodes=\upd@sourcecodes,
+  biblatex=\upd@biblatex,
   language=\upd@language,
-  bibencoding=\upd@bibencoding,
-  encoding=\upd@encoding,
+  glossaries=\upd@glossaries,
   index=\upd@index,
-  biblatex=\upd@biblatex
+  font=\upd@font,
+%  logo=blue,
+  encoding=\upd@encoding,
+  bibencoding=\upd@bibencoding
 ]{upbase}
 
-% Nastavení geometrie papíru.
+%% Oboustranná sazba není povolená.
+\ifthenelse{\boolean{@twoside}}{
+  \ClassError{updiplom}{Two-sided document mode is not allowed for updiplom.}
+}{}
+
+%% Geometrie papíru.
 \RequirePackage[
   paper=a4paper,
   driver=pdftex,
@@ -70,15 +82,19 @@
   width=1.05\textwidth
 ]{geometry}
 
-\ifthenelse{\boolean{@twoside}}{
-  \ClassError{updiplom}{Two-sided document mode is not allowed for updiplom}
-}{}
+%% Číslo poslední strany: label LastPage.
+\RequirePackage{lastpage}
+
+%% AMS symboly.
+\RequirePackage{amsbsy}
+\RequirePackage{amssymb}
+\RequirePackage{euscript}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Nastavení dynamických textů.
+%% Dynamické texty.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Čeština.
+%% Čeština.
 \def\@bachelorcz{bakal\'a\v rsk\'a pr\'ace}
 \def\@mastercz{diplomov\'a pr\'ace}
 \def\@fieldinfcz{Informatika}
@@ -95,7 +111,7 @@
 \def\@textbibinfocz{Bibliografick\'e \'udaje}
 \def\@texttitlecz{N\'azev pr\'ace}
 \def\@textauthorcz{Autor}
-\def\@textuppapercz{Typ pr\'ace}
+\def\@textthesistypecz{Typ pr\'ace}
 \def\@textdeptcz{Pracovi\v st\v e}
 \def\@textyearofsubmitcz{Rok obhajoby}
 \def\@textpagescz{Po\v cet stran}
@@ -107,7 +123,7 @@
 \def\@textkeywordscz{Klí\v cov\'a slova}
 \def\@textconclusionscz{Z\'av\v er}
 
-% Angličtina.
+%% Angličtina.
 \def\@bacheloren{bachelor thesis}
 \def\@masteren{master thesis}
 \def\@fieldinfen{Computer Science}
@@ -123,7 +139,7 @@
 \def\@textbibinfoen{Bibliograhic info}
 \def\@texttitleen{Title}
 \def\@textauthoren{Author}
-\def\@textuppaperen{Thesis type}
+\def\@textthesistypeen{Thesis type}
 \def\@textdepten{Department}
 \def\@textyearofsubmiten{Year of defense}
 \def\@textpagesen{Page count}
@@ -135,9 +151,11 @@
 \def\@textkeywordsen{Keywords}
 \def\@textconclusionsen{Conclusions}
 
+%% Typ práce a studijní obor autora (podle typu práce).
 \ifthenelse{\boolean{upd@master}}{
-  \def\@uppapercz{\@mastercz}
-  \def\@uppaperen{\@masteren}
+  %% Magisterská.
+  \def\@thesistypecz{\@mastercz}
+  \def\@thesistypeen{\@masteren}
   \ifthenelse{\equal{\upd@field}{uvt}}{
     \def\@fielden{\@fielduvten, \@presentformen}
     \def\@fieldcz{\@fielduvtcz, \@presentformcz}
@@ -152,8 +170,9 @@
     }
   }
 }{
-  \def\@uppapercz{\@bachelorcz}
-  \def\@uppaperen{\@bacheloren}
+  %% Bakalářská.
+  \def\@thesistypecz{\@bachelorcz}
+  \def\@thesistypeen{\@bacheloren}
   \ifthenelse{\equal{\upd@field}{ainfk}}{
     \def\@fielden{\@fieldainfen, \@combinedformen}
     \def\@fieldcz{\@fieldainfcz, \@combinedformcz}
@@ -179,9 +198,9 @@
   }
 }
 
-% Angličtina.
+%% Angličtina.
 \ifthenelse{\equal{\upb@language}{english}}{
-  \def\@uppaper{\@uppaperen}
+  \def\@thesistype{\@thesistypeen}
   \def\@textfield{\@textfielden}
   \def\@field{\@fielden}
   \def\@textsupervisor{\@textsupervisoren}
@@ -195,9 +214,12 @@
   \def\@textsubmitdate{date of thesis submission}
   \def\@textsigniture{author's signature}
 }{
-  % Čeština.
-  % \ifthenelse{\equal{\upb@language}{czech}}
-  \def\@uppaper{\@uppapercz}
+  \relax
+}
+
+%% Čeština.
+\ifthenelse{\equal{\upb@language}{czech}}{
+  \def\@thesistype{\@thesistypecz}
   \def\@textfield{\@textfieldcz}
   \def\@field{\@fieldcz}
   \def\@textsupervisor{\@textsupervisorcz}
@@ -211,14 +233,16 @@
     uv\'ad\'im v seznamu literatury.}
   \def\@textsubmitdate{datum odevzd\'an\'i pr\'ace}
   \def\@textsigniture{podpis autora}
+}{
+  \relax
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Závěry.
+%% Prostředí pro závěry.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newenvironment{upconclusions}[1][\upb@language]{
-  \cleardoublepage
+  \clearpage
   \bgroup
   \phantomsection
   \ifthenelse{\equal{#1}{english}}{
@@ -236,10 +260,10 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Titulní strany.
+%% Úvodní strany.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Název práce.
+%% Makra pro název a podnázev práce.
 %\def\title#1{\gdef\@title{#1}}
 \renewcommand{\title}[2][\upb@language]{
   \ifthenelse{\equal{#1}{english}}{
@@ -249,7 +273,6 @@
   }
 }
 
-% Podnázev práce.
 %\def\subtitle#1{\gdef\@subtitle{#1}}
 \newcommand{\subtitle}[2][\upb@language]{
   \ifthenelse{\equal{#1}{english}}{
@@ -259,28 +282,6 @@
   }
 }
 
-% Anotace.
-\newcommand{\annotation}[2][\upb@language]{
-  \ifthenelse{\equal{#1}{english}}{
-    \gdef\@annotationen{#2}
-  }{
-    \gdef\@annotationcz{#2}
-  }
-}
-\newcommand{\keywords}[2][\upb@language]{
-  \ifthenelse{\equal{#1}{english}}{
-    \gdef\@keywordsen{#2}
-  }{
-    \gdef\@keywordscz{#2}
-  }
-}
-\newcommand{\supplements}[2][\upb@language]{
-  \ifthenelse{\equal{#1}{english}}{
-    \gdef\@supplen{#2}
-  }{
-    \gdef\@supplcz{#2}
-  }
-}
 \ifthenelse{\equal{\upb@language}{english}}{
   \gdef\@title{\@titleen}
   \gdef\@subtitle{\@subtitleen}
@@ -288,23 +289,41 @@
   \gdef\@title{\@titlecz}
   \gdef\@subtitle{\@subtitlecz}
 }
+
+%% Makra pro anotaci, klíčová slova a přílohy.
+\newcommand{\annotation}[2][\upb@language]{
+  \ifthenelse{\equal{#1}{english}}{
+    \gdef\@annotationen{#2}
+  }{
+    \gdef\@annotationcz{#2}
+  }
+}
+
+\newcommand{\keywords}[2][\upb@language]{
+  \ifthenelse{\equal{#1}{english}}{
+    \gdef\@keywordsen{#2}
+  }{
+    \gdef\@keywordscz{#2}
+  }
+}
+
+\newcommand{\supplements}[2][\upb@language]{
+  \ifthenelse{\equal{#1}{english}}{
+    \gdef\@supplen{#2}
+  }{
+    \gdef\@supplcz{#2}
+  }
+}
+
+%% Makra pro autora, vedoucího a datum odevzdání práce.
 \def\author#1{\gdef\@author{#1}}
-
-% Datum odevzdání práce.
-\def\yearofsubmit#1{\gdef\@yearofsubmit{#1}}
 \def\supervisor#1{\gdef\@supervisor{#1}}
+\def\yearofsubmit#1{\gdef\@yearofsubmit{#1}}
 
-% Poděkování.
+%% Makro pro poděkování.
 \def\thanks#1{\gdef\@thanks{#1}}
 
-% Výchozí hodnoty.
-\ifthenelse{\equal{\upb@language}{english}}{
-  \author{Author name}
-  \supervisor{Supervisor name}
-}{
-  \author{Jm\'eno autora}
-  \supervisor{Jm\'eno vedouc\'iho pr\'ace}
-}
+%% Výchozí hodnoty pro předchozí makra.
 \title[czech]{N\'azev pr\'ace}
 \title[english]{Thesis title}
 \subtitle[czech]{}
@@ -313,12 +332,20 @@
 \annotation[english]{Apposite thesis synopsis}
 \keywords[czech]{stru\v cn\'a vhodn\'a kl\'i\v cov\'a slova}
 \keywords[english]{short appropriate keywords}
-\yearofsubmit{\the\year}
 \supplements[czech]{1 CD/DVD}
 \supplements[english]{1 CD/DVD}
+\ifthenelse{\equal{\upb@language}{english}}{
+  \author{Author name}
+  \supervisor{Supervisor name}
+}{
+  \author{Jm\'eno autora}
+  \supervisor{Jm\'eno vedouc\'iho pr\'ace}
+}
+\yearofsubmit{\the\year}
 
+%% Číslování stran v českých textech od 1 do konce.
 \ifthenelse{\equal{\upb@language}{czech}}{
-  %% HACK: pro sekvenční fyzické číslování stránek, protože
+  %% HACK: pro sekvenční fyzické číslování stran, protože
   %% např. \tableofcontents číslování resetuje.
   \let\orgsetcounter=\setcounter
   \renewcommand\setcounter[2]{%
@@ -329,34 +356,39 @@
   \relax
 }
 
+%% Makro pro titulní stranu.
 \def\maketitle{
+%% Záložka.
 \hypertarget{up:paper}{}
 \bookmark[dest=up:paper]{\@title}
+%% Římské číslování úvodních stran v anglických textech.
 \ifthenelse{\equal{\upb@language}{english}}{
   \pagenumbering{roman}
 }{}
-% Číslování stran od 1.
+%% Číslování stran od 1.
 \setcounter{page}{1}
 
-% Titulní strana.
+%% Titulní strana.
 \begin{titlepage}
+%% Záložka.
 \hypertarget{up:title}{}
 \bookmark[
   rellevel=1,
   keeplevel,
   dest=up:title
-]{\uptexttitle}
+]{\@texttitle}
 \begin{center}
-{\fontfamily{ppl}\selectfont \large \MakeUppercase{\uptextdept} \par
-  \MakeUppercase{\uptextfaculty} \par \MakeUppercase{\uptextuniv} \par}
+%{\fontfamily{ppl}\selectfont \large \MakeUppercase{\uptextdept} \par
+%  \MakeUppercase{\uptextfaculty} \par \MakeUppercase{\uptextuniv} \par}
+\includegraphics[scale=.6]{graphics/uptitle-nofont}
 \vfill
-{\LARGE\bfseries{\MakeUppercase{\@uppaper}} \\}
+{\LARGE\bfseries{\MakeUppercase{\@thesistype}} \\}
 \vfill
 {\Large \@title \\[4ex]\large\@subtitle}
 
 \vfill
 \centering
-\includegraphics[width=2.5cm]{\uplogofile}
+\includegraphics{\@logofile}
 \vfill
 
 \begin{tabular}{@{}p{6cm}@{}@{\hspace{1cm}}@{}p{7cm}@{}}
@@ -367,7 +399,7 @@
 \end{center}
 \end{titlepage}
 
-% Strana s bibliografickými identifikačními údaji.
+%% Strana s bibliografickými identifikačními údaji.
 \thispagestyle{empty}
 {\small
 {\bf \@textbibinfocz} \par
@@ -379,9 +411,9 @@
 \ifthenelse{\equal{\@subtitlecz}{}}{%
   \relax
 }{%
-, \@subtitlecz
+\ (\@subtitlecz)
 } \\
-\@textuppapercz: & \@uppapercz \\
+\@textthesistypecz: & \@thesistypecz \\
 \@textdeptcz: & \uptextdeptcz, \uptextfacultycz, \uptextunivcz \\
 \@textyearofsubmitcz: & \@yearofsubmit \\
 \@textfieldcz: & \@fieldcz \\
@@ -401,9 +433,9 @@
 \ifthenelse{\equal{\@subtitleen}{}}{%
   \relax
 }{%
-, \@subtitleen
+\ (\@subtitleen)
 } \\
-\@textuppaperen: & \@uppaperen \\
+\@textthesistypeen: & \@thesistypeen \\
 \@textdepten: & \uptextdepten, \uptextfacultyen, \uptextuniven \\
 \@textyearofsubmiten: & \@yearofsubmit \\
 \@textfielden: & \@fielden \\
@@ -414,10 +446,11 @@
 \end{tabular}
 }
 
-% Strana s anotací a klíčovými slovy.
+%% Strana s anotací a klíčovými slovy.
 \cleardoublepage
 \thispagestyle{empty}
 \null\vfill
+%% Záložka.
 \hypertarget{up:anotation}{}
 \bookmark[
   rellevel=1,
@@ -443,7 +476,7 @@
 \noindent\textbf{\@textkeywordsen:} \@keywordsen
 \vfill\null
 
-% Strana s prohlášením.
+%% Strana s poděkováním a prohlášením.
 \clearpage
 \thispagestyle{empty}
 \null\vfill
@@ -457,10 +490,12 @@
 \vspace*{10ex}
 \noindent\@textsubmitdate \hfill \@textsigniture
 
-% Obsah a seznamy obrázků, tabulek, vět a zdrojových kódů.
+%% Obsah a seznamy obrázků, tabulek, vět a zdrojových kódů.
 \tableofcontents
-\upprintlists
+\@printlists
 
+%% Arabské číslování stran textu v anglických textech.
+%% Číslování stran od 1.
 \ifthenelse{\equal{\upb@language}{english}}{
   \pagenumbering{arabic}
   \setcounter{page}{1}
@@ -470,12 +505,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Info o dokumentu.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \AtBeginDocument{
 \hypersetup{
-  pdftitle={\@title\ (\@uppaper)},                           % nadpis
-  pdfauthor={\@author\ (\@textsupervisor: \@supervisor)},    % autor dokumentu
-  pdfsubject={\@title\ (\@uppaper)},                         % předmět dokumentu
-  pdfcreator={\@author},                                     % tvůrce dokumentu
+  pdftitle={\@title\ (\@thesistype)},
+  pdfauthor={\@author\ (\@textsupervisor: \@supervisor)},
+  pdfsubject={\@title\ (\@thesistype)},
+  pdfcreator={\@author},
 }
 }
 

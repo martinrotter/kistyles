@@ -6,69 +6,106 @@
 \ProvidesPackage{upbase}[2012/09/09 UP Base Style]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Načítání balíků.
+%% Parametry.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\RequirePackage{booktabs}
-\RequirePackage{makeidx}
-\RequirePackage{multicol}
-\RequirePackage[unicode,breaklinks=true]{hyperref}
-\RequirePackage{ifpdf}
-\RequirePackage{ifthen}
-
-%% AMS styly.
-\RequirePackage{amsmath}
-\RequirePackage{amsbsy}
-\RequirePackage{amssymb}
-\RequirePackage{amsthm}
-\RequirePackage{euscript}
-\RequirePackage[open,atend]{bookmark}
-\RequirePackage[usenames,dvipsnames,table]{xcolor}
-\RequirePackage{appendix}
-\RequirePackage{chngcntr}
-\RequirePackage{ragged2e}
-\RequirePackage{tabularx}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Deklarace parametrů.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{kvoptions}
 
 \SetupKeyvalOptions{
   family=upb,
   prefix=upb@
 }
 
-\DeclareStringOption[serif]{font}[serif]
-\DeclareStringOption[false]{printversion}[false]
-\DeclareStringOption[false]{blacklogo}[false]
+%% [init]{name}[default]
+%% tisková verze (nebarevné odkazy, odkazy s uvedením URL, ne odkaz do
+%% rejstříku)
+\DeclareStringOption[false]{printversion}[true]
+%% seznamy (obrázků, tabulek, zdrojových kódů a vět) pod sebou, jinak
+%% na samostatných stranách
 \DeclareStringOption[true]{joinlists}[true]
-\DeclareStringOption[false]{figures}[false]
-\DeclareStringOption[false]{tables}[false]
-\DeclareStringOption[false]{sourcecodes}[false]
-\DeclareStringOption[false]{theorems}[false]
-\DeclareStringOption[false]{glossaries}[false]
+%% seznam obrázků
+\DeclareStringOption[true]{figures}[true]
+%% seznam tabulek
+\DeclareStringOption[true]{tables}[true]
+%% seznam vět
+\DeclareStringOption[true]{theorems}[true]
+%% seznam zdrojových kódů
+\DeclareStringOption[true]{sourcecodes}[true]
+%% bibliografie v BibLaTeXu, jinak v prostředí thebibliography
+\DeclareStringOption[false]{biblatex}[true]
+%% jazyk dokumentu: czech, english
 \DeclareStringOption[czech]{language}[czech]
-\DeclareStringOption[utf8]{bibencoding}[utf8]
-\DeclareStringOption[iso-numeric]{bibstyle}[iso-numeric]
+%% podpora seznamu zkratek
+\DeclareStringOption[false]{glossaries}[true]
+%% podpora rejstříku
+\DeclareStringOption[false]{index}[true]
+%% font dokumentu: sans, jinak serif
+\DeclareStringOption[serif]{font}[serif]
+%% logo UP: white, black, blue
+\DeclareStringOption[white]{logo}[white]
+%% kódování zdrojového textu dokumentu
 \DeclareStringOption[utf8]{encoding}[utf8]
-\DeclareStringOption[false]{index}[false]
-\DeclareStringOption[true]{biblatex}[true]
+%% kódování bibliografie v BibLaTeXu
+\DeclareStringOption[utf8]{bibencoding}[utf8]
+%% styl číslování položek bibliografie v BibLaTeXu: iso, iso-numeric,
+%% iso-authoryear
+\DeclareStringOption[iso-numeric]{bibstyle}[iso-numeric]
 
-%% Varujeme uživatele před neznámými argumenty.
+%% Nerozpoznaný parametr hodí chybu.
 \DeclareDefaultOption{\PackageWarningNoLine{upbase}{[upbase] Option '\CurrentOption' was not recognized}}
 
 \ProcessKeyvalOptions*
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Načítání balíků, které závisejí na parametrech.
+%% Balíky.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Kódování zdrojového textu dokumentu.
 \RequirePackage[\upb@encoding]{inputenc}
+
+%% Jazyky.
 \RequirePackage[czech,english,\upb@language]{babel}
-\RequirePackage[autostyle=try]{csquotes}
+
+% Barvy.
+\RequirePackage[usenames,dvipsnames,table]{xcolor}
+
+%% Klikací odkazy v PDF.
+\RequirePackage[unicode,breaklinks=true]{hyperref}
+%% PDF záložky.
+\RequirePackage[open,atend]{bookmark}
+
+%% Zdrojové kódy.
 \RequirePackage[savemem]{listings}
 
+%% Podmíněný kód.
+\RequirePackage{ifpdf}
+\RequirePackage{ifthen}
+
+%% Seznam zkratek.
+\ifthenelse{\equal{\upb@glossaries}{true}}{
+  \RequirePackage{savesym}
+  \savesymbol{printindex}
+  \RequirePackage[acronym,nonumberlist,sanitize=none]{glossaries}
+  \restoresymbol{GLOS}{printindex}
+}{
+  \relax
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Nastavení dynamických textů.
+%% Barvy.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{darkgray}{RGB}{60,60,60}
+\definecolor{halfgray}{gray}{0.55}
+\definecolor{lightergray}{gray}{0.99}
+\definecolor{webgreen}{rgb}{0,.5,0}
+\definecolor{webbrown}{rgb}{.6,0,0}
+\definecolor{ultragreen}{RGB}{40,180,10}
+\definecolor{darkblue}{rgb}{0.2, 0.3, 0.6}
+\definecolor{upblue}{RGB}{0, 134, 217}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Dynamické texty.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\uptextdeptcz}{Katedra informatiky}
@@ -79,13 +116,268 @@
 \newcommand{\uptextfacultyen}{Faculty of Science}
 \newcommand{\uptextuniven}{Palack\'{y} University Olomouc}
 
-\newcommand{\upbibliobackend}{biber}
-
-% Čestina.
+%% Čestina.
 \ifthenelse{\equal{\upb@language}{czech}}{
+  \newcommand{\uptextdept}{\uptextdeptcz}
+  \newcommand{\uptextfaculty}{\uptextfacultycz}
+  \newcommand{\uptextuniv}{\uptextunivcz}
+  \def\@texttitle{Tituln\'{i} strana}
 
-  \ifthenelse{\equal{\upb@biblatex}{true}}{
-    % Načtení BibLaTeXu.
+  \renewcommand{\lstlistlistingname}{Seznam zdrojov\'ych k\'od\r{u}}
+  \renewcommand{\lstlistingname}{Zdrojov\'y k\'od}
+  \newcommand{\listtheoremname}{Seznam v\v et}
+
+  \def\@textdefinition{Definice}
+  \def\@textlemma{Lemma}
+  \def\@textconsequence{D\r{u}sledek}
+  \def\@textremark{Pozn\'{a}mka}
+  \def\@texttheorem{V\v{e}ta}
+  \def\@textproof{D\r{u}kaz}
+  \def\@textexample{P\v{r}\'{i}klad}
+
+  \ifthenelse{\equal{\upb@glossaries}{true}}{
+    \def\@textindex{Rejst\v{r}\'{i}k}
+    \renewcommand{\acronymname}{Seznam zkratek}
+  }{
+    \relax
+  }
+
+  \newcommand{\buno}{bez \'{u}jmy na obecnosti}
+  \newcommand{\Buno}{Bez \'{u}jmy na obecnosti}
+}{
+	\relax
+}
+
+%% Angličtina.
+\ifthenelse{\equal{\upb@language}{english}}{
+  \newcommand{\uptextdept}{\uptextdepten}
+  \newcommand{\uptextfaculty}{\uptextfacultyen}
+  \newcommand{\uptextuniv}{\uptextuniven}
+  \def\@texttitle{Title page}
+ 
+  \renewcommand{\lstlistlistingname}{List of source codes}
+  \renewcommand{\lstlistingname}{Source code}
+  \newcommand{\listtheoremname}{List of theorems}
+
+  \def\@textdefinition{Definition}
+  \def\@textlemma{Lemma}
+  \def\@textconsequence{Corollary}
+  \def\@textremark{Remark}
+  \def\@texttheorem{Theorem}
+  \def\@textproof{Proof}
+  \def\@textexample{Example}
+
+  \ifthenelse{\equal{\upb@glossaries}{true}}{
+    \def\@textindex{Index}
+    \renewcommand{\acronymname}{List of abbreviations}
+  }{
+    \relax
+  }
+
+  \newcommand{\buno}{without loss of generality}
+  \newcommand{\Buno}{Without loss of generality}
+}{
+	\relax
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Logo.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\equal{\upb@logo}{black}}{
+  \def\@logofile{graphics/UP_znak_cerna}
+}{
+  \ifthenelse{\equal{\upb@logo}{blue}}{
+    \def\@logofile{graphics/UP_znak}
+  }{
+    \ifthenelse{\equal{\upb@printversion}{true}}{
+      \def\@logofile{graphics/UP_znak_outline}
+    }{
+      \def\@logofile{graphics/UP_znak}
+    }
+  }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Písmo - patkové Latin Modern a bezpatkové Iwona Light.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\equal{\upb@font}{sans}}{
+	\RequirePackage[light,math]{iwona}
+}{
+	\RequirePackage{lmodern}
+}
+\RequirePackage[T1]{fontenc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Obrázky.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\boolean{pdf}}{
+	\RequirePackage[pdftex]{graphicx}
+}{
+	\RequirePackage{graphicx}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% České uvozovky pro balík csquotes.
+%% použití: \enquote{citoslovce}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[autostyle=try]{csquotes}
+
+\DeclareQuoteStyle{czech}
+	{\quotedblbase}
+	{\textquotedblleft}
+	{\textquoteleft}
+	{\textquoteright}
+
+%% Redeklarace makra \uv, aby používalo csquotes.
+%% Makro \uv bude tisknout typ uvozovek v závislosti na jazyku prostředí.
+\renewcommand{\uv}[1]{\enquote{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hypertextové odkazy a záložky.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Nastaví PDF záložky na kořen -- způsobí vrácení PDF záložek na
+%% kořen, používat zejména pokud dokument obsahuje \part
+%\newcommand{\upendofmainmatter}{
+%	\bookmarksetup{startatroot}
+%}
+
+%% Potlačení klikacích odkazů.
+\newcommand*{\nohref}[1]{\begin{NoHyper}#1\end{NoHyper}}
+
+%% Barevné odkazy.
+\ifthenelse{\equal{\upb@printversion}{true}}{
+  \hypersetup{
+    colorlinks=false
+  }
+}{
+  \hypersetup{
+    colorlinks=true
+  }
+}
+
+%% Nastavení odkazů a záložek.
+\hypersetup{
+  linktocpage=true, pdfstartpage=1, pageanchor=true,
+  pdfstartview=FitV, breaklinks=true, pdfpagemode=UseNone, 
+  plainpages=false, bookmarksnumbered,
+  hypertexnames=true, pdfhighlight=/O,
+  urlcolor=upblue, linkcolor=upblue, 
+  citecolor=upblue
+}
+
+\let\orghref=\href
+\let\orgurl=\url
+
+%% Zalomitelné \url.
+\renewcommand{\url}[1]{\orghref{#1}{#1}}
+
+\ifthenelse{\equal{\upb@printversion}{true}}{
+%% Odkazy s uvedením URL v tiskové verzi dokumentu.
+  \renewcommand{\href}[2]{#2 (\orghref{#1}{#1})}
+  \newcommand{\mail}[2]{#2 (\orghref{mailto:#1}{#1})}
+}{
+%% Makro pro mail.
+	\newcommand{\mail}[2]{\href{mailto:#1}{#2}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Zkratky a seznam zkratek.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\equal{\upb@glossaries}{true}}{
+	%% Zapnutí generování zkratek.
+	\makeglossaries
+
+	%% Zkratky tučně a bez interpunkce za zkratkou.
+	\renewcommand{\glsnamefont}[1]{\textbf{#1}}
+	\renewcommand{\glspostdescription}{}
+
+	\let\orgprintglossary=\printglossary
+
+  %% Tisk seznamu zkratek od nové strany + záznam do obsahu.
+	\renewcommand{\printglossary}{
+		\clearpage
+		\phantomsection
+		\addcontentsline{toc}{section}{\acronymname}
+		\orgprintglossary[type=\acronymtype]
+	}
+}{
+	\relax
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Rejstřík
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\equal{\upb@index}{true}}{
+\RequirePackage{makeidx}
+%% Sazba do sloupců.
+\RequirePackage{multicol}
+
+%% Zapne rejstříkování.
+\makeindex
+
+%\let\orgtheindex=\theindex
+%\let\orgendtheindex=\endtheindex
+
+%% Dva sloupce rejstříku.
+\newcommand{\indexcolumns}{2}
+
+%% Předefinování prostředí pro sazbu rejstříku (podle starého stylu).
+\renewenvironment{theindex}{
+  \newpage
+  \bgroup
+  \section*{\@textindex\@mkboth{\@textindex}{\@textindex}}
+  \addcontentsline{toc}{section}{\@textindex}
+  \def\item{\par}
+  \def\subitem{\par---\kern1ex}
+  \def\subsubitem{\par---\kern1ex---\kern1ex}
+  \def\indexspace{\smallskip}
+  \setlength{\parindent}{-2em}
+  \setlength{\leftskip}{2em}
+  \begin{multicols*}{\indexcolumns}
+  } {
+\end{multicols*}
+\egroup
+}
+
+\let\orgprintindex=\printindex
+
+%% Tisk rejstříku od nové strany.
+\renewcommand{\printindex}{
+  \clearpage
+  \phantomsection
+  \orgprintindex
+}
+
+\ifthenelse{\equal{\upb@printversion}{true}}{
+\relax
+}{
+%% Redefinice \index s odkazem do rejstříku.
+%% Odkaz nefunguje pro \index{výraz|makro}, resp. \index{výraz|(makro}.
+\newcounter{indexno}
+\let\orgindex=\index
+\renewcommand{\index}[1]{\stepcounter{indexno}\hyperlink{\arabic{indexno}ind.ind}{$^{\lbrace\arabic{indexno}\rbrace}$}\orgindex{#1|hypertarget{\arabic{indexno}ind.ind}}}
+}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bibliografie
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% BibLaTeX.
+\ifthenelse{\equal{\upb@biblatex}{true}}{
+  %% Volba backendu.
+  \newcommand{\upbibliobackend}{biber}
+  
+  %% Načtení BibLaTeXu.
+  %% Čestina.
+  \ifthenelse{\equal{\upb@language}{czech}}{
     \RequirePackage[
       natbib=true,
       backend=\upbibliobackend,
@@ -98,42 +390,8 @@
   }{
     \relax
   }
-
-	\newcommand{\uptexttitle}{Tituln\'{i} strana}
-	\newcommand{\uptextdept}{\uptextdeptcz}
-        \newcommand{\uptextfaculty}{\uptextfacultycz}
-        \newcommand{\uptextuniv}{\uptextunivcz}
-	\newcommand{\uptextindex}{Rejst\v{r}\'{i}k}
-	\newcommand{\buno}{bez \'{u}jmy na obecnosti}
-	\newcommand{\Buno}{Bez \'{u}jmy na obecnosti}
-	\renewcommand{\lstlistlistingname}{Seznam zdrojov\'ych k\'od\r{u}}
-	\renewcommand{\lstlistingname}{Zdrojov\'y k\'od}
-	\newcommand{\listtheoremname}{Seznam v\v et}
-
-	\newcommand{\uptextdefinition}{Definice}
-	\newcommand{\uptextlemma}{Lemma}
-	\newcommand{\uptextconsequence}{D\r{u}sledek}
-	\newcommand{\uptextremark}{Pozn\'{a}mka}
-	\newcommand{\uptexttheorem}{V\v{e}ta}
-	\newcommand{\uptextproof}{D\r{u}kaz}
-	\newcommand{\uptextexample}{P\v{r}\'{i}klad}
-
-	\ifthenelse{\equal{\upb@glossaries}{true}}{
-		\RequirePackage[acronym,nonumberlist,sanitize=none]{glossaries}
-		\renewcommand{\acronymname}{Seznam zkratek}
-	}{
-	\relax
-	}
-
-}{
-	\relax
-}
-
-% Angličtina.
-\ifthenelse{\equal{\upb@language}{english}}{
-
-  \ifthenelse{\equal{\upb@biblatex}{true}}{
-    % Načtení BibLaTeXu.
+  %% Angličtina.
+  \ifthenelse{\equal{\upb@language}{english}}{
     \RequirePackage[
       natbib=true,
       backend=\upbibliobackend,
@@ -148,215 +406,19 @@
     \relax
   }
 
-	\newcommand{\uptexttitle}{Title page}
-	\newcommand{\uptextdept}{\uptextdepten}
-        \newcommand{\uptextfaculty}{\uptextfacultyen}
-        \newcommand{\uptextuniv}{\uptextuniven}
-	\newcommand{\uptextindex}{Index}
-	\newcommand{\buno}{without loss of generality}
-	\newcommand{\Buno}{Without loss of generality}
-	\renewcommand{\lstlistlistingname}{List of source codes}
-	\renewcommand{\lstlistingname}{Source code}
-	\newcommand{\listtheoremname}{List of theorems}
-
-	\newcommand{\uptextdefinition}{Definition}
-	\newcommand{\uptextlemma}{Lemma}
-	\newcommand{\uptextconsequence}{Corollary}
-	\newcommand{\uptextremark}{Remark}
-	\newcommand{\uptexttheorem}{Theorem}
-	\newcommand{\uptextproof}{Proof}
-	\newcommand{\uptextexample}{Example}
-
-	\ifthenelse{\equal{\upb@glossaries}{true}}{
-		\RequirePackage[acronym,nonumberlist,sanitize=none]{glossaries}
-		\renewcommand{\acronymname}{List of abbreviations}
-	}{
-	\relax
-	}
-
-}{
-	\relax
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Načtení balíku iwona pro nepatkové písmo.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\ifthenelse{\equal{\upb@font}{sans}}{
-	\RequirePackage[light,math]{iwona}
-}{
-	\relax
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Načtení balíku graphicx pro sazbu obrázků.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\ifthenelse{\boolean{pdf}}{
-	\RequirePackage[pdftex]{graphicx}
-}{
-	\RequirePackage{graphicx}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Zkratky a seznam zkratek.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\ifthenelse{\equal{\upb@glossaries}{true}}{
-	% Zapnutí generování zkratek.
-	\makeglossaries
-
-	% Zkratky tučně a bez interpunkce za zkratkou.
-	\renewcommand{\glsnamefont}[1]{\textbf{#1}}
-	\renewcommand{\glspostdescription}{}
-
-	% Záloha starého seznamu zkratek.
-	\let\orgprintglossary=\printglossary
-
-	% Definice nového seznamu zkratek.
-	% Přidává záznam do obsahu.
-	\renewcommand{\printglossary}{
-		\clearpage
-		\phantomsection
-		\addcontentsline{toc}{section}{\acronymname}
-		\orgprintglossary[type=\acronymtype]
-	}
-}{
-	\relax
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% České závorky pro balík csquotes.
-%% použití: \enquote{citoslovce}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\DeclareQuoteStyle{czech}
-	{\quotedblbase}
-	{\textquotedblleft}
-	{\textquoteleft}
-	{\textquoteright}
-
-% Redeklarace makra \uv, aby používalo csquotes.
-% Makro \uv bude tisknout typ závorek v závislosti na jazyku prostředí.
-\renewcommand{\uv}[1]{\enquote{#1}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Deklarace nových sloupců pro tabulky.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% Sloupce s uživatelsky stanovenou šířkou a zarovnáním textu na danou stranu.
-%% Použití: \begin{tabular}{| c | L{3cm} | C{3cm} | R{3cm} |}
-\newcolumntype{L}[1]{>{\RaggedRight\hspace{0pt}}p{#1}}
-\newcolumntype{R}[1]{>{\RaggedLeft\hspace{0pt}}p{#1}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Rejstřík
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\ifthenelse{\equal{\upb@index}{true}}{
-\newcounter{indexno}
-\stepcounter{indexno}
-% Zapne rejstříkování.
-\makeindex
-
-% Zálohy starých maker.
-\let\orgindex=\index
-\let\orgtheindex=\theindex
-\let\orgendtheindex=\endtheindex
-\let\orgprintindex=\printindex
-
-\newcommand{\odkaz}[2]{\hypertarget{#1}{#2}}
-\newcommand{\indexcolumns}{2}
-\newcommand{\indexemph}[1]{{\itshape #1}}
-
-% Předefinování prostředí pro sazbu rejstříku.
-\renewenvironment{theindex}{
-  \newpage
-  \bgroup
-  \section*{\uptextindex\@mkboth{\uptextindex}{\uptextindex}}
-  \addcontentsline{toc}{section}{\uptextindex}
-  \def\item{\par}
-  \def\subitem{\par---\kern1ex}
-  \def\subsubitem{\par---\kern1ex---\kern1ex}
-  \def\indexspace{\smallskip}
-  \setlength{\parindent}{-2em}
-  \setlength{\leftskip}{2em}
-  \begin{multicols*}{\indexcolumns}
-  } {
-\end{multicols*}
-\egroup
-}
-
-% Tiskne rejstřík s vynechanou stranou.
-\renewcommand{\printindex}{
-  \clearpage
-  \phantomsection
-  \orgprintindex
-}
-
-\ifthenelse{\equal{\upb@printversion}{true}}{
-\relax
-}{
-\renewcommand{\index}[1]{\stepcounter{indexno}\hyperlink{\arabic{indexno}ind.ind}{$^{\lbrace\arabic{indexno}\rbrace}$}\orgindex{#1|hypertarget{\arabic{indexno}ind.ind}}}
-}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Dodatečné barvy.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\definecolor{halfgray}{gray}{0.55}
-\definecolor{webgreen}{rgb}{0,.5,0}
-\definecolor{webbrown}{rgb}{.6,0,0}
-\definecolor{lightergray}{gray}{0.99}
-\definecolor{ultragreen}{rgb}{40,180,10}
-\definecolor{darkgray}{rgb}{60,60,60}
-\definecolor{darkblue}{rgb}{0.2, 0.3, 0.6}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Drobná nastavení
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% Makra.
-\newcommand{\csharp}{C\kern-.03em\raise.38ex\hbox{\scriptsize{\#}}}
-\newcommand{\cpp}{C\kern-.05em\raise.38ex\hbox{\scriptsize{++}}}
-\newcommand{\keyword}[1]{{\ttfamily\color{darkgray}{#1}}}
-
-%% Přílohy.
-\let\orgappendix=\appendix
-
-\renewcommand{\appendix}{
-	\clearpage
-	\orgappendix
-}
-
-%% Nastaví PDF záložky na kořen.
-% způsobí vrácení PDF záložek na kořen, používat zejména pokud dokument
-% obsahuje \part
-%\newcommand{\upendofmainmatter}{
-%	\bookmarksetup{startatroot}
-%}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Bibliografie
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\ifthenelse{\equal{\upb@biblatex}{true}}{
-  % První řádek záznamu nechceme předsazovat.
+  %% První řádek záznamu nechceme předsazovat.
   \setlength{\bibhang}{0pt}
 
-  % Přeformátovat číslo záznamu.
+  %% Přeformátovat číslo záznamu.
   \ifthenelse{\equal{\upb@bibstyle}{iso-numeric}}{
     \renewcommand\MethodFormat{\printtext[labelnumberwidth]{\mkbibbrackets{\printfield{prefixnumber}\printfield{labelnumber}}}}
   } {
     \relax  
   }
 
-  % Záloha bibliografie.
   \let\orgprintbibliography=\printbibliography
 
-  % Tisk bibliografie + záznam v obsahu.
+  %% Tisk bibliografie od nové strany + záznam do obsahu.
   \renewcommand{\printbibliography}{
     \clearpage
     \phantomsection
@@ -364,8 +426,8 @@
     \orgprintbibliography
   }
 
-  % Makra, která umlčí překladač TeX v případě "drobných" přetečení textu, která
-  % se v bibliografii dějí běžně.
+  %% Umlčení TeXu v případě "drobných" přetečení textu, která se v
+  %% bibliografii dějí běžně.
   \setcounter{biburlnumpenalty}{9000}
   \setcounter{biburlucpenalty}{9000}
   \setcounter{biburllcpenalty}{9000}
@@ -373,6 +435,7 @@
   \relax
 }
 
+%% Redefinice prostředí thebibliography (podle starého stylu).
 \renewenvironment{thebibliography}[1]{
 	\section*{\bibname
     \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}
@@ -397,9 +460,18 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Makra pro \subsubsubsection.
+%% Obsah.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\let\orgappendix=\appendix
+
+%% Přílohy od nové strany.
+\renewcommand{\appendix}{
+	\clearpage
+	\orgappendix
+}
+
+%% Definice \subsubsubsection
 \setcounter{tocdepth}{5}
 \setcounter{secnumdepth}{5}
 \newcommand{\subsubsubsection}{\@startsection{paragraph}{4}{0ex}
@@ -407,14 +479,9 @@
    {1.5ex plus 0.2ex}%
    {\normalfont\normalsize\bfseries}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Implementace obsahu.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Záloha starého obsahu.
 \let\orgtableofcontents=\tableofcontents
 
-% Přidán záznam do PDF záložek.
+%% Přidání záznamu do PDF záložek.
 \renewcommand{\tableofcontents}{
 	\cleardoublepage
 	\hypertarget{up:toc}{}
@@ -430,16 +497,16 @@
 %% Zdrojové kódy.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Typewriter font, který umí i bold.
+%% Typewriter font, který umí i bold.
 \renewcommand{\ttdefault}{pcr}
 
-% Modifikace originálních maker, tak aby respektovala jiný obsah.
+%% Modifikace originálních maker, aby respektovala jiný obsah.
 \lst@UserCommand\lstlistoflistings{\bgroup
     \let\contentsname\lstlistlistingname
     \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{lol}}
     \orgtableofcontents \egroup}
 
-% Definice základního stylu sazby zdroj. kódů.
+%% Definice základního stylu sazby zdroj. kódů.
 \lstdefinestyle{upbasestyle}{
 	breaklines=true,
 	flexiblecolumns=true,
@@ -460,39 +527,39 @@
 	tabsize=2,
 	extendedchars=true,
 	literate=
-		{á}{{\'a}}1
-		{í}{{\'i}}1
-		{é}{{\'e}}1
-		{ý}{{\'y}}1
-    {ú}{{\'u}}1
-    {ó}{{\'o}}1
-    {ě}{{\v{e}}}1
-    {š}{{\v{s}}}1
-    {č}{{\v{c}}}1
-    {ř}{{\v{r}}}1
-    {ž}{{\v{z}}}1
-    {ď}{{\v{d}}}1
-    {ť}{{\v{t}}}1
-    {ň}{{\v{n}}}1                
-    {ů}{{\r{u}}}1
-    {Á}{{\'A}}1
-    {Í}{{\'I}}1
-    {É}{{\'E}}1
-    {Ý}{{\'Y}}1
-    {Ú}{{\'U}}1
-    {Ó}{{\'O}}1
-    {Ě}{{\v{E}}}1
-    {Š}{{\v{S}}}1
-    {Č}{{\v{C}}}1
-    {Ř}{{\v{R}}}1
-    {Ž}{{\v{Z}}}1
-    {Ď}{{\v{D}}}1
-    {Ť}{{\v{T}}}1
-    {Ň}{{\v{N}}}1                
-    {Ů}{{\r{U}}}1    
+        {á}{{\'a}}1
+        {í}{{\'i}}1
+        {é}{{\'e}}1
+        {ý}{{\'y}}1
+        {ú}{{\'u}}1
+        {ó}{{\'o}}1
+        {ě}{{\v{e}}}1
+        {š}{{\v{s}}}1
+        {č}{{\v{c}}}1
+        {ř}{{\v{r}}}1
+        {ž}{{\v{z}}}1
+        {ď}{{\v{d}}}1
+        {ť}{{\v{t}}}1
+        {ň}{{\v{n}}}1                
+        {ů}{{\r{u}}}1
+        {Á}{{\'A}}1
+        {Í}{{\'I}}1
+        {É}{{\'E}}1
+        {Ý}{{\'Y}}1
+        {Ú}{{\'U}}1
+        {Ó}{{\'O}}1
+        {Ě}{{\v{E}}}1
+        {Š}{{\v{S}}}1
+        {Č}{{\v{C}}}1
+        {Ř}{{\v{R}}}1
+        {Ž}{{\v{Z}}}1
+        {Ď}{{\v{D}}}1
+        {Ť}{{\v{T}}}1
+        {Ň}{{\v{N}}}1                
+        {Ů}{{\r{U}}}1    
 }
 
-% Definice dodatečných jazyků.
+%% Definice dodatečných jazyků.
 \lstdefinelanguage{TutorialD}{morekeywords={tuple,matching,insert,divide,by,per,tclose,from,summarize,count,all,but,as,base,rename,prefix,extend,add,compose,union,minus,intersect,update,writeln,init,type,possrep,constraint,and,or,relation,where,base,drop},
 	sensitive=false,
 	morecomment=[s][commentstyle]{/*}{*/},
@@ -530,10 +597,14 @@
 	morestring=[b][stringstyle]{"}
 }
 
+\newcommand{\csharp}{C\kern-.03em\raise.38ex\hbox{\scriptsize{\#}}}
+\newcommand{\cpp}{C\kern-.05em\raise.38ex\hbox{\scriptsize{++}}}
+\newcommand{\keyword}[1]{{\ttfamily\color{darkgray}{#1}}}
+
 %% Načtení jazyků.
 \lstloadlanguages{[ANSI]C,[LaTeX]TeX,PHP,HTML,Lisp,SQL,TeX,Python,Java,TutorialD,text,csharp,cpp,JavaScript}
 
-% Definice souvisejících prostředí.
+%% Definice makra a prostředí pro sazbu zdroj. kódů.
 \newcommand{\upinlinecode}[3]{\lstinline[style=upbasestyle,language=#1]#2#3#2\ignorespacesafterend}
 
 \lstnewenvironment{upcode}[3]{
@@ -541,122 +612,75 @@
 }{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Loga.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\ifthenelse{\equal{\upb@blacklogo}{true}}{
-  \newcommand{\uplogofile}{graphics/uplogo-black}
-}{
-  \newcommand{\uplogofile}{graphics/uplogo-white}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Teorémy.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%% Stylování teorémů.
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
 \RequirePackage{thmtools}
 
-% Definice základných stylů.
+%% Definice základných stylů.
 \declaretheoremstyle[
 	headfont=\normalfont\bfseries,
 	notefont=\normalfont\bfseries,
 	bodyfont=\itshape,
-	spaceabove=\parskip,
-	spacebelow=\parskip,
+	spaceabove=\baselineskip,
+	spacebelow=\baselineskip,
 	headpunct=\\\indent
 ]{upthmstyle}
 
 \declaretheoremstyle[
 	notefont=\bfseries,
-	spaceabove=\parskip,
-	spacebelow=\parskip,
+	spaceabove=\baselineskip,
+	spacebelow=\baselineskip,
 	headpunct=\\\indent
 ]{updefstyle}
 
 \declaretheoremstyle[
 	headfont=\normalfont\scshape,
 	notefont=\normalfont\scshape,
-	spaceabove=\parskip,
-	spacebelow=\parskip,
+	spaceabove=\baselineskip,
+	spacebelow=\baselineskip,
 	headpunct=\\\indent
 ]{upremexstyle}
 
 \declaretheoremstyle[
 	headfont=\normalfont\itshape,
 	notefont=\normalfont\itshape,
-	spaceabove=\parskip,
-	spacebelow=\parskip,
+	spaceabove=\baselineskip,
+	spacebelow=\baselineskip,
 	qed=\qedsymbol,
 	headpunct=\\\indent
 ]{upproofstyle}
 
-% Zakázání starého prostředí pro sazbu důkazů.
+%% Zakázání starého prostředí pro sazbu důkazů.
 \let\proof\@undefined
 
-% Definice prostředí pro sazbu teorémů.
-\declaretheorem[style=updefstyle,numbered=yes,name=\uptextdefinition]{definition}
-\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\uptextlemma]{lemma}
-\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\uptextconsequence]{consequence}
-\declaretheorem[sibling=definition,style=upremexstyle,numbered=yes,name=\uptextremark]{remark}
-\declaretheorem[sibling=definition,style=upremexstyle,numbered=yes,name=\uptextexample]{example}
-\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\uptexttheorem]{theorem}
-\declaretheorem[style=upproofstyle,numbered=no,name=\uptextproof]{proof}
+%% Definice prostředí pro sazbu teorémů.
+\declaretheorem[style=updefstyle,numbered=yes,name=\@textdefinition]{definition}
+\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\@textlemma]{lemma}
+\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\@textconsequence]{consequence}
+\declaretheorem[sibling=definition,style=upremexstyle,numbered=yes,name=\@textremark]{remark}
+\declaretheorem[sibling=definition,style=upremexstyle,numbered=yes,name=\@textexample]{example}
+\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\@texttheorem]{theorem}
+\declaretheorem[style=upproofstyle,numbered=no,name=\@textproof]{proof}
 
-% Záloha a definice seznamu teorémů.
 \let\orglistoftheorems=\listoftheorems
 
+%% Seznam teorémů.
 \renewcommand{\listoftheorems}{
   \orglistoftheorems[ignoreall,show={definition,consequence,lemma,remark,theorem,proof,example}]
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Hypertextové odkazy.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newcommand*{\nohref}[1]{\begin{NoHyper}#1\end{NoHyper}}
-
-\ifthenelse{\equal{\upb@printversion}{true}}{
-  \hypersetup{
-    colorlinks=false
-  }
-}{
-  \hypersetup{
-    colorlinks=true
-  }
-}
-
-\hypersetup{
-  linktocpage=true, pdfstartpage=1, pageanchor=true,
-  pdfstartview=FitV, breaklinks=true, pdfpagemode=UseNone, 
-  plainpages=false, bookmarksnumbered,
-  hypertexnames=true, pdfhighlight=/O,
-  urlcolor=darkblue, linkcolor=darkblue, 
-  citecolor=darkblue
-}
-
-%% Tisk klikacích odkazů.
-\let\orghref=\href
-\let\orgurl=\url
-
-\renewcommand{\url}[1]{\orghref{#1}{#1}}
-
-\ifthenelse{\equal{\upb@printversion}{true}}{
-  \renewcommand{\href}[2]{#2 (\orghref{#1}{#1})}
-  \newcommand{\mail}[2]{#2 (\orghref{mailto:#1}{#1})}
-}{
-	\newcommand{\mail}[2]{\href{mailto:#1}{#2}}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Čítání rovnic na základě sekcí.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\counterwithin{equation}{section}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Sazba seznamů.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\upprintlists}{
+\newcommand{\@printlists}{
   \cleardoublepage
   \ifthenelse{\equal{\upb@figures}{true}}{
     \listoffigures
@@ -703,5 +727,15 @@
   }
   \cleardoublepage
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Další.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Sloupce pro tabulky s uživatelsky stanovenou šířkou a zarovnáním
+%% textu na danou stranu.
+%% Použití: \begin{tabular}{| c | L{3cm} | C{3cm} | R{3cm} |}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
 
 \endinput
