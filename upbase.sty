@@ -437,6 +437,7 @@
 
 %% Redefinice prostředí thebibliography (podle starého stylu).
 \renewenvironment{thebibliography}[1]{
+  \clearpage
 	\section*{\bibname
     \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}
 	\addcontentsline{toc}{section}{\bibname}
