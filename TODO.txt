@@ -177,7 +177,7 @@ u ukazkovych bibitemu do \uppercase{}, za prijmeni carka a jmena,
 dalsi clovek oddeleny ;, pak .
 MR - opraven nadpis literatura, přidano par bibitemů
 JO - dobre, jeste nova stranka a cislo vlevo
-MR - mě se ale prostředí thebibliography sází na novou stránku.
+MR - na novou stránku upraveno, jak posunou více vlevo, to nevim.
 
 ! vety a spol. jsou cislovane sekcne, zatimco tabulky a zdrojaky (a
 obrazky?) globalne, dejte globalne i ty vety a spol., dal jejich
