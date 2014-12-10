@@ -1,10 +1,10 @@
-%%%  KI UP Diplom Class
+%%%  KI PřF UP v Olomouci Diplom Class
 %%%  Copyright (C) 2012 Martin Rotter, <rotter.martinos@gmail.com>
 %%%  Copyright (C) 2014 Jan Outrata, <jan.outrata@upol.cz>
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{updiplom}[2012/09/09 UP Diploma Class]
-\ClassWarningNoLine{updiplom}{[updiplom] You are using updiplom style 0.93}
+\ProvidesClass{kidiplom}[2012/09/09 KI PrF UP v Olomouci Diploma Class]
+\ClassWarningNoLine{kidiplom}{[kidiplom] You are using kidiplom class 0.95}
 
 %% Základní třída a velikost písma 12pt.
 \LoadClass[12pt]{article}
@@ -16,8 +16,8 @@
 \RequirePackage{kvoptions}
 
 \SetupKeyvalOptions {
-	family=upd,
-	prefix=upd@
+	family=kid,
+	prefix=kid@
 }
 
 %% [init]{name}[default]
@@ -41,7 +41,7 @@
 \DeclareStringOption[utf8]{bibencoding}[utf8]
 
 %% Nerozpoznaný parametr hodí chybu.
-\DeclareDefaultOption{\ClassWarningNoLine{updiplom}{[updiplom] Option '\CurrentOption' was not recognized}}
+\DeclareDefaultOption{\ClassWarningNoLine{kidiplom}{[kidiplom] Option '\CurrentOption' was not recognized}}
 
 \ProcessKeyvalOptions*
 
@@ -49,27 +49,26 @@
 %% Balíky.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% KI UP Base styl.
+%% KI PřF UP v Olomouci Base styl.
 \RequirePackage[
-  printversion=\upd@printversion,
-  joinlists=\upd@joinlists,
-  figures=\upd@figures,
-  tables=\upd@tables,
-  theorems=\upd@theorems,
-  sourcecodes=\upd@sourcecodes,
-  biblatex=\upd@biblatex,
-  language=\upd@language,
-  glossaries=\upd@glossaries,
-  index=\upd@index,
-  font=\upd@font,
-%  logo=blue,
-  encoding=\upd@encoding,
-  bibencoding=\upd@bibencoding
-]{upbase}
+  printversion=\kid@printversion,
+  joinlists=\kid@joinlists,
+  figures=\kid@figures,
+  tables=\kid@tables,
+  theorems=\kid@theorems,
+  sourcecodes=\kid@sourcecodes,
+  biblatex=\kid@biblatex,
+  language=\kid@language,
+  glossaries=\kid@glossaries,
+  index=\kid@index,
+  font=\kid@font,
+  encoding=\kid@encoding,
+  bibencoding=\kid@bibencoding
+]{kibase}
 
 %% Oboustranná sazba není povolená.
 \ifthenelse{\boolean{@twoside}}{
-  \ClassError{updiplom}{Two-sided document mode is not allowed for updiplom.}
+  \ClassError{kidiplom}{Two-sided document mode is not allowed for kidiplom.}
 }{}
 
 %% Geometrie papíru.
@@ -152,19 +151,19 @@
 \def\@textconclusionsen{Conclusions}
 
 %% Typ práce a studijní obor autora (podle typu práce).
-\ifthenelse{\boolean{upd@master}}{
+\ifthenelse{\boolean{kid@master}}{
   %% Magisterská.
   \def\@thesistypecz{\@mastercz}
   \def\@thesistypeen{\@masteren}
-  \ifthenelse{\equal{\upd@field}{uvt}}{
+  \ifthenelse{\equal{\kid@field}{uvt}}{
     \def\@fielden{\@fielduvten, \@presentformen}
     \def\@fieldcz{\@fielduvtcz, \@presentformcz}
   }{
-    \ifthenelse{\equal{\upd@field}{binf}}{
+    \ifthenelse{\equal{\kid@field}{binf}}{
       \def\@fielden{\@fieldbinfen, \@presentformen}
       \def\@fieldcz{\@fiendbinfcz, \@presentformcz}
     }{
-      % \ifthenelse{\equal{\upd@field}{inf}}
+      % \ifthenelse{\equal{\kid@field}{inf}}
       \def\@fielden{\@fieldinfen, \@presentformen}
       \def\@fieldcz{\@fieldinfcz, \@presentformcz}
     }
@@ -173,23 +172,23 @@
   %% Bakalářská.
   \def\@thesistypecz{\@bachelorcz}
   \def\@thesistypeen{\@bacheloren}
-  \ifthenelse{\equal{\upd@field}{ainfk}}{
+  \ifthenelse{\equal{\kid@field}{ainfk}}{
     \def\@fielden{\@fieldainfen, \@combinedformen}
     \def\@fieldcz{\@fieldainfcz, \@combinedformcz}
   }{
-    \ifthenelse{\equal{\upd@field}{inf}}{
+    \ifthenelse{\equal{\kid@field}{inf}}{
       \def\@fielden{\@fieldinfen, \@presentformen}
       \def\@fieldcz{\@fieldinfcz, \@presentformcz}
     }{
-      \ifthenelse{\equal{\upd@field}{infv}}{
+      \ifthenelse{\equal{\kid@field}{infv}}{
         \def\@fielden{\@fieldinfven, \@presentformen}
         \def\@fieldcz{\@fieldinfvcz, \@presentformcz}
       }{
-        \ifthenelse{\equal{\upd@field}{binf}}{
+        \ifthenelse{\equal{\kid@field}{binf}}{
           \def\@fielden{\@fieldbinfen, \@presentformen}
           \def\@fieldcz{\@fieldbinfcz, \@presentformcz}
         }{
-          % \ifthenelse{\equal{\upd@field}{ainfp}}
+          % \ifthenelse{\equal{\kid@field}{ainfp}}
           \def\@fielden{\@fieldainfen, \@presentformen}
           \def\@fieldcz{\@fieldainfcz, \@presentformcz}
         }
@@ -199,7 +198,7 @@
 }
 
 %% Angličtina.
-\ifthenelse{\equal{\upb@language}{english}}{
+\ifthenelse{\equal{\kid@language}{english}}{
   \def\@thesistype{\@thesistypeen}
   \def\@textfield{\@textfielden}
   \def\@field{\@fielden}
@@ -218,7 +217,7 @@
 }
 
 %% Čeština.
-\ifthenelse{\equal{\upb@language}{czech}}{
+\ifthenelse{\equal{\kid@language}{czech}}{
   \def\@thesistype{\@thesistypecz}
   \def\@textfield{\@textfieldcz}
   \def\@field{\@fieldcz}
@@ -241,7 +240,7 @@
 %% Prostředí pro závěry.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newenvironment{upconclusions}[1][\upb@language]{
+\newenvironment{kiconclusions}[1][\kid@language]{
   \clearpage
   \bgroup
   \phantomsection
@@ -265,7 +264,7 @@
 
 %% Makra pro název a podnázev práce.
 %\def\title#1{\gdef\@title{#1}}
-\renewcommand{\title}[2][\upb@language]{
+\renewcommand{\title}[2][\kid@language]{
   \ifthenelse{\equal{#1}{english}}{
     \gdef\@titleen{#2}
   }{
@@ -274,7 +273,7 @@
 }
 
 %\def\subtitle#1{\gdef\@subtitle{#1}}
-\newcommand{\subtitle}[2][\upb@language]{
+\newcommand{\subtitle}[2][\kid@language]{
   \ifthenelse{\equal{#1}{english}}{
     \gdef\@subtitleen{#2}
   }{
@@ -282,7 +281,7 @@
   }
 }
 
-\ifthenelse{\equal{\upb@language}{english}}{
+\ifthenelse{\equal{\kid@language}{english}}{
   \gdef\@title{\@titleen}
   \gdef\@subtitle{\@subtitleen}
 }{
@@ -291,7 +290,7 @@
 }
 
 %% Makra pro anotaci, klíčová slova a přílohy.
-\newcommand{\annotation}[2][\upb@language]{
+\newcommand{\annotation}[2][\kid@language]{
   \ifthenelse{\equal{#1}{english}}{
     \gdef\@annotationen{#2}
   }{
@@ -299,7 +298,7 @@
   }
 }
 
-\newcommand{\keywords}[2][\upb@language]{
+\newcommand{\keywords}[2][\kid@language]{
   \ifthenelse{\equal{#1}{english}}{
     \gdef\@keywordsen{#2}
   }{
@@ -307,7 +306,13 @@
   }
 }
 
-\newcommand{\supplements}[2][\upb@language]{
+\ifthenelse{\equal{\kid@language}{english}}{
+  \gdef\@keywords{\@keywordsen}
+}{
+  \gdef\@keywords{\@keywordscz}
+}
+
+\newcommand{\supplements}[2][\kid@language]{
   \ifthenelse{\equal{#1}{english}}{
     \gdef\@supplen{#2}
   }{
@@ -334,7 +339,7 @@
 \keywords[english]{short appropriate keywords}
 \supplements[czech]{1 CD/DVD}
 \supplements[english]{1 CD/DVD}
-\ifthenelse{\equal{\upb@language}{english}}{
+\ifthenelse{\equal{\kid@language}{english}}{
   \author{Author name}
   \supervisor{Supervisor name}
 }{
@@ -344,7 +349,7 @@
 \yearofsubmit{\the\year}
 
 %% Číslování stran v českých textech od 1 do konce.
-\ifthenelse{\equal{\upb@language}{czech}}{
+\ifthenelse{\equal{\kid@language}{czech}}{
   %% HACK: pro sekvenční fyzické číslování stran, protože
   %% např. \tableofcontents číslování resetuje.
   \let\orgsetcounter=\setcounter
@@ -359,10 +364,10 @@
 %% Makro pro titulní stranu.
 \def\maketitle{
 %% Záložka.
-\hypertarget{up:paper}{}
-\bookmark[dest=up:paper]{\@title}
+\hypertarget{ki:paper}{}
+\bookmark[dest=ki:paper]{\@title}
 %% Římské číslování úvodních stran v anglických textech.
-\ifthenelse{\equal{\upb@language}{english}}{
+\ifthenelse{\equal{\kid@language}{english}}{
   \pagenumbering{roman}
 }{}
 %% Číslování stran od 1.
@@ -371,16 +376,20 @@
 %% Titulní strana.
 \begin{titlepage}
 %% Záložka.
-\hypertarget{up:title}{}
+\hypertarget{ki:title}{}
 \bookmark[
   rellevel=1,
   keeplevel,
-  dest=up:title
+  dest=ki:title
 ]{\@texttitle}
 \begin{center}
-%{\fontfamily{ppl}\selectfont \large \MakeUppercase{\uptextdept} \par
-%  \MakeUppercase{\uptextfaculty} \par \MakeUppercase{\uptextuniv} \par}
-\includegraphics[scale=.6]{graphics/uptitle-nofont}
+%{\fontfamily{ppl}\selectfont \large \MakeUppercase{\kitextdept} \par
+%  \MakeUppercase{\kitextfaculty} \par \MakeUppercase{\kitextuniv} \par}
+\ifthenelse{\equal{\kid@language}{english}}{
+  \includegraphics[scale=.6]{graphics/kititle-en-nofont}
+}{
+  \includegraphics[scale=.6]{graphics/kititle-cz-nofont}
+}
 \vfill
 {\LARGE\bfseries{\MakeUppercase{\@thesistype}} \\}
 \vfill
@@ -414,7 +423,7 @@
 \ (\@subtitlecz)
 } \\
 \@textthesistypecz: & \@thesistypecz \\
-\@textdeptcz: & \uptextdeptcz, \uptextfacultycz, \uptextunivcz \\
+\@textdeptcz: & \kitextdeptcz, \kitextfacultycz, \kitextunivcz \\
 \@textyearofsubmitcz: & \@yearofsubmit \\
 \@textfieldcz: & \@fieldcz \\
 \@textsupervisorcz: & \@supervisor \\
@@ -436,7 +445,7 @@
 \ (\@subtitleen)
 } \\
 \@textthesistypeen: & \@thesistypeen \\
-\@textdepten: & \uptextdepten, \uptextfacultyen, \uptextuniven \\
+\@textdepten: & \kitextdepten, \kitextfacultyen, \kitextuniven \\
 \@textyearofsubmiten: & \@yearofsubmit \\
 \@textfielden: & \@fielden \\
 \@textsupervisoren: & \@supervisor \\
@@ -451,11 +460,11 @@
 \thispagestyle{empty}
 \null\vfill
 %% Záložka.
-\hypertarget{up:anotation}{}
+\hypertarget{ki:anotation}{}
 \bookmark[
   rellevel=1,
   keeplevel,
-  dest=up:anotation
+  dest=ki:anotation
 ]{\@textanot}
 \begin{center}
 \textbf{\@textanotcz}
@@ -496,7 +505,7 @@
 
 %% Arabské číslování stran textu v anglických textech.
 %% Číslování stran od 1.
-\ifthenelse{\equal{\upb@language}{english}}{
+\ifthenelse{\equal{\kid@language}{english}}{
   \pagenumbering{arabic}
   \setcounter{page}{1}
 }{}
@@ -512,6 +521,7 @@
   pdfauthor={\@author\ (\@textsupervisor: \@supervisor)},
   pdfsubject={\@title\ (\@thesistype)},
   pdfcreator={\@author},
+  pdfkeywords={\@keywords}
 }
 }
 

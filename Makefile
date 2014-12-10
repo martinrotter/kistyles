@@ -1,23 +1,18 @@
-all: start updiplom finish
-
-default: all
-
-start:
-	@echo UPstyles compilation is starting now...
-	@sleep 2
-
-finish:
-	@echo UPstyles compilation finished...;
+kidiplom: %: %.tex
+	@pdflatex $@
+	@pdflatex $@
+	@biber $@
+	@makeglossaries $@
+	@makeindex $@.idx
+	@pdflatex $@
+	@pdflatex $@
 
 clean:
 	@rm -v -f *.glsdefs *.bcf *.lo* *.aux *.ind *.idx *.ilg *.toc *.acn *.run.xml *-blx.bib *.ist *.glo  *.blg *.bbl  *.gls *.glg *.alg *.acr
-	
-# Updiplom component.  
-updiplom:	updiplom.tex
-	@pdflatex updiplom
-	@pdflatex updiplom
-	@makeindex updiplom.idx
-	@makeglossaries updiplom
-	@biber updiplom
-	@pdflatex updiplom
-	@pdflatex updiplom
+
+dist:
+	@mkdir kidiplom
+	@cp -r -f kidiplom.tex kidiplom.cls kibase.sty graphics *bib *bx Makefile README.txt LICENSE kidiplom/
+	@rm -f kidiplom.zip
+	@zip -r kidiplom.zip kidiplom
+	@rm -r -f kidiplom

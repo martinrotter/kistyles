@@ -1,9 +1,9 @@
-%%%  KI UP Base Style
+%%%  KI PřF UP v Olomouci Base Style
 %%%  Copyright (C) 2012 Martin Rotter, <rotter.martinos@gmail.com>
 %%%  Copyright (C) 2014 Jan Outrata, <jan.outrata@upol.cz>
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{upbase}[2012/09/09 UP Base Style]
+\ProvidesPackage{kibase}[2012/09/09 KI PrF UP v Olomouci Base Style]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Parametry.
@@ -12,13 +12,13 @@
 \RequirePackage{kvoptions}
 
 \SetupKeyvalOptions{
-  family=upb,
-  prefix=upb@
+  family=kib,
+  prefix=kib@
 }
 
 %% [init]{name}[default]
-%% tisková verze (nebarevné odkazy, odkazy s uvedením URL, ne odkaz do
-%% rejstříku)
+%% tisková verze (nebarevné logo UP a odkazy, odkazy s uvedením adresy,
+%% ne odkaz do rejstříku)
 \DeclareStringOption[false]{printversion}[true]
 %% seznamy (obrázků, tabulek, zdrojových kódů a vět) pod sebou, jinak
 %% na samostatných stranách
@@ -52,7 +52,7 @@
 \DeclareStringOption[iso-numeric]{bibstyle}[iso-numeric]
 
 %% Nerozpoznaný parametr hodí chybu.
-\DeclareDefaultOption{\PackageWarningNoLine{upbase}{[upbase] Option '\CurrentOption' was not recognized}}
+\DeclareDefaultOption{\PackageWarningNoLine{kibase}{[kibase] Option '\CurrentOption' was not recognized}}
 
 \ProcessKeyvalOptions*
 
@@ -61,10 +61,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Kódování zdrojového textu dokumentu.
-\RequirePackage[\upb@encoding]{inputenc}
+\RequirePackage[\kib@encoding]{inputenc}
 
 %% Jazyky.
-\RequirePackage[czech,english,\upb@language]{babel}
+\RequirePackage[czech,english,\kib@language]{babel}
 
 % Barvy.
 \RequirePackage[usenames,dvipsnames,table]{xcolor}
@@ -82,11 +82,13 @@
 \RequirePackage{ifthen}
 
 %% Seznam zkratek.
-\ifthenelse{\equal{\upb@glossaries}{true}}{
+\ifthenelse{\equal{\kib@glossaries}{true}}{
+  %% glossaries definuje \printindex (definovany take makeidx) i kdyz
+  %% by NEMEL bez parametru index!
   \RequirePackage{savesym}
   \savesymbol{printindex}
   \RequirePackage[acronym,nonumberlist,sanitize=none]{glossaries}
-  \restoresymbol{GLOS}{printindex}
+  \restoresymbol{GLS}{printindex}
 }{
   \relax
 }
@@ -108,19 +110,19 @@
 %% Dynamické texty.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\uptextdeptcz}{Katedra informatiky}
-\newcommand{\uptextfacultycz}{P\v r\'irodov\v edeck\'a fakulta}
-\newcommand{\uptextunivcz}{Univerzita Palack\'eho v~Olomouci}
+\newcommand{\kitextdeptcz}{Katedra informatiky}
+\newcommand{\kitextfacultycz}{P\v r\'irodov\v edeck\'a fakulta}
+\newcommand{\kitextunivcz}{Univerzita Palack\'eho v~Olomouci}
 
-\newcommand{\uptextdepten}{Department of Computer Science}
-\newcommand{\uptextfacultyen}{Faculty of Science}
-\newcommand{\uptextuniven}{Palack\'{y} University Olomouc}
+\newcommand{\kitextdepten}{Department of Computer Science}
+\newcommand{\kitextfacultyen}{Faculty of Science}
+\newcommand{\kitextuniven}{Palack\'{y} University Olomouc}
 
 %% Čestina.
-\ifthenelse{\equal{\upb@language}{czech}}{
-  \newcommand{\uptextdept}{\uptextdeptcz}
-  \newcommand{\uptextfaculty}{\uptextfacultycz}
-  \newcommand{\uptextuniv}{\uptextunivcz}
+\ifthenelse{\equal{\kib@language}{czech}}{
+  \newcommand{\kitextdept}{\kitextdeptcz}
+  \newcommand{\kitextfaculty}{\kitextfacultycz}
+  \newcommand{\kitextuniv}{\kitextunivcz}
   \def\@texttitle{Tituln\'{i} strana}
 
   \renewcommand{\lstlistlistingname}{Seznam zdrojov\'ych k\'od\r{u}}
@@ -135,7 +137,7 @@
   \def\@textproof{D\r{u}kaz}
   \def\@textexample{P\v{r}\'{i}klad}
 
-  \ifthenelse{\equal{\upb@glossaries}{true}}{
+  \ifthenelse{\equal{\kib@glossaries}{true}}{
     \def\@textindex{Rejst\v{r}\'{i}k}
     \renewcommand{\acronymname}{Seznam zkratek}
   }{
@@ -149,10 +151,10 @@
 }
 
 %% Angličtina.
-\ifthenelse{\equal{\upb@language}{english}}{
-  \newcommand{\uptextdept}{\uptextdepten}
-  \newcommand{\uptextfaculty}{\uptextfacultyen}
-  \newcommand{\uptextuniv}{\uptextuniven}
+\ifthenelse{\equal{\kib@language}{english}}{
+  \newcommand{\kitextdept}{\kitextdepten}
+  \newcommand{\kitextfaculty}{\kitextfacultyen}
+  \newcommand{\kitextuniv}{\kitextuniven}
   \def\@texttitle{Title page}
  
   \renewcommand{\lstlistlistingname}{List of source codes}
@@ -167,7 +169,7 @@
   \def\@textproof{Proof}
   \def\@textexample{Example}
 
-  \ifthenelse{\equal{\upb@glossaries}{true}}{
+  \ifthenelse{\equal{\kib@glossaries}{true}}{
     \def\@textindex{Index}
     \renewcommand{\acronymname}{List of abbreviations}
   }{
@@ -184,13 +186,13 @@
 %% Logo.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\upb@logo}{black}}{
+\ifthenelse{\equal{\kib@logo}{black}}{
   \def\@logofile{graphics/UP_znak_cerna}
 }{
-  \ifthenelse{\equal{\upb@logo}{blue}}{
+  \ifthenelse{\equal{\kib@logo}{blue}}{
     \def\@logofile{graphics/UP_znak}
   }{
-    \ifthenelse{\equal{\upb@printversion}{true}}{
+    \ifthenelse{\equal{\kib@printversion}{true}}{
       \def\@logofile{graphics/UP_znak_outline}
     }{
       \def\@logofile{graphics/UP_znak}
@@ -202,7 +204,7 @@
 %% Písmo - patkové Latin Modern a bezpatkové Iwona Light.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\upb@font}{sans}}{
+\ifthenelse{\equal{\kib@font}{sans}}{
 	\RequirePackage[light,math]{iwona}
 }{
 	\RequirePackage{lmodern}
@@ -242,7 +244,7 @@
 
 %% Nastaví PDF záložky na kořen -- způsobí vrácení PDF záložek na
 %% kořen, používat zejména pokud dokument obsahuje \part
-%\newcommand{\upendofmainmatter}{
+%\newcommand{\kiendofmainmatter}{
 %	\bookmarksetup{startatroot}
 %}
 
@@ -250,7 +252,7 @@
 \newcommand*{\nohref}[1]{\begin{NoHyper}#1\end{NoHyper}}
 
 %% Barevné odkazy.
-\ifthenelse{\equal{\upb@printversion}{true}}{
+\ifthenelse{\equal{\kib@printversion}{true}}{
   \hypersetup{
     colorlinks=false
   }
@@ -276,8 +278,8 @@
 %% Zalomitelné \url.
 \renewcommand{\url}[1]{\orghref{#1}{#1}}
 
-\ifthenelse{\equal{\upb@printversion}{true}}{
-%% Odkazy s uvedením URL v tiskové verzi dokumentu.
+\ifthenelse{\equal{\kib@printversion}{true}}{
+%% Odkazy s uvedením adresy v tiskové verzi dokumentu.
   \renewcommand{\href}[2]{#2 (\orghref{#1}{#1})}
   \newcommand{\mail}[2]{#2 (\orghref{mailto:#1}{#1})}
 }{
@@ -289,7 +291,7 @@
 %% Zkratky a seznam zkratek.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\upb@glossaries}{true}}{
+\ifthenelse{\equal{\kib@glossaries}{true}}{
 	%% Zapnutí generování zkratek.
 	\makeglossaries
 
@@ -299,7 +301,7 @@
 
 	\let\orgprintglossary=\printglossary
 
-  %% Tisk seznamu zkratek od nové strany + záznam do obsahu.
+        %% Tisk seznamu zkratek od nové strany + záznam do obsahu.
 	\renewcommand{\printglossary}{
 		\clearpage
 		\phantomsection
@@ -314,7 +316,7 @@
 %% Rejstřík
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\equal{\upb@index}{true}}{
+\ifthenelse{\equal{\kib@index}{true}}{
 \RequirePackage{makeidx}
 %% Sazba do sloupců.
 \RequirePackage{multicol}
@@ -355,7 +357,7 @@
   \orgprintindex
 }
 
-\ifthenelse{\equal{\upb@printversion}{true}}{
+\ifthenelse{\equal{\kib@printversion}{true}}{
 \relax
 }{
 %% Redefinice \index s odkazem do rejstříku.
@@ -371,35 +373,35 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% BibLaTeX.
-\ifthenelse{\equal{\upb@biblatex}{true}}{
+\ifthenelse{\equal{\kib@biblatex}{true}}{
   %% Volba backendu.
-  \newcommand{\upbibliobackend}{biber}
+  \newcommand{\kibibliobackend}{biber}
   
   %% Načtení BibLaTeXu.
   %% Čestina.
-  \ifthenelse{\equal{\upb@language}{czech}}{
+  \ifthenelse{\equal{\kib@language}{czech}}{
     \RequirePackage[
       natbib=true,
-      backend=\upbibliobackend,
+      backend=\kibibliobackend,
       sortcites=true,
-      style=\upb@bibstyle,
+      style=\kib@bibstyle,
       babel=other,
       sortlocale=cs_CZ,
-      bibencoding=\upb@bibencoding
+      bibencoding=\kib@bibencoding
     ]{biblatex}
   }{
     \relax
   }
   %% Angličtina.
-  \ifthenelse{\equal{\upb@language}{english}}{
+  \ifthenelse{\equal{\kib@language}{english}}{
     \RequirePackage[
       natbib=true,
-      backend=\upbibliobackend,
+      backend=\kibibliobackend,
       sortcites=true,
-      style=\upb@bibstyle,
+      style=\kib@bibstyle,
       babel=other,
       sortlocale=en_GB,
-      bibencoding=\upb@bibencoding,
+      bibencoding=\kib@bibencoding,
       spacecolon=false
     ]{biblatex}
   }{
@@ -410,7 +412,7 @@
   \setlength{\bibhang}{0pt}
 
   %% Přeformátovat číslo záznamu.
-  \ifthenelse{\equal{\upb@bibstyle}{iso-numeric}}{
+  \ifthenelse{\equal{\kib@bibstyle}{iso-numeric}}{
     \renewcommand\MethodFormat{\printtext[labelnumberwidth]{\mkbibbrackets{\printfield{prefixnumber}\printfield{labelnumber}}}}
   } {
     \relax  
@@ -443,8 +445,9 @@
 	\addcontentsline{toc}{section}{\bibname}
 	\list{\@biblabel{\@arabic\c@enumiv}}
 	{\settowidth\labelwidth{\@biblabel{#1}}
-    \leftmargin\labelwidth
-    \advance\leftmargin\labelsep
+          %% bez odsazeni (jako v BibLaTeXu)
+    \leftmargin0pt%\labelwidth
+%    \advance\leftmargin\labelsep
     \@openbib@code
     \usecounter{enumiv}
     \let\p@enumiv\@empty
@@ -485,11 +488,11 @@
 %% Přidání záznamu do PDF záložek.
 \renewcommand{\tableofcontents}{
 	\cleardoublepage
-	\hypertarget{up:toc}{}
+	\hypertarget{ki:toc}{}
 	\bookmark[
 		rellevel=1,
 		keeplevel,
-		dest=up:toc
+		dest=ki:toc
 	]{\contentsname}
 	\orgtableofcontents
 }
@@ -508,7 +511,7 @@
     \orgtableofcontents \egroup}
 
 %% Definice základního stylu sazby zdroj. kódů.
-\lstdefinestyle{upbasestyle}{
+\lstdefinestyle{kibasestyle}{
 	breaklines=true,
 	flexiblecolumns=true,
 	basicstyle=\footnotesize\ttfamily,
@@ -521,7 +524,7 @@
 	numbers=left,
 	captionpos=b,
 	numbersep=10pt,
-	inputencoding=\upb@encoding,
+	inputencoding=\kib@encoding,
 	numberstyle=\scriptsize\ttfamily,
 	stepnumber=1,
 	showstringspaces=false,
@@ -606,10 +609,10 @@
 \lstloadlanguages{[ANSI]C,[LaTeX]TeX,PHP,HTML,Lisp,SQL,TeX,Python,Java,TutorialD,text,csharp,cpp,JavaScript}
 
 %% Definice makra a prostředí pro sazbu zdroj. kódů.
-\newcommand{\upinlinecode}[3]{\lstinline[style=upbasestyle,language=#1]#2#3#2\ignorespacesafterend}
+\newcommand{\kiinlinecode}[3]{\lstinline[style=kibasestyle,language=#1]#2#3#2\ignorespacesafterend}
 
-\lstnewenvironment{upcode}[3]{
-  \lstset{language=#1,float=ht,style=upbasestyle,firstnumber=1,caption={#3},label={#2},aboveskip=10px,belowskip=15px}
+\lstnewenvironment{kicode}[3]{
+  \lstset{language=#1,float=ht,style=kibasestyle,firstnumber=1,caption={#3},label={#2},aboveskip=10px,belowskip=15px}
 }{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -629,14 +632,14 @@
 	spaceabove=\baselineskip,
 	spacebelow=\baselineskip,
 	headpunct=\\\indent
-]{upthmstyle}
+]{kithmstyle}
 
 \declaretheoremstyle[
 	notefont=\bfseries,
 	spaceabove=\baselineskip,
 	spacebelow=\baselineskip,
 	headpunct=\\\indent
-]{updefstyle}
+]{kidefstyle}
 
 \declaretheoremstyle[
 	headfont=\normalfont\scshape,
@@ -644,7 +647,7 @@
 	spaceabove=\baselineskip,
 	spacebelow=\baselineskip,
 	headpunct=\\\indent
-]{upremexstyle}
+]{kiremexstyle}
 
 \declaretheoremstyle[
 	headfont=\normalfont\itshape,
@@ -653,19 +656,19 @@
 	spacebelow=\baselineskip,
 	qed=\qedsymbol,
 	headpunct=\\\indent
-]{upproofstyle}
+]{kiproofstyle}
 
 %% Zakázání starého prostředí pro sazbu důkazů.
 \let\proof\@undefined
 
 %% Definice prostředí pro sazbu teorémů.
-\declaretheorem[style=updefstyle,numbered=yes,name=\@textdefinition]{definition}
-\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\@textlemma]{lemma}
-\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\@textconsequence]{consequence}
-\declaretheorem[sibling=definition,style=upremexstyle,numbered=yes,name=\@textremark]{remark}
-\declaretheorem[sibling=definition,style=upremexstyle,numbered=yes,name=\@textexample]{example}
-\declaretheorem[sibling=definition,style=upthmstyle,numbered=yes,name=\@texttheorem]{theorem}
-\declaretheorem[style=upproofstyle,numbered=no,name=\@textproof]{proof}
+\declaretheorem[style=kidefstyle,numbered=yes,name=\@textdefinition]{definition}
+\declaretheorem[sibling=definition,style=kithmstyle,numbered=yes,name=\@textlemma]{lemma}
+\declaretheorem[sibling=definition,style=kithmstyle,numbered=yes,name=\@textconsequence]{consequence}
+\declaretheorem[sibling=definition,style=kiremexstyle,numbered=yes,name=\@textremark]{remark}
+\declaretheorem[sibling=definition,style=kiremexstyle,numbered=yes,name=\@textexample]{example}
+\declaretheorem[sibling=definition,style=kithmstyle,numbered=yes,name=\@texttheorem]{theorem}
+\declaretheorem[style=kiproofstyle,numbered=no,name=\@textproof]{proof}
 
 \let\orglistoftheorems=\listoftheorems
 
@@ -683,9 +686,9 @@
 
 \newcommand{\@printlists}{
   \cleardoublepage
-  \ifthenelse{\equal{\upb@figures}{true}}{
+  \ifthenelse{\equal{\kib@figures}{true}}{
     \listoffigures
-    \ifthenelse{\equal{\upb@joinlists}{true}}{
+    \ifthenelse{\equal{\kib@joinlists}{true}}{
       \relax
     }{
       \clearpage
@@ -694,9 +697,9 @@
     \relax
   }
   
-  \ifthenelse{\equal{\upb@tables}{true}}{
+  \ifthenelse{\equal{\kib@tables}{true}}{
     \listoftables
-    \ifthenelse{\equal{\upb@joinlists}{true}}{
+    \ifthenelse{\equal{\kib@joinlists}{true}}{
       \relax
     }{
       \clearpage
@@ -705,9 +708,9 @@
     \relax
   }
 
-  \ifthenelse{\equal{\upb@theorems}{true}}{
+  \ifthenelse{\equal{\kib@theorems}{true}}{
     \listoftheorems
-    \ifthenelse{\equal{\upb@joinlists}{true}}{
+    \ifthenelse{\equal{\kib@joinlists}{true}}{
       \relax
     }{
       \clearpage
@@ -716,9 +719,9 @@
     \relax
   }
 
-  \ifthenelse{\equal{\upb@sourcecodes}{true}}{
+  \ifthenelse{\equal{\kib@sourcecodes}{true}}{
     \lstlistoflistings
-    \ifthenelse{\equal{\upb@joinlists}{true}}{
+    \ifthenelse{\equal{\kib@joinlists}{true}}{
       \relax
     }{
       \clearpage

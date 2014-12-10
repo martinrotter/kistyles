@@ -1,5 +1,5 @@
-%%%  Vzorový text a dokumentace stylu pro text závěrečné práce na KI
-%%%  PřF UP v Olomouci
+%%%  Ukázkový text a dokumentace stylu pro text závěrečné (bakalářské a
+%%%  diplomové) práce na KI PřF UP v Olomouci
 %%%  Copyright (C) 2012 Martin Rotter, <rotter.martinos@gmail.com>
 %%%  Copyright (C) 2014 Jan Outrata, <jan.outrata@upol.cz>
 
@@ -15,8 +15,8 @@
 %%  Postup získání Postscriptového souboru je popsán v dokumentaci.
 
 
-%%  Třída dokumentu pro závěrečnou práci. Vybrané nepovinné parametry
-%%  (ostatní v dokumentaci):
+%%  Třída dokumentu implementující styl pro závěrečnou práci. Vybrané
+%%  nepovinné parametry (ostatní v dokumentaci):
 
 %%  'master' pro sazbu diplomové práce, jinak se sází bakalářská práce
 
@@ -29,8 +29,8 @@
 %%  v prezenční formě
 
 %%  'printversion' pro sazbu verze pro tisk (nebarevné logo a odkazy,
-%%  odkazy s uvedením URL za odkazem, ne odkazy do rejstříku), jinak
-%%  verze pro prohlížeč
+%%  odkazy s uvedením adresy za odkazem, ne odkazy do rejstříku),
+%%  jinak verze pro prohlížeč
 
 %%  'biblatex' pro zapnutí podpory pro sazbu bibliografie pomocí
 %%  BibLaTeXu, jinak je výchozí sazba v prostředí thebibliography
@@ -47,10 +47,10 @@
 %  printversion,
   biblatex,
 %  language=english,
-  font=sans,
+%  font=sans,
   glossaries,
   index
-]{updiplom}
+]{kidiplom}
 
 %% Informace pro úvodní strany. Česky a anglicky. Uveďte všechny, u
 %% kterých není v komentáři uvedeno, že jsou volitelné. Při neuvedení
@@ -61,11 +61,11 @@
 
 %% Název práce, včetně anglického. Měl by se vysázet na jeden řádek.
 \title{Styl pro text závěrečné práce}
-\title[english]{A style for graduation thesis}
+\title[english]{A style for thesis}
 
 %% Volitelný podnázev práce, včetně anglického. Měl by se vysázet na
 %% jeden řádek. Výchozí je prázdný.
-\subtitle{Vzorový text a dokumentace stylu v \LaTeX{}u}
+\subtitle{Ukázkový text a dokumentace stylu v \LaTeX{}u}
 \subtitle[english]{Sample text and documentation of the \LaTeX{} style}
 
 %% Jméno autora práce. Makro nemá nepovinný parametr pro uvedení
@@ -82,21 +82,21 @@
 
 %% Anotace práce, včetně anglické (obvykle překlad české). Jeden
 %% odstavec!
-\annotation{Vzorový text závěrečné práce na Katedře informatiky
+\annotation{Ukázkový text závěrečné práce na Katedře informatiky
   Přírodovědecké fakulty Univerzity Palackého v Olomouci, který je
   zároveň dokumentací stylu pro text práce v \LaTeX{}u. Zdrojový text
   v \LaTeX{}u je doporučeno použít jako šablonu pro text skutečné
   závěrečné práce studenta.}
 
-\annotation[english]{Sample text of graduation thesis at the
-  \uptextdepten, \uptextfacultyen, \uptextuniven{} and, at the same
-  time, documentation of the \LaTeX{} style for the text. The source
-  text in \LaTeX{} is recommended to be used as a template for real
-  student's graduation thesis text.}
+\annotation[english]{Sample text of thesis at the \kitextdepten,
+  \kitextfacultyen, \kitextuniven{} and, at the same time,
+  documentation of the \LaTeX{} style for the text. The source text in
+  \LaTeX{} is recommended to be used as a template for real student's
+  thesis text.}
 
 %% Klíčová slova práce, včetně anglických. Oddělená (obvykle) středníkem.
-\keywords{styl textu; závěrečná práce; dokumentace; vzorový text}
-\keywords[english]{text style; graduation thesis; documentation; sample text}
+\keywords{styl textu; závěrečná práce; dokumentace; ukázkový text}
+\keywords[english]{text style; thesis; documentation; sample text}
 
 %% Volitelná specifikace příloh textu práce, i anglicky. Výchozí je '1
 %% CD/DVD'.
@@ -107,13 +107,14 @@
 %% nepovinný parametr pro uvedení jazyka.
 \thanks{Děkuji, děkuji, děkuji.}
 
-%% Soubor s bibliografií pro její sazbu pomocí BibLaTeXu (zvolenou
-%% nepovinným parametrem biblatex makra \documentclass). Použijte
-%% pouze při této sazbě, ne při (výchozí) sazbě v prostředí
-%% thebibliography.
+%% Cesta k souboru s bibliografií pro její sazbu pomocí BibLaTeXu
+%% (zvolenou nepovinným parametrem biblatex makra
+%% \documentclass). Použijte pouze při této sazbě, ne při (výchozí)
+%% sazbě v prostředí thebibliography.
 \bibliography{bibliografie.bib}
 
-%% Další balíky potřebné pro sazbu vlastního textu práce.
+%% Další dodatečné styly (balíky) potřebné pro sazbu vlastního textu
+%% práce.
 \usepackage{lipsum}
 
 \begin{document}
@@ -124,18 +125,22 @@
 \maketitle
 
 %% Vlastní text závěrečné práce. Pro povinné závěry, před přílohami,
-%% použijte prostředí upconclusions. Povinná je i příloha s obsahem
+%% použijte prostředí kiconclusions. Povinná je i příloha s obsahem
 %% přiloženého CD/DVD.
 
 %% -------------------------------------------------------------------
 
 \newcommand{\BibLaTeX}{\textsc{Bib}\LaTeX}
 
+\noindent\textcolor{red}{\LARGE Upozornění: Následující text
+  dokumentace stylu, vyjma přílohy~\ref{sec:ObsahCD}, je rozpracovaná
+  a (značně) neúplná verze!!!}
+
 \section{Styly pro psaní bakalářských a diplomových prací}
-Toto jsou styly pro psaní bakalářských a diplomových prací přes typografický systém \LaTeX{}, tedy \textbf{upstyles}.
+Toto jsou styly pro psaní bakalářských a diplomových prací přes typografický systém \LaTeX{}, tedy \textbf{kistyles}.
 
 \subsection{Požadavky a podprovaná prostředí}
-Sada balíku \textbf{upstyles} podporuje následující distribuce systému \LaTeX{}:
+Sada balíku \textbf{kistyles} podporuje následující distribuce systému \LaTeX{}:
 \begin{itemize}
 \item \TeX{} Live.
 \end{itemize}
@@ -157,8 +162,8 @@ Důrazně se doporučuje používat aktuální verzi dané distribuce systému \
 %%%  soubor ve formátu PDF včetně hypertextových odkazů.
 
 \subsection{Přepínače}
-Styl updiplom je z hlediska uživatele zastoupen ekvivalentně nazvanou třídou, kterou je třeba volat na záčátku dokumentu:
-\begin{upcode}{TeX}{}{Volání třídy \textbf{updiplom}}
+Styl kidiplom je z hlediska uživatele zastoupen ekvivalentně nazvanou třídou, kterou je třeba volat na záčátku dokumentu:
+\begin{kicode}{TeX}{}{Volání třídy \textbf{kidiplom}}
 \documentclass[
   master=true,
   font=sans,
@@ -175,8 +180,8 @@ Styl updiplom je z hlediska uživatele zastoupen ekvivalentně nazvanou třídou
   field=inf,
   index=true,
   biblatex=true
-]{updiplom}
-\end{upcode}
+]{kidiplom}
+\end{kicode}
 
 Následuje přehled přepínačů, je vždy uvedeno jméno přepínač, včetně výchozí hodnoty. Přepínače uvádí tabulka \ref{tab:prepinace}.
 
@@ -245,22 +250,22 @@ Tento styl používá list velikosti $A4$. Pro sazbu prací je třeba použít j
 
 \section{Sazba částí dokumentu}
 \subsection{Sazba úvodní strany či obsahu}
-Vysázení všech podstatných částí úvodu práce obstará makro \upinlinecode{TeX}{!}{\\maketitle}. Pro správné vysázení všech částí a meta-informací je potřeba použí makra \upinlinecode{TeX}{!}{\\title}, \upinlinecode{TeX}{!}{\\author} a další. Jejich přehled lze najít ve zdrojovém souboru tohoto dokumentu. V případě použítí \textbf{pdf} výstupu se generuje i dodatečná hlavička souboru s meta-informacemi jako je autor dokumentu, název práce či dalšími.
+Vysázení všech podstatných částí úvodu práce obstará makro \kiinlinecode{TeX}{!}{\\maketitle}. Pro správné vysázení všech částí a meta-informací je potřeba použí makra \kiinlinecode{TeX}{!}{\\title}, \kiinlinecode{TeX}{!}{\\author} a další. Jejich přehled lze najít ve zdrojovém souboru tohoto dokumentu. V případě použítí \textbf{pdf} výstupu se generuje i dodatečná hlavička souboru s meta-informacemi jako je autor dokumentu, název práce či dalšími.
 
 \subsection{Závěry}
 Závěr práce by se měl poskytnout ja v původním (českém jazyce), tak v jazyce anglickém. Pro sazbu závěru jsou k dispozici příslušná makra. Berte na vědomí, že v anglickém závěru se aktivuje plně anglická sazba se všemi konvencemi. Tedy je třeba používat anglické uvozovky a další správné typografické prvky.
 
-\begin{upcode}{TeX}{}{Sazba závěrů}
+\begin{kicode}{TeX}{}{Sazba závěrů}
 % Tiskne český závěr práce.
-\begin{upconclusions}
+\begin{kiconclusions}
 Závěr práce v \uv{českém} jazyce.
-\end{upconclusions}
+\end{kiconclusions}
 
 % Tiskne anglický závěr práce.
-\begin{upconclusions}[english]
+\begin{kiconclusions}[english]
 Thesis conclusions written in \uv{English}.
-\end{upconclusions}
-\end{upcode}
+\end{kiconclusions}
+\end{kicode}
 
 \subsection{Matematika}
 Pro sazbu matematiky je k dispozici sada standardních maker.
@@ -288,27 +293,27 @@ M = \begin{bmatrix}
 $$
 
 \subsection{Sazba literatury}
-Pro sazbu literatury má uživatel dvě možnosti. Může použít služeb balíků \BibLaTeX{}, který je pro \textbf{upstyles} zapnutý, či lze použít manuální sazbu bibliografie.
+Pro sazbu literatury má uživatel dvě možnosti. Může použít služeb balíků \BibLaTeX{}, který je pro \textbf{kistyles} zapnutý, či lze použít manuální sazbu bibliografie.
 \subsubsection{Sazba bibliografie přes \BibLaTeX{}}
-Při použití tohoto balíku se data o použité literatuře ukládají do dedikovaného textového souboru, ukázku najdete i v tomto stylu pod jménem \upinlinecode{text}{!}{bibliografie.bib}.
+Při použití tohoto balíku se data o použité literatuře ukládají do dedikovaného textového souboru, ukázku najdete i v tomto stylu pod jménem \kiinlinecode{text}{!}{bibliografie.bib}.
 
-Formát daného souboru je nad rámec této dokumentace a je na každém uživateli, aby si jej nastudoval. Bibliografie se tiskne makrem \upinlinecode{TeX}{!}{\\printbibliography}. Taktéž v preambuli dokumentu je třeba definovat, který soubor data bibliografie obsahuje, tedy například \upinlinecode{TeX}{!}{\\bibliography\{bibliografie.bib\}}.
+Formát daného souboru je nad rámec této dokumentace a je na každém uživateli, aby si jej nastudoval. Bibliografie se tiskne makrem \kiinlinecode{TeX}{!}{\\printbibliography}. Taktéž v preambuli dokumentu je třeba definovat, který soubor data bibliografie obsahuje, tedy například \kiinlinecode{TeX}{!}{\\bibliography\{bibliografie.bib\}}.
 
-Dokument, který využívá \BibLaTeX{} je následně nutné přeložit jak pomocí překladače zvoleného ovladače, tak pomocí aplikace \upinlinecode{text}{!}{biber}. Více informací poskytne soubor \upinlinecode{text}{!}{Makefile} z distribuce tohoto stylu.
+Dokument, který využívá \BibLaTeX{} je následně nutné přeložit jak pomocí překladače zvoleného ovladače, tak pomocí aplikace \kiinlinecode{text}{!}{biber}. Více informací poskytne soubor \kiinlinecode{text}{!}{Makefile} z distribuce tohoto stylu.
 
 Výhodou tohoto přístupu je, že bibliografie se vysází automaticky a (obvykle) není třeba manuální úprava formátování.
 
 \subsubsection{Manuální sazba bibliografie}
-Manuální sazba obnáší vysázení prostředí \upinlinecode{text}{!}{thebibliography} ručně. To je nad rámec tohoto dokumentu. Ukázku tohoto přístupu lze samozřejmě nalézt ve zdrojovém souboru tohoto dokumentu nebo také \href{http://www.math.uiuc.edu/~hildebr/tex/bibliographies.html}{zde}.
+Manuální sazba obnáší vysázení prostředí \kiinlinecode{text}{!}{thebibliography} ručně. To je nad rámec tohoto dokumentu. Ukázku tohoto přístupu lze samozřejmě nalézt ve zdrojovém souboru tohoto dokumentu nebo také \href{http://www.math.uiuc.edu/~hildebr/tex/bibliographies.html}{zde}.
 
-Pro aktivaci manuální sazby bibliografie je třeba volat třídu \upinlinecode{text}{!}{updiplom} s parametrem \upinlinecode{text}{!}{biblatex=false}. Mějte, prosím, na paměti, že v tomto módu jsou makra \upinlinecode{text}{!}{\\bibliography} a \upinlinecode{text}{!}{\\printbibliography} nedostupná.
+Pro aktivaci manuální sazby bibliografie je třeba volat třídu \kiinlinecode{text}{!}{kidiplom} s parametrem \kiinlinecode{text}{!}{biblatex=false}. Mějte, prosím, na paměti, že v tomto módu jsou makra \kiinlinecode{text}{!}{\\bibliography} a \kiinlinecode{text}{!}{\\printbibliography} nedostupná.
 
 \subsection{Drobná makra}
-Základní styl definuje hned několik maker pro usnadnění práce. Například makro \upinlinecode{TeX}{!}{\\buno} vysází řetezec \uv{bez újmy na obecnosti}. Je k dispozici i verze s prvním velkým písmenem, \upinlinecode{TeX}{!}{\\Buno}.
+Základní styl definuje hned několik maker pro usnadnění práce. Například makro \kiinlinecode{TeX}{!}{\\buno} vysází řetezec \uv{bez újmy na obecnosti}. Je k dispozici i verze s prvním velkým písmenem, \kiinlinecode{TeX}{!}{\\Buno}.
 
-Je rovněž možno přidávat položky do seznamu zkratek. K tomu slouží makro \upinlinecode{TeX}{!}{\\newacronym}, které lze použít například jednoduše jako \upinlinecode{TeX}{!}{\\newacronym\{UPOL\}\{UPOL\}\{\\uptextunivcz\}}. Na danou zkratku se pak lze odkazovat jednoduše, \upinlinecode{TeX}{!}{\\gls\{UPOL\}}.
+Je rovněž možno přidávat položky do seznamu zkratek. K tomu slouží makro \kiinlinecode{TeX}{!}{\\newacronym}, které lze použít například jednoduše jako \kiinlinecode{TeX}{!}{\\newacronym\{UPOL\}\{UPOL\}\{\\kitextunivcz\}}. Na danou zkratku se pak lze odkazovat jednoduše, \kiinlinecode{TeX}{!}{\\gls\{UPOL\}}.
 
-Sazba uvozovek respektuje nastavení částí dokumentu, a proto se doporučuje používat makro \upinlinecode{TeX}{!}{\\uv}. V anglické závěru práce toto platí taky, viz tato PDF ukázka.
+Sazba uvozovek respektuje nastavení částí dokumentu, a proto se doporučuje používat makro \kiinlinecode{TeX}{!}{\\uv}. V anglické závěru práce toto platí taky, viz tato PDF ukázka.
 
 Styl podporuje sazbu odstavců v tabulkách, více obsahuje tabulka \ref{tab:odstavce}.
 
@@ -321,7 +326,7 @@ Styl podporuje sazbu odstavců v tabulkách, více obsahuje tabulka \ref{tab:ods
 \end{center}
 \end{table}
 
-K dispozici jsou také makra pro sazbu \csharp{} (\upinlinecode{TeX}{!}{\\csharp}) či \cpp{} (\upinlinecode{TeX}{!}{\\cpp}).
+K dispozici jsou také makra pro sazbu \csharp{} (\kiinlinecode{TeX}{!}{\\csharp}) či \cpp{} (\kiinlinecode{TeX}{!}{\\cpp}).
 
 %% v případě tvorby rejstříku přeložit vygenerovaný soubor .idx
 %% programem Makeindex a v případě tvorby seznamu zkratek spustit
@@ -333,16 +338,16 @@ K dispozici jsou také makra pro sazbu \csharp{} (\upinlinecode{TeX}{!}{\\csharp
 Sazba rejstříku sestává z několika kroku:
 
 \begin{enumerate}
-\item Je třeba přes volbu \upinlinecode{TeX}{!}{index=true} rejstříkování povolit.
-\item Použítím makra \upinlinecode{TeX}{!}{\\index} rejstříkovat vybrané pojmy.
-\item Kompilovat s použitím utility \upinlinecode{TeX}{!}{makeindex}. Pro specifika tohoto kroku si stačí prohlédnout soubor \upinlinecode{text}{!}{Makefile}.
+\item Je třeba přes volbu \kiinlinecode{TeX}{!}{index=true} rejstříkování povolit.
+\item Použítím makra \kiinlinecode{TeX}{!}{\\index} rejstříkovat vybrané pojmy.
+\item Kompilovat s použitím utility \kiinlinecode{TeX}{!}{makeindex}. Pro specifika tohoto kroku si stačí prohlédnout soubor \kiinlinecode{text}{!}{Makefile}.
 \end{enumerate}
 
-Makro \upinlinecode{TeX}{!}{\\index} je redefinováno tak, že sází klikací odkaz na výraz v rejstříku. Je doporučeno jej použít ihned za výrazem\index{výraz}.
+Makro \kiinlinecode{TeX}{!}{\\index} je redefinováno tak, že sází klikací odkaz na výraz v rejstříku. Je doporučeno jej použít ihned za výrazem\index{výraz}.
 
-\textbf{Omezení redefinovaného makra \upinlinecode{TeX}{!}{\\index}}: klikací odkaz nefunguje, pokud použijete konstrukci \upinlinecode{TeX}{!}{\\index\{výraz|makro\}} (resp. \upinlinecode{TeX}{!}{\\index\{výraz|(makro\}}), např. \upinlinecode{TeX}{!}{\\index\{výraz|textit\}}.
+\textbf{Omezení redefinovaného makra \kiinlinecode{TeX}{!}{\\index}}: klikací odkaz nefunguje, pokud použijete konstrukci \kiinlinecode{TeX}{!}{\\index\{výraz|makro\}} (resp. \kiinlinecode{TeX}{!}{\\index\{výraz|(makro\}}), např. \kiinlinecode{TeX}{!}{\\index\{výraz|textit\}}.
 
-Rejstřík lze vysázet pomocí makra \upinlinecode{TeX}{!}{\\printindex}.
+Rejstřík lze vysázet pomocí makra \kiinlinecode{TeX}{!}{\\printindex}.
 
 \begin{lemma}[Démonické lemma]
 Naše nové lemma~\cite{kniha2}.
@@ -362,7 +367,7 @@ aaa & bbb
 \end{table}
 
 
-\newacronym{UPOL}{UPOL}{\uptextunivcz}
+\newacronym{UPOL}{UPOL}{\kitextunivcz}
 
 \begin{definition}[Název definice]
 Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. \gls{UPOL}
@@ -393,41 +398,41 @@ Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Ab
 \end{theorem}
 
 
-\begin{upcode}{cpp}{}{\cpp}
+\begin{kicode}{cpp}{}{\cpp}
 int main("cs acsa") // komentar
 int main("cs acsa") // komentar
 int main("cs acsa") // komentar
 int main("cs acsa") // komentar
 int main("cs acsa") // komentar
-\end{upcode}
+\end{kicode}
 
-\begin{upcode}{JavaScript}{}{JS}
+\begin{kicode}{JavaScript}{}{JS}
 new object() // komentar
-\end{upcode}
+\end{kicode}
 
-\begin{upcode}{csharp}{}{\csharp}
+\begin{kicode}{csharp}{}{\csharp}
 public static int main("cs acsa") // komentar
-\end{upcode}
+\end{kicode}
 
-\begin{upcode}{SQL}{}{SQL}
+\begin{kicode}{SQL}{}{SQL}
 SELECT * FROM table_1; /* komentar */
-\end{upcode}
+\end{kicode}
 
-\begin{upcode}{TutorialD}{}{TutorialD}
+\begin{kicode}{TutorialD}{}{TutorialD}
 table_1 AND table_2;
-\end{upcode}
+\end{kicode}
 
 %% Závěry práce. Česky a anglicky. Text pro jiný než nastavený jazyk
 %% dokumentu (nepovinným parametrem language makra \documentclass,
 %% výchozí český) se zadává použitím makra s uvedením jazyka jako
 %% nepovinného parametru.
-\begin{upconclusions}
+\begin{kiconclusions}
 Závěr práce v \uv{českém} jazyce.
-\end{upconclusions}
+\end{kiconclusions}
 
-\begin{upconclusions}[english]
+\begin{kiconclusions}[english]
 Thesis conclusions in \uv{English}.
-\end{upconclusions}
+\end{kiconclusions}
 
 %% Přílohy obsahu textu práce, za makrem \appendix.
 \appendix
@@ -440,7 +445,7 @@ Text druhé přílohy
 
 %% Obsah přiloženého CD/DVD. Poslední příloha. Upravte podle vlastní
 %% práce!
-\section{Obsah přiloženého CD/DVD} \label{ObsahCD}
+\section{Obsah přiloženého CD/DVD} \label{sec:ObsahCD}
 
 Na samotném konci textu práce je uveden stručný popis obsahu
 přiloženého CD/DVD, tj.~jeho závazné adresářové struktury, důležitých
