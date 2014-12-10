@@ -335,7 +335,7 @@ K dispozici jsou také makra pro sazbu \csharp{} (\kiinlinecode{TeX}{!}{\\csharp
 %% programem pdfLaTeX.
 
 \subsection{Sazba rejstříku}
-Sazba rejstříku sestává z několika kroku:
+Sazba rejstříku sestává z několika kroků:
 
 \begin{enumerate}
 \item Je třeba přes volbu \kiinlinecode{TeX}{!}{index=true} rejstříkování povolit.
@@ -349,23 +349,14 @@ Makro \kiinlinecode{TeX}{!}{\\index} je redefinováno tak, že sází klikací o
 
 Rejstřík lze vysázet pomocí makra \kiinlinecode{TeX}{!}{\\printindex}.
 
-\begin{lemma}[Démonické lemma]
-Naše nové lemma~\cite{kniha2}.
-\end{lemma}
+\subsection{Sazba zdrojových kódů}
+Styl nabízí dva způsoby sazby zdrojových kódů:
 
-\begin{align}
-2+489 \\
-7+2
-\end{align}
+\begin{enumerate}
+\item Sazbu řádkových kódů, například \kiinlinecode{CSS}{!}{background-color: white;}. K tomu slouží makro formátu \kiinlinecode{TeX}{!}{\\kiinlinecode\{jazyk\}\{separátor\}\{kód\}}. Za separátor je vhodné volit jakýkoliv znak, který se nevyskytuje v samotném sázeném zdrojovém kódu. Za jazyk je nutno dosadit jeden z těchto: C, TeX, PHP, HTML, Lisp, SQL, TeX, Python, Java, TutorialD, text, csharp, cpp, JavaScript, CSS.
 
-
-\begin{table}
-\begin{tabular}{c | c}
-aaa & bbb 
-\end{tabular}
-\caption{Krutá tabulka}
-\end{table}
-
+\item Sazbu zdrojových kódu do separátních prostředí. Takto vytištěný kód se objeví v seznamu zdrojových kódů. Ukázka například zdrojový kód \ref{kod:cpp}. Ukázku sazby naleznete ve zdrojovém kódu tohoto dokumentu.
+\end{enumerate}
 
 \newacronym{UPOL}{UPOL}{\kitextunivcz}
 
@@ -398,7 +389,7 @@ Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Abcd. Ab
 \end{theorem}
 
 
-\begin{kicode}{cpp}{}{\cpp}
+\begin{kicode}{cpp}{kod:cpp}{\cpp}
 int main("cs acsa") // komentar
 int main("cs acsa") // komentar
 int main("cs acsa") // komentar
