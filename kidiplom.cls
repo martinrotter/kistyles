@@ -4,7 +4,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{kidiplom}[2012/09/09 KI PrF UP v Olomouci Diploma Class]
-\ClassWarningNoLine{kidiplom}{[kidiplom] You are using kidiplom class 0.95}
+\ClassWarningNoLine{kidiplom}{[kidiplom] You are using kidiplom class 0.99}
 
 %% Základní třída a velikost písma 12pt.
 \LoadClass[12pt]{article}
