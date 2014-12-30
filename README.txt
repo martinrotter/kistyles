@@ -95,4 +95,14 @@ xcolor
 
 Licence stylu KIdiplom je GNU GPLv3 nebo novější.
 
-Kontakt: Jan Outrata <jan.outrata@upol.cz>
+Primární zdroj stylu pro použití na text odevzdávaných závěrečných
+prací na KI PřF UP v Olomouci je
+ 
+http://www.inf.upol.cz/dokumenty
+
+Styl je vyvíjen na https://github.com/martinrotter/kistyles. Zde
+můžete reportovat technické chyby.
+
+Kontakt:
+  Jan Outrata <jan.outrata@upol.cz>          (univerzitní oficiální zastoupení, spoluautor stylu)
+  Martin Rotter <rotter.martinos@gmail.com>  (autor stylu)
