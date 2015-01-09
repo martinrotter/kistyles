@@ -36,7 +36,7 @@
 %%  BibLaTeXu, jinak je výchozí sazba v prostředí thebibliography
 
 %%  'language=jazyk' pro jazyk práce, jazyky english pro anglický,
-%%  jinak je výchozí czech pro český
+%%  slovak pro slovenský, jinak je výchozí czech pro český
 
 %%  'font=sans' pro bezpatkový font (Iwona Light), jinak výchozí
 %%  patkový (Latin Modern)
@@ -52,18 +52,18 @@
   index
 ]{kidiplom}
 
-%% Informace pro úvodní strany. Česky a anglicky. Uveďte všechny, u
-%% kterých není v komentáři uvedeno, že jsou volitelné. Při neuvedení
-%% se použijí výchozí texty. Text pro jiný než nastavený jazyk
-%% dokumentu (nepovinným parametrem language makra \documentclass,
-%% výchozí český) se zadává použitím makra s uvedením jazyka jako
-%% nepovinného parametru.
+%% Informace pro úvodní strany. V jazyku práce (pokud není v komentáři
+%% uvedeno česky) a anglicky. Uveďte všechny, u kterých není v
+%% komentáři uvedeno, že jsou volitelné. Při neuvedení se použijí
+%% výchozí texty. Text pro jiný než nastavený jazyk práce (nepovinným
+%% parametrem language makra \documentclass, výchozí český) se zadává
+%% použitím makra s uvedením jazyka jako nepovinného parametru.
 
-%% Název práce, včetně anglického. Měl by se vysázet na jeden řádek.
+%% Název práce, česky a anglicky. Měl by se vysázet na jeden řádek.
 \title{Styl pro text závěrečné práce}
 \title[english]{A style for thesis}
 
-%% Volitelný podnázev práce, včetně anglického. Měl by se vysázet na
+%% Volitelný podnázev práce, česky a anglicky. Měl by se vysázet na
 %% jeden řádek. Výchozí je prázdný.
 \subtitle{Ukázkový text a dokumentace stylu v \LaTeX{}u}
 \subtitle[english]{Sample text and documentation of the \LaTeX{} style}
@@ -80,8 +80,8 @@
 %% rok. Makro nemá nepovinný parametr pro uvedení jazyka.
 %\yearofsubmit{\the\year}
 
-%% Anotace práce, včetně anglické (obvykle překlad české). Jeden
-%% odstavec!
+%% Anotace práce, včetně anglické (obvykle překlad z jazyka
+%% práce). Jeden odstavec!
 \annotation{Ukázkový text závěrečné práce na Katedře informatiky
   Přírodovědecké fakulty Univerzity Palackého v Olomouci, který je
   zároveň dokumentací stylu pro text práce v \LaTeX{}u. Zdrojový text
@@ -103,7 +103,7 @@
 %\supplements{jedno kulaté placaté CD/DVD s malou kulatou dírou uprostřed}
 %\supplements[english]{one round flat CD/DVD with a small round hole in the middle}
 
-%% Volitelné poděkování. Stručné! Výchozí je prázdný. Makro nemá
+%% Volitelné poděkování. Stručné! Výchozí je prázdné. Makro nemá
 %% nepovinný parametr pro uvedení jazyka.
 \thanks{Děkuji, děkuji, děkuji.}
 
@@ -214,7 +214,7 @@ encoding & utf8 & Kódování souboru dokumentu, doporučuje se ponechat výchoz
 
 bibencoding & utf8 & Kódování souboru bibliografie. Tato volba má smysl pouze, pokud je použita bibliografie skrze balíček \BibLaTeX{}. \\
 
-language & czech & Jazyk hlavní práce. \\
+language & czech & Jazyk práce. \\
 
 printversion & false & Je-li zapnuto, pak budou odkazy vysázeny optimalizovaně pro knižní sazbu. Tuto volbu je nutno použít pro tisk práce. \\
 
@@ -253,7 +253,7 @@ Tento styl používá list velikosti $A4$. Pro sazbu prací je třeba použít j
 Vysázení všech podstatných částí úvodu práce obstará makro \kiinlinecode{TeX}{!}{\\maketitle}. Pro správné vysázení všech částí a meta-informací je potřeba použí makra \kiinlinecode{TeX}{!}{\\title}, \kiinlinecode{TeX}{!}{\\author} a další. Jejich přehled lze najít ve zdrojovém souboru tohoto dokumentu. V případě použítí \textbf{pdf} výstupu se generuje i dodatečná hlavička souboru s meta-informacemi jako je autor dokumentu, název práce či dalšími.
 
 \subsection{Závěry}
-Závěr práce by se měl poskytnout ja v původním (českém jazyce), tak v jazyce anglickém. Pro sazbu závěru jsou k dispozici příslušná makra. Berte na vědomí, že v anglickém závěru se aktivuje plně anglická sazba se všemi konvencemi. Tedy je třeba používat anglické uvozovky a další správné typografické prvky.
+Závěr práce by se měl poskytnout jak v původním jazyce práce, tak v jazyce anglickém. Pro sazbu závěru jsou k dispozici příslušná makra. Berte na vědomí, že v anglickém závěru se aktivuje plně anglická sazba se všemi konvencemi. Tedy je třeba používat anglické uvozovky a další správné typografické prvky.
 
 \begin{kicode}{TeX}{}{Sazba závěrů}
 % Tiskne český závěr práce.
@@ -413,10 +413,10 @@ SELECT * FROM table_1; /* komentar */
 table_1 AND table_2;
 \end{kicode}
 
-%% Závěry práce. Česky a anglicky. Text pro jiný než nastavený jazyk
-%% dokumentu (nepovinným parametrem language makra \documentclass,
-%% výchozí český) se zadává použitím makra s uvedením jazyka jako
-%% nepovinného parametru.
+%% Závěry práce. V jazyce práce a anglicky. Text pro jiný než
+%% nastavený jazyk práce (nepovinným parametrem language makra
+%% \documentclass, výchozí český) se zadává použitím makra s uvedením
+%% jazyka jako nepovinného parametru.
 \begin{kiconclusions}
 Závěr práce v \uv{českém} jazyce.
 \end{kiconclusions}

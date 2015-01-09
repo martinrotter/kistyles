@@ -3,7 +3,7 @@ KIdiplom
 
 V tomto adresáři je styl KIdiplom pro text závěrečné (bakalářské a
 diplomové) práce na Katedře informatiky Přírodovědecké fakulty
-Univerzity Palackého v Olomouci (KI PřF UP) v typografickém systému
+Univerzity Palackého v Olomouci (KI PřF UP v Olomouci) v typografickém systému
 LaTeX, včetně ukázkového textu práce, který je zároveň dokumentací
 stylu.
 
@@ -17,16 +17,20 @@ text vlastní práce, instrukce pro použití stylu KIdiplom a překlad
 zdrojového textu jsou v souboru ve formě komentářů, soubor je v
 kódování UTF-8 (doporučeno zachovat)
 
+kidiplom.pdf
+
+= přeložený PDF dokument ukázkového textu kidiplom.tex
 kidiplom.cls
 
 = třída dokumentu v LaTeXu představující styl KIdiplom, pro použití ve
 zdrojových textech dokumentů využívajících styl, doporučeno soubor
-ponechat ve stejném adresáři, jako soubor kidiplom.tex
-
+ponechat ve stejném adresáři, jako soubor kidiplom.tex, soubor
+neupravujte!
 kibase.sty
 
 = dodatečný styl využívaný třídou kidiplom.cls, doporučeno soubor
-ponechat ve stejném adresáři, jako soubor kidiplom.tex
+ponechat ve stejném adresáři, jako soubor kidiplom.tex, soubor
+neupravujte!
 
 bibliografie.bib
 
@@ -36,13 +40,13 @@ graphics/
 
 = adresář s obrázky záhlaví a loga UP na titulní straně dokumentů
 používajících styl KIdiplom, doporučeno adresář ponechat ve stejném
-adresáři, jako soubor kidiplom.tex
+adresáři, jako soubor kidiplom.tex, soubory v adresáři neupravujte!
 
 *bx
 
 = implementace stylů bibliografie pro BibLaTeX podle normy ISO 690,
 doporučeno soubory ponechat ve stejném adresáři, jako soubor
-kidiplom.tex
+kidiplom.tex, soubory neupravujte!
 
 Makefile
 
@@ -60,7 +64,7 @@ README.txt
 
 Styl byl testován s distribucí LaTeXu TeX Live (verze 2014). Pro svoji
 plnou funkčnost vyžaduje následující (a jimy rekurzivně vyžadované)
-dodatečné styly (balíky), které, pokud nejsou součástí instalace
+dodatečné styly (balíky), které, pokud nejsou součástí standardní instalace
 distribuce, lze v rámci distribuce doinstalovat:
 
 amsbsy

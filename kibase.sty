@@ -33,7 +33,7 @@
 \DeclareStringOption[true]{sourcecodes}[true]
 %% bibliografie v BibLaTeXu, jinak v prostředí thebibliography
 \DeclareStringOption[false]{biblatex}[true]
-%% jazyk dokumentu: czech, english
+%% jazyk dokumentu: czech, english, slovak
 \DeclareStringOption[czech]{language}[czech]
 %% podpora seznamu zkratek
 \DeclareStringOption[false]{glossaries}[true]
@@ -182,6 +182,38 @@
 	\relax
 }
 
+%% Slovenština.
+\ifthenelse{\equal{\kib@language}{slovak}}{
+  \newcommand{\kitextdept}{\kitextdeptcz}
+  \newcommand{\kitextfaculty}{\kitextfacultycz}
+  \newcommand{\kitextuniv}{\kitextunivcz}
+  \def\@texttitle{Tituln\'{a} strana}
+
+  \renewcommand{\lstlistlistingname}{Zoznam zdrojov\'ych k\'odov}
+  \renewcommand{\lstlistingname}{Zdrojov\'y k\'od}
+  \newcommand{\listtheoremname}{Zoznam viet}
+
+  \def\@textdefinition{Defin\'icia}
+  \def\@textlemma{Lemma}
+  \def\@textconsequence{D\^osledok}
+  \def\@textremark{Pozn\'{a}mka}
+  \def\@texttheorem{Veta}
+  \def\@textproof{D\^okaz}
+  \def\@textexample{Pr\'{i}klad}
+
+  \ifthenelse{\equal{\kib@glossaries}{true}}{
+    \def\@textindex{Register}
+    \renewcommand{\acronymname}{Zoznam skratiek}
+  }{
+    \relax
+  }
+
+  \newcommand{\buno}{bez ujmy na všeobecnosti}
+  \newcommand{\Buno}{Bez ujmy na všeobecnosti}
+}{
+	\relax
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Logo.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -222,7 +254,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% České uvozovky pro balík csquotes.
+%% České (a slovenské) uvozovky pro balík csquotes.
 %% použití: \enquote{citoslovce}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -233,6 +265,8 @@
 	{\textquotedblleft}
 	{\textquoteleft}
 	{\textquoteright}
+
+\DeclareQuoteAlias{czech}{slovak}
 
 %% Redeklarace makra \uv, aby používalo csquotes.
 %% Makro \uv bude tisknout typ uvozovek v závislosti na jazyku prostředí.
@@ -407,6 +441,20 @@
   }{
     \relax
   }
+  %% Slovenština.
+  \ifthenelse{\equal{\kib@language}{slovak}}{
+    \RequirePackage[
+      natbib=true,
+      backend=\kibibliobackend,
+      sortcites=true,
+      style=\kib@bibstyle,
+      babel=other,
+      sortlocale=sk_SK,
+      bibencoding=\kib@bibencoding
+    ]{biblatex}
+  }{
+    \relax
+  }
 
   %% První řádek záznamu nechceme předsazovat.
   \setlength{\bibhang}{0pt}
@@ -546,6 +594,7 @@
         {ť}{{\v{t}}}1
         {ň}{{\v{n}}}1                
         {ů}{{\r{u}}}1
+        {ô}{{\^o}}1
         {Á}{{\'A}}1
         {Í}{{\'I}}1
         {É}{{\'E}}1
@@ -561,6 +610,7 @@
         {Ť}{{\v{T}}}1
         {Ň}{{\v{N}}}1                
         {Ů}{{\r{U}}}1    
+        {Ô}{{\^o}}1
 }
 
 %% Definice dodatečných jazyků.

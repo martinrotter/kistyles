@@ -4,7 +4,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{kidiplom}[2012/09/09 KI PrF UP v Olomouci Diploma Class]
-\ClassWarningNoLine{kidiplom}{[kidiplom] You are using kidiplom class 0.99}
+\ClassWarningNoLine{kidiplom}{[kidiplom] You are using kidiplom class 1.00}
 
 %% Základní třída a velikost písma 12pt.
 \LoadClass[12pt]{article}
@@ -106,6 +106,7 @@
 \def\@combinedformcz{kombinovan\'a forma}
 \def\@czlangcz{\v cesk\'y}
 \def\@enlangcz{anglick\'y}
+\def\@sklangcz{slovensk\'y}
 
 \def\@textbibinfocz{Bibliografick\'e \'udaje}
 \def\@texttitlecz{N\'azev pr\'ace}
@@ -134,6 +135,7 @@
 \def\@combinedformen{combined form}
 \def\@czlangen{czech}
 \def\@enlangen{english}
+\def\@sklangen{slovak}
 
 \def\@textbibinfoen{Bibliograhic info}
 \def\@texttitleen{Title}
@@ -149,6 +151,11 @@
 \def\@textanoten{Synopsis}
 \def\@textkeywordsen{Keywords}
 \def\@textconclusionsen{Conclusions}
+
+%% Slovenština.
+\def\@textanotsk{Anot\'acia}
+\def\@textkeywordssk{K\v lú\v cov\'e slov\'a}
+\def\@textconclusionssk{Z\'aver}
 
 %% Typ práce a studijní obor autora (podle typu práce).
 \ifthenelse{\boolean{kid@master}}{
@@ -207,9 +214,7 @@
   \def\@langen{\@enlangen}
   \def\@textanot{\@textanoten}
   \def\@textkeywords{\@textkeywordsen}
-  \def\@textaffirm{Hereby I affirm that I completed the whole thesis
-    including appendices on my own and that I cite in the thesis text and
-    include in the bibliography list all used sources.}
+  \def\@textaffirm{I hereby declare that I have completed this thesis including its appendices on my own and used solely the sources cited in the text and included in the bibliography list.}
   \def\@textsubmitdate{date of thesis submission}
   \def\@textsigniture{author's signature}
 }{
@@ -226,11 +231,26 @@
   \def\@langen{\@czlangen}
   \def\@textanot{\@textanotcz}
   \def\@textkeywords{\@textkeywordscz}
-  \def\@textaffirm{M\'istop\v r\'ise\v zn\v e prohla\v suji, \v ze
-    jsem celou pr\'aci v\v cetn\v e p\v r\'iloh vypracoval/a
-    samostatn\v e a \v ze v\v sechny pou\v zit\'e zdroje v textu pr\'ace cituji a
-    uv\'ad\'im v seznamu literatury.}
+  \def\@textaffirm{M\'istop\v r\'ise\v zn\v e prohla\v suji, \v ze jsem celou pr\'aci v\v cetn\v e p\v r\'iloh vypracoval/a samostatn\v e a za pou\v zit\'i pouze zdroje citovan\'ych v textu pr\'ace a uveden\'ych v seznamu literatury.}
   \def\@textsubmitdate{datum odevzd\'an\'i pr\'ace}
+  \def\@textsigniture{podpis autora}
+}{
+  \relax
+}
+
+%% Slovenština.
+\ifthenelse{\equal{\kid@language}{slovak}}{
+  \def\@thesistype{\@thesistypecz}
+  \def\@textfield{\@textfieldcz}
+  \def\@field{\@fieldcz}
+  \def\@textsupervisor{\@textsupervisorcz}
+  \def\@langcz{\@sklangcz}
+  \def\@langen{\@sklangen}
+  \def\@textanot{\@textanotsk}
+  \def\@textkeywords{\@textkeywordssk}
+  \def\@textaffirm{\v Cestne vyhlasujem, \v ze som cel\'u pr\'acu vr\'atane pr\'iloh vypracoval/a samostatne a za pou\v zitia iba zdrojov spom\'inan\'ych v texte pr\'ace a uveden\'ych v zozname literat\'ury.
+}
+  \def\@textsubmitdate{d\'atum odovzdania pr\'ace}
   \def\@textsigniture{podpis autora}
 }{
   \relax
@@ -248,11 +268,17 @@
     \addcontentsline{toc}{section}{\@textconclusionsen}
     \section*{\@textconclusionsen}
     \begin{otherlanguage}{english}
-  }{
+  }{}
+  \ifthenelse{\equal{#1}{czech}}{
     \addcontentsline{toc}{section}{\@textconclusionscz}
     \section*{\@textconclusionscz}
     \begin{otherlanguage}{czech}
-  }
+  }{}
+  \ifthenelse{\equal{#1}{slovak}}{
+    \addcontentsline{toc}{section}{\@textconclusionssk}
+    \section*{\@textconclusionssk}
+    \begin{otherlanguage}{slovak}
+  }{}
 }{
   \end{otherlanguage}
   \egroup
@@ -348,8 +374,8 @@
 }
 \yearofsubmit{\the\year}
 
-%% Číslování stran v českých textech od 1 do konce.
-\ifthenelse{\equal{\kid@language}{czech}}{
+%% Číslování stran v českých (a slovenských) textech od 1 do konce.
+\ifthenelse{\not\equal{\kid@language}{english}}{
   %% HACK: pro sekvenční fyzické číslování stran, protože
   %% např. \tableofcontents číslování resetuje.
   \let\orgsetcounter=\setcounter
@@ -467,7 +493,11 @@
   dest=ki:anotation
 ]{\@textanot}
 \begin{center}
-\textbf{\@textanotcz}
+\ifthenelse{\equal{\kid@language}{english}}{
+  \textbf{\@textanotcz}
+}{
+  \textbf{\@textanot}
+}
 \end{center}
 \bigskip
 \emph{\@annotationcz}
@@ -479,7 +509,7 @@
 \emph{\@annotationen}
 \par
 \vspace*{10ex}
-\noindent\textbf{\@textkeywordscz:} \@keywordscz
+\noindent\textbf{\ifthenelse{\equal{\kid@language}{english}}{\@textkeywordscz:}{\@textkeywords}} \@keywordscz
 \par
 \vspace*{2ex}
 \noindent\textbf{\@textkeywordsen:} \@keywordsen
