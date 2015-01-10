@@ -509,7 +509,8 @@
 \emph{\@annotationen}
 \par
 \vspace*{10ex}
-\noindent\textbf{\ifthenelse{\equal{\kid@language}{english}}{\@textkeywordscz:}{\@textkeywords}} \@keywordscz
+\noindent\textbf{\ifthenelse{\equal{\kid@language}{english}}{\@textkeywordscz:}{\@textkeywords:}}
+\@keywordscz
 \par
 \vspace*{2ex}
 \noindent\textbf{\@textkeywordsen:} \@keywordsen
