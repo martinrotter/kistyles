@@ -335,7 +335,7 @@
 
 	\let\orgprintglossary=\printglossary
 
-        %% Tisk seznamu zkratek od nové strany + záznam do obsahu.
+  %% Tisk seznamu zkratek od nové strany + záznam do obsahu.
 	\renewcommand{\printglossary}{
 		\clearpage
 		\phantomsection
@@ -343,7 +343,9 @@
 		\orgprintglossary[type=\acronymtype]
 	}
 }{
-	\relax
+  \renewcommand{\printglossary}{
+		\relax
+	}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

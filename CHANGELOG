@@ -1,3 +1,6 @@
+1.01
+  :: Drobné opravy: prohlášení a velká písmena v anglické mutaci. Eliminace \printglossary pøi glossaries=false.
+
 1.00
   :: Pøidána slovenština a drobné opravy.
 

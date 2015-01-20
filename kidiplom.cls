@@ -4,7 +4,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{kidiplom}[2012/09/09 KI PrF UP v Olomouci Diploma Class]
-\ClassWarningNoLine{kidiplom}{[kidiplom] You are using kidiplom class 1.00}
+\ClassWarningNoLine{kidiplom}{[kidiplom] You are using kidiplom class 1.01}
 
 %% Základní třída a velikost písma 12pt.
 \LoadClass[12pt]{article}
@@ -133,9 +133,9 @@
 \def\@fieldbinfen{Bioinformatics}
 \def\@presentformen{full-time form}
 \def\@combinedformen{combined form}
-\def\@czlangen{czech}
-\def\@enlangen{english}
-\def\@sklangen{slovak}
+\def\@czlangen{Czech}
+\def\@enlangen{English}
+\def\@sklangen{Slovak}
 
 \def\@textbibinfoen{Bibliograhic info}
 \def\@texttitleen{Title}
@@ -231,7 +231,7 @@
   \def\@langen{\@czlangen}
   \def\@textanot{\@textanotcz}
   \def\@textkeywords{\@textkeywordscz}
-  \def\@textaffirm{M\'istop\v r\'ise\v zn\v e prohla\v suji, \v ze jsem celou pr\'aci v\v cetn\v e p\v r\'iloh vypracoval/a samostatn\v e a za pou\v zit\'i pouze zdroje citovan\'ych v textu pr\'ace a uveden\'ych v seznamu literatury.}
+  \def\@textaffirm{M\'istop\v r\'ise\v zn\v e prohla\v suji, \v ze jsem celou pr\'aci v\v cetn\v e p\v r\'iloh vypracoval/a samostatn\v e a za pou\v zit\'i pouze zdroj\r u citovan\'ych v textu pr\'ace a uveden\'ych v seznamu literatury.}
   \def\@textsubmitdate{datum odevzd\'an\'i pr\'ace}
   \def\@textsigniture{podpis autora}
 }{
