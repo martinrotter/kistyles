@@ -137,7 +137,7 @@
 \def\@enlangen{English}
 \def\@sklangen{Slovak}
 
-\def\@textbibinfoen{Bibliograhic info}
+\def\@textbibinfoen{Bibliographic info}
 \def\@texttitleen{Title}
 \def\@textauthoren{Author}
 \def\@textthesistypeen{Thesis type}
