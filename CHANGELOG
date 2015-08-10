@@ -1,26 +1,29 @@
+1.02
+	:: Opravena chyba s vÃ½chozÃ­ hodnotou pÅ™epÃ­naÄe theorems a sourcecodes.
+
 1.01
-  :: Drobné opravy: prohlášení a velká písmena v anglické mutaci. Eliminace \printglossary pøi glossaries=false.
+  :: DrobnÃ© opravy: prohlÃ¡Å¡enÃ­ a velkÃ¡ pÃ­smena v anglickÃ© mutaci. Eliminace \printglossary pÃ¸i glossaries=false.
 
 1.00
-  :: Pøidána slovenština a drobné opravy.
+  :: PÃ¸idÃ¡na slovenÅ¡tina a drobnÃ© opravy.
 
 0.99
-  :: Pøejmenování stylù, èistka. První oficiální verze.
+  :: PÃ¸ejmenovÃ¡nÃ­ stylÃ¹, Ã¨istka. PrvnÃ­ oficiÃ¡lnÃ­ verze.
 
 0.93
-  :: Upraveno zalamování v dùkazech. :: Opraveno zalamováno v bibliografiích. :: Pøidána ukázková manuální bibliografie.
+  :: Upraveno zalamovÃ¡nÃ­ v dÃ¹kazech. :: Opraveno zalamovÃ¡no v bibliografiÃ­ch. :: PÃ¸idÃ¡na ukÃ¡zkovÃ¡ manuÃ¡lnÃ­ bibliografie.
 
 0.92
-  :: Zavedeno makro \upindex a ošetøeno jeho chování pøi printversion=true. Refresh úvodních stran. Opraveno èíslování a názvosloví bibliografie.
+  :: Zavedeno makro \upindex a oÅ¡etÃ¸eno jeho chovÃ¡nÃ­ pÃ¸i printversion=true. Refresh ÃºvodnÃ­ch stran. Opraveno Ã¨Ã­slovÃ¡nÃ­ a nÃ¡zvoslovÃ­ bibliografie.
 
 0.89
-  :: Opraven formát bibliografií, pouit biber jak backend pro BibLaTeX. :: Zakázána nìkterá makra.
+  :: Opraven formÃ¡t bibliografiÃ­, pouÅ¾it biber jak backend pro BibLaTeX. :: ZakÃ¡zÃ¡na nÃ¬kterÃ¡ makra.
 
 0.88
-  :: Upraveno chování nìkolika maker, aktulizována podpora ISO 690.
+  :: Upraveno chovÃ¡nÃ­ nÃ¬kolika maker, aktulizovÃ¡na podpora ISO 690.
 
 0.87
-  :: Pøidán "czech.lbx".
+  :: PÃ¸idÃ¡n "czech.lbx".
 
 0.86
-  :: Drobné úpravy indexování a odkazù.
+  :: DrobnÃ© Ãºpravy indexovÃ¡nÃ­ a odkazÃ¹.

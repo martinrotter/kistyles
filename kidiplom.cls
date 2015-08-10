@@ -4,7 +4,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{kidiplom}[2012/09/09 KI PrF UP v Olomouci Diploma Class]
-\ClassWarningNoLine{kidiplom}{[kidiplom] You are using kidiplom class 1.01}
+\ClassWarningNoLine{kidiplom}{[kidiplom] You are using kidiplom class 1.02}
 
 %% Základní třída a velikost písma 12pt.
 \LoadClass[12pt]{article}
@@ -30,8 +30,8 @@
 \DeclareStringOption[true]{joinlists}[true]
 \DeclareStringOption[true]{figures}[true]
 \DeclareStringOption[true]{tables}[true]
-\DeclareStringOption[true]{theorems}[true]
-\DeclareStringOption[true]{sourcecodes}[true]
+\DeclareStringOption[false]{theorems}[true]
+\DeclareStringOption[false]{sourcecodes}[true]
 \DeclareStringOption[false]{biblatex}[true]
 \DeclareStringOption[czech]{language}[czech]
 \DeclareStringOption[false]{glossaries}[true]
